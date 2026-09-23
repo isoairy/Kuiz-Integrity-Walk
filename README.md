@@ -133,6 +133,7 @@
         .btn-primary { background: linear-gradient(135deg, #0284c7, #2563eb); }
         .btn-warning { background: linear-gradient(135deg, #ea580c, #f59e0b); }
         .btn-success { background: linear-gradient(135deg, #059669, #10b981); }
+        .btn-danger { background: linear-gradient(135deg, #dc2626, #ef4444); }
 
         .btn-secondary {
             background: #f1f5f9;
@@ -423,6 +424,12 @@
                 <span>Live Update Markah & Carta</span>
                 <span>➔</span>
             </button>
+
+            <!-- BUTANG ADMIN RESET (DITAMBAH DI SINI) -->
+            <button onclick="resetAllDataAdmin()" class="btn-action btn-danger" style="margin-top: 10px;">
+                <span>⚠️ Admin: Reset Semua Data</span>
+                <span>🔄</span>
+            </button>
         </div>
 
         <!-- 2. PAPARAN CHECKPOINT QR (URUS SETIA) -->
@@ -588,19 +595,16 @@
     <!-- LOGIK JAVASCRIPT & FIREBASE -->
     <script>
         // --- KONFIGURASI FIREBASE REALTIME DATABASE ---
-        // MASUKKAN MAKLUMAT FIREBASE ANDA DI SINI
-const firebaseConfig = {
-  apiKey: "AIzaSyBPO7ZQIVLTKfVvWkWGCJE_d5MXqZTIbjk",
-  authDomain: "realtime-database-9a9fe.firebaseapp.com",
-  databaseURL: "https://realtime-database-9a9fe-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "realtime-database-9a9fe",
-  storageBucket: "realtime-database-9a9fe.firebasestorage.app",
-  messagingSenderId: "185532409116",
-  appId: "1:185532409116:web:6ace4ac26675e683adc6d9",
-  measurementId: "G-RV31BY36NG"
-};
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "your-project.firebaseapp.com",
+            databaseURL: "https://your-project-default-rtdb.firebaseio.com",
+            projectId: "your-project",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
 
-        // Initialize Firebase (Jika belum ada akaun, sistem akan kekal guna LocalStorage sebagai fallback)
         let db = null;
         try {
             if (firebaseConfig.databaseURL !== "https://your-project-default-rtdb.firebaseio.com") {
@@ -679,7 +683,6 @@ const firebaseConfig = {
                 document.getElementById('participant-cp-title').innerText = `📍 CHECKPOINT ${currentCP}`;
             }
 
-            // Mula Dengar Live Update Firebase jika wujud
             if (db) {
                 db.ref('integrity_walk_data').on('value', (snapshot) => {
                     const data = snapshot.val();
@@ -687,6 +690,11 @@ const firebaseConfig = {
                         localStorage.setItem('integrity_walk_data', JSON.stringify(data));
                         if (!document.getElementById('view-leaderboard').classList.contains('hidden')) {
                             renderLeaderboardCards(data);
+                        }
+                    } else {
+                        localStorage.removeItem('integrity_walk_data');
+                        if (!document.getElementById('view-leaderboard').classList.contains('hidden')) {
+                            renderLeaderboardCards({});
                         }
                     }
                 });
@@ -815,7 +823,6 @@ const firebaseConfig = {
             const userAns = userAnswers[currentQIndex];
             const isCorrect = (userAns === qData.correct);
 
-            // Tampilkan Modal Feedback Penerangan Jawapan
             document.getElementById('feedback-badge').innerText = isCorrect ? "🎉" : "❌";
             document.getElementById('feedback-title').innerText = isCorrect ? "TEPAT SEKALI!" : "KURANG TEPAT!";
             document.getElementById('feedback-title').style.color = isCorrect ? "#10b981" : "#ef4444";
@@ -956,6 +963,22 @@ const firebaseConfig = {
                     alert("Data dipadam.");
                     showLeaderboard();
                 }
+            }
+        }
+
+        // --- FUNGSI ADMIN: RESET SEMUA DATA ---
+        function resetAllDataAdmin() {
+            const pass = prompt("Sila masukkan kata laluan Admin untuk RESET SEMUA DATA:");
+            if (pass === "Integriti2022") {
+                if (confirm("AMARAN: Adakah anda pasti mahu memadam KESELURUHAN data markah kuiz dan masa ketibaan bagi SEMUA KUMPULAN? Tindakan ini tidak boleh dibatalkan!")) {
+                    localStorage.removeItem('integrity_walk_data');
+                    if (db) {
+                        db.ref('integrity_walk_data').remove();
+                    }
+                    alert("Semua data telah berjaya di-RESET!");
+                }
+            } else if (pass !== null) {
+                alert("Kata laluan Admin salah!");
             }
         }
 
