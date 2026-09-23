@@ -589,15 +589,16 @@
     <script>
         // --- KONFIGURASI FIREBASE REALTIME DATABASE ---
         // MASUKKAN MAKLUMAT FIREBASE ANDA DI SINI
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "your-project.firebaseapp.com",
-            databaseURL: "https://your-project-default-rtdb.firebaseio.com",
-            projectId: "your-project",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef"
-        };
+const firebaseConfig = {
+  apiKey: "AIzaSyBPO7ZQIVLTKfVvWkWGCJE_d5MXqZTIbjk",
+  authDomain: "realtime-database-9a9fe.firebaseapp.com",
+  databaseURL: "https://realtime-database-9a9fe-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "realtime-database-9a9fe",
+  storageBucket: "realtime-database-9a9fe.firebasestorage.app",
+  messagingSenderId: "185532409116",
+  appId: "1:185532409116:web:6ace4ac26675e683adc6d9",
+  measurementId: "G-RV31BY36NG"
+};
 
         // Initialize Firebase (Jika belum ada akaun, sistem akan kekal guna LocalStorage sebagai fallback)
         let db = null;
