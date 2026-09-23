@@ -594,16 +594,17 @@
     <!-- LOGIK JAVASCRIPT & FIREBASE -->
     <script>
         // --- KONFIGURASI FIREBASE REALTIME DATABASE ---
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "your-project.firebaseapp.com",
-            databaseURL: "https://your-project-default-rtdb.firebaseio.com",
-            projectId: "your-project",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef"
-        };
-
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBPO7ZQIVLTKfVvWkWGCJE_d5MXqZTIbjk",
+  authDomain: "realtime-database-9a9fe.firebaseapp.com",
+  databaseURL: "https://realtime-database-9a9fe-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "realtime-database-9a9fe",
+  storageBucket: "realtime-database-9a9fe.firebasestorage.app",
+  messagingSenderId: "185532409116",
+  appId: "1:185532409116:web:6ace4ac26675e683adc6d9",
+  measurementId: "G-RV31BY36NG"
+};
         let db = null;
         try {
             if (firebaseConfig.databaseURL !== "https://your-project-default-rtdb.firebaseio.com") {
