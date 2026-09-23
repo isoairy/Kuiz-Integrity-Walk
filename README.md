@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Integrity Walk JPN Pahang</title>
+    <title>Integrity Walk JPN Pahang 2026</title>
 
     <style>
         /* -------------------------------------------------------------
-           1. MODERN MOBILE-FIRST VANILLA CSS
+           1. MODERN MOBILE-FIRST ATHLETIC THEME (CSS)
            ------------------------------------------------------------- */
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 
         * {
             box-sizing: border-box;
@@ -19,11 +19,19 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        :root {
+            --primary-blue: #0284c7;
+            --primary-dark: #0f172a;
+            --sports-orange: #f97316;
+            --sports-amber: #f59e0b;
+            --sports-green: #10b981;
+            --bg-gradient: linear-gradient(160deg, #0f172a 0%, #1e293b 50%, #0369a1 100%);
+            --glass-bg: rgba(255, 255, 255, 0.96);
+            --card-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        }
+
         body {
-            background: #0f172a;
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.8) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(2, 132, 199, 0.6) 0px, transparent 50%);
+            background: var(--bg-gradient);
             background-attachment: fixed;
             min-height: 100vh;
             padding: 12px;
@@ -33,91 +41,117 @@
         .container {
             max-width: 480px;
             margin: 0 auto;
-            padding-bottom: 20px;
+            padding-bottom: 24px;
         }
 
         /* Glass Cards */
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--glass-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
             padding: 20px;
-            margin-bottom: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
         }
 
         /* Header */
         header {
             text-align: center;
-            padding: 16px 12px;
-            background: rgba(255, 255, 255, 0.98);
-            border-bottom: 4px solid #f59e0b;
+            padding: 18px 14px;
+            background: #ffffff;
+            border-bottom: 5px solid var(--sports-orange);
         }
 
         .badge-tag {
-            display: inline-block;
-            background: #eff6ff;
-            color: #1d4ed8;
-            font-size: 0.65rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #fff7ed;
+            color: #c2410c;
+            font-size: 0.68rem;
             font-weight: 800;
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+            border: 1px solid #ffedd5;
         }
 
         header h1 {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             font-weight: 800;
-            color: #0f172a;
-            line-height: 1.25;
+            color: var(--primary-dark);
+            line-height: 1.2;
+            letter-spacing: -0.5px;
         }
 
         header h1 span {
-            color: #d97706;
+            color: var(--sports-orange);
         }
 
-        /* Action Buttons */
+        .event-stats-bar {
+            display: flex;
+            justify-content: space-around;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 8px;
+            margin-top: 12px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #475569;
+        }
+
+        .stat-item { display: flex; align-items: center; gap: 4px; }
+
+        /* Action Buttons Mobile Optimized */
         .btn-action {
             width: 100%;
+            min-height: 54px;
             border: none;
-            border-radius: 16px;
-            padding: 16px 18px;
+            border-radius: 18px;
+            padding: 14px 18px;
             margin-bottom: 12px;
-            font-weight: 700;
-            font-size: 0.9rem;
+            font-weight: 800;
+            font-size: 0.92rem;
             color: #ffffff;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-            transition: all 0.15s ease;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
         }
 
         .btn-action:active {
             transform: scale(0.97);
-            opacity: 0.9;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-primary { background: linear-gradient(135deg, #1e3a8a, #2563eb); }
-        .btn-warning { background: linear-gradient(135deg, #d97706, #f59e0b); }
+        .btn-primary { background: linear-gradient(135deg, #0284c7, #2563eb); }
+        .btn-warning { background: linear-gradient(135deg, #ea580c, #f59e0b); }
         .btn-success { background: linear-gradient(135deg, #059669, #10b981); }
 
         .btn-secondary {
             background: #f1f5f9;
             color: #334155;
             font-weight: 700;
-            padding: 10px 16px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            border: none;
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            border: 1px solid #cbd5e1;
             cursor: pointer;
             width: 100%;
             margin-bottom: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .btn-secondary:active { background: #e2e8f0; }
@@ -129,21 +163,67 @@
         .mb-3 { margin-bottom: 12px; }
         .mb-4 { margin-bottom: 16px; }
 
-        /* Select Mobile */
+        /* Select Mobile Custom */
         select {
             width: 100%;
-            padding: 14px;
-            border-radius: 14px;
-            border: 2px solid #93c5fd;
+            min-height: 50px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 2px solid #38bdf8;
             font-weight: 700;
-            font-size: 0.9rem;
-            background-color: #f8fafc;
-            color: #0f172a;
+            font-size: 0.95rem;
+            background-color: #f0f9ff;
+            color: #0c4a6e;
             text-align: center;
             margin-bottom: 14px;
             outline: none;
             appearance: none;
             -webkit-appearance: none;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        /* Checkpoint Selection Grid (Penjana QR) */
+        .cp-select-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .btn-cp-card {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.15s ease;
+        }
+
+        .btn-cp-card:active {
+            transform: scale(0.96);
+            border-color: var(--sports-orange);
+            background: #fff7ed;
+        }
+
+        .btn-cp-card .cp-num {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .btn-cp-card .cp-tag {
+            font-size: 0.65rem;
+            font-weight: 800;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 3px 8px;
+            border-radius: 10px;
         }
 
         /* Grid Masa Ketibaan */
@@ -157,18 +237,18 @@
         }
 
         .btn-team-square {
-            background: #fef3c7;
+            background: #fffbeb;
             color: #78350f;
             font-weight: 800;
             padding: 12px 4px;
-            border-radius: 12px;
+            border-radius: 14px;
             border: 1px solid #fde68a;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: all 0.1s;
+            min-height: 52px;
         }
 
         .btn-team-square:active {
@@ -177,26 +257,33 @@
             transform: scale(0.92);
         }
 
-        /* Modal Overlay */
+        /* Modal Overlay (Universal) */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.75);
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 100;
-            padding: 16px;
+            z-index: 200;
+            padding: 18px;
         }
 
         .modal-box {
             background: #ffffff;
-            border-radius: 20px;
-            padding: 22px;
-            max-width: 320px;
+            border-radius: 24px;
+            padding: 24px;
+            max-width: 340px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            animation: modalPop 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .modal-time {
@@ -205,7 +292,7 @@
             color: #1e3a8a;
             background: #eff6ff;
             padding: 10px;
-            border-radius: 12px;
+            border-radius: 14px;
             margin: 10px 0;
             border: 1px solid #bfdbfe;
         }
@@ -217,29 +304,35 @@
 
         .modal-actions button {
             flex: 1;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 14px;
+            border-radius: 14px;
             border: none;
-            font-weight: 700;
-            font-size: 0.8rem;
+            font-weight: 800;
+            font-size: 0.82rem;
             cursor: pointer;
         }
 
-        /* Quiz Buttons */
+        /* Quiz Buttons (Touch Friendly) */
         .quiz-option-btn {
             width: 100%;
+            min-height: 52px;
             text-align: left;
             padding: 14px 16px;
-            border-radius: 14px;
-            border: 1.5px solid #cbd5e1;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
             background: #ffffff;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             margin-bottom: 10px;
             cursor: pointer;
             line-height: 1.4;
             color: #334155;
             transition: all 0.15s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .quiz-option-btn:active {
+            transform: scale(0.98);
         }
 
         .quiz-option-btn.selected {
@@ -247,14 +340,14 @@
             border-color: #2563eb;
             color: #1e40af;
             font-weight: 700;
-            box-shadow: 0 0 0 1px #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
         }
 
-        /* Mobile Leaderboard Cards (Responsif Sepenuhnya) */
+        /* Leaderboard Mobile Cards */
         .leaderboard-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             max-height: 420px;
             overflow-y: auto;
             padding-right: 2px;
@@ -263,11 +356,12 @@
         .team-card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 12px 14px;
+            border-radius: 18px;
+            padding: 14px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
         .team-card-header {
@@ -278,16 +372,17 @@
 
         .team-title {
             font-weight: 800;
-            color: #1e3a8a;
-            font-size: 0.85rem;
+            color: #0f172a;
+            font-size: 0.9rem;
         }
 
         .team-score-badge {
-            background: #fef3c7;
+            background: #fffbeb;
             color: #d97706;
+            border: 1px solid #fde68a;
             font-weight: 800;
-            font-size: 0.8rem;
-            padding: 3px 10px;
+            font-size: 0.82rem;
+            padding: 4px 12px;
             border-radius: 20px;
         }
 
@@ -296,55 +391,162 @@
             grid-template-columns: repeat(6, 1fr);
             gap: 4px;
             background: #f8fafc;
-            padding: 6px;
-            border-radius: 8px;
+            padding: 8px;
+            border-radius: 12px;
             text-align: center;
-            font-size: 0.65rem;
+            font-size: 0.68rem;
             font-weight: 700;
+            border: 1px solid #f1f5f9;
         }
 
         .cp-item {
             display: flex;
             flex-direction: column;
+            gap: 2px;
         }
 
         .cp-label {
             color: #94a3b8;
-            font-size: 0.55rem;
+            font-size: 0.58rem;
         }
 
         .team-card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: #64748b;
         }
 
         .finish-time-text {
             color: #059669;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .btn-edit-small {
-            background: #e2e8f0;
+            background: #f1f5f9;
             color: #334155;
-            border: none;
-            padding: 4px 10px;
-            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            padding: 6px 12px;
+            border-radius: 10px;
             font-weight: 700;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             cursor: pointer;
         }
 
         .flash-screen {
             background: #ecfdf5;
-            border: 1.5px solid #10b981;
+            border: 2px solid #10b981;
             color: #065f46;
-            padding: 12px;
-            border-radius: 14px;
+            padding: 14px;
+            border-radius: 16px;
             font-weight: 700;
             margin-bottom: 12px;
+        }
+
+        /* Progress Bar Checkpoint Kuiz */
+        .quiz-progress {
+            height: 6px;
+            width: 100%;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+        .quiz-progress-bar {
+            height: 100%;
+            background: var(--sports-orange);
+            width: 50%;
+            transition: width 0.2s ease;
+        }
+
+        /* -------------------------------------------------------------
+           2. FORMAT PRINT / PDF LAPORAN RASMI (CSS)
+           ------------------------------------------------------------- */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                padding: 0 !important;
+            }
+
+            .container {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+
+            header, 
+            #view-home, 
+            #view-admin-qr, 
+            #view-finish-recorder, 
+            #view-participant-start, 
+            #view-quiz, 
+            #view-completion,
+            .btn-secondary,
+            .btn-edit-small,
+            .no-print {
+                display: none !important;
+            }
+
+            #view-leaderboard {
+                display: block !important;
+                background: none !important;
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+            }
+
+            .print-header {
+                display: block !important;
+                text-align: center;
+                border-bottom: 2px solid #000000;
+                padding-bottom: 12px;
+                margin-bottom: 20px;
+            }
+
+            .print-header h1 {
+                font-size: 1.5rem;
+                color: #000000;
+                text-transform: uppercase;
+            }
+
+            .leaderboard-list {
+                max-height: none !important;
+                overflow: visible !important;
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+
+            .team-card {
+                border: 1px solid #000000 !important;
+                box-shadow: none !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .print-footer {
+                display: flex !important;
+                justify-content: space-between;
+                margin-top: 40px;
+                padding-top: 20px;
+                page-break-inside: avoid;
+            }
+
+            .sig-box {
+                text-align: center;
+                width: 200px;
+            }
+
+            .sig-line {
+                border-bottom: 1px solid #000000;
+                margin-top: 50px;
+                margin-bottom: 5px;
+            }
+        }
+
+        .print-header, .print-footer {
+            display: none;
         }
     </style>
 </head>
@@ -353,9 +555,14 @@
     <div class="container">
         <!-- HEADER UTAMA -->
         <header class="glass-card">
-            <span class="badge-tag">JPN PAHANG OFFICIAL</span>
+            <span class="badge-tag">🏃 JPN PAHANG OFFICIAL 🏃</span>
             <h1>INTEGRITY WALK <span>2026</span></h1>
-            <p>Sistem Checkpoint & Masa Ketibaan Penamat</p>
+            
+            <div class="event-stats-bar">
+                <div class="stat-item">📍 <span>3.0 KM</span></div>
+                <div class="stat-item">🏁 <span>6 Checkpoint</span></div>
+                <div class="stat-item">👥 <span>25 Kumpulan</span></div>
+            </div>
         </header>
 
         <!-- 1. MUKA DEPAN (PANEL URUS SETIA) -->
@@ -378,47 +585,77 @@
             </button>
         </div>
 
-        <!-- 2. PAPARAN CHECKPOINT QR (URUS SETIA) -->
+        <!-- 2. PAPARAN CHECKPOINT QR (URUS SETIA - GRID BUTTONS) -->
         <div id="view-admin-qr" class="glass-card text-center hidden">
             <button onclick="showView('view-home')" class="btn-secondary">← Kembali ke Halaman Utama</button>
-            <h2 style="font-size: 0.95rem; font-weight: 800;" class="mb-3">Penjana Kod QR Checkpoint</h2>
+            <h2 style="font-size: 1rem; font-weight: 800;" class="mb-1">Penjana Kod QR Checkpoint</h2>
+            <p style="font-size: 0.72rem; color: #64748b;" class="mb-3">Tekan butang checkpoint di bawah untuk memaparkan Kod QR:</p>
 
-            <select id="admin-cp-select" onchange="generateAdminQR()">
-                <option value="">-- Sila Pilih Checkpoint --</option>
-                <option value="1">Checkpoint 1</option>
-                <option value="2">Checkpoint 2</option>
-                <option value="3">Checkpoint 3</option>
-                <option value="4">Checkpoint 4</option>
-                <option value="5">Checkpoint 5</option>
-                <option value="6">Checkpoint 6</option>
-            </select>
-
-            <div id="qr-box-container" style="background: #ffffff; padding: 14px; border-radius: 16px; display: inline-block; border: 2px dashed #cbd5e1;" class="mb-3 hidden">
-                <img id="qr-img-element" src="" alt="Kod QR Checkpoint" style="width: 180px; height: 180px; display: block;">
+            <!-- Grid Butang Checkpoint -->
+            <div class="cp-select-grid">
+                <div class="btn-cp-card" onclick="openQRModal(1)">
+                    <span class="cp-num">Checkpoint 1</span>
+                    <span class="cp-tag">0.5 KM</span>
+                </div>
+                <div class="btn-cp-card" onclick="openQRModal(2)">
+                    <span class="cp-num">Checkpoint 2</span>
+                    <span class="cp-tag">1.0 KM</span>
+                </div>
+                <div class="btn-cp-card" onclick="openQRModal(3)">
+                    <span class="cp-num">Checkpoint 3</span>
+                    <span class="cp-tag">1.5 KM</span>
+                </div>
+                <div class="btn-cp-card" onclick="openQRModal(4)">
+                    <span class="cp-num">Checkpoint 4</span>
+                    <span class="cp-tag">2.0 KM</span>
+                </div>
+                <div class="btn-cp-card" onclick="openQRModal(5)">
+                    <span class="cp-num">Checkpoint 5</span>
+                    <span class="cp-tag">2.5 KM</span>
+                </div>
+                <div class="btn-cp-card" onclick="openQRModal(6)">
+                    <span class="cp-num">Checkpoint 6</span>
+                    <span class="cp-tag">3.0 KM (Penamat)</span>
+                </div>
             </div>
-            <p id="qr-instruction-text" style="font-size: 0.7rem; font-weight: 600; color: #64748b;">Pilih checkpoint di atas untuk memaparkan Kod QR.</p>
+        </div>
+
+        <!-- MODAL POPUP QR CODE -->
+        <div id="qr-modal" class="modal-overlay hidden">
+            <div class="modal-box">
+                <h3 id="qr-modal-title" style="font-weight: 800; font-size: 1.1rem; color: #0f172a;">CHECKPOINT X</h3>
+                <p style="font-size: 0.7rem; color: #64748b;" class="mb-3">Imbas Kod QR ini menggunakan peranti untuk menjawab kuiz.</p>
+                
+                <div style="background: #ffffff; padding: 12px; border-radius: 16px; display: inline-block; border: 2px dashed #38bdf8;" class="mb-3">
+                    <img id="qr-modal-img" src="" alt="Kod QR Checkpoint" style="width: 190px; height: 190px; display: block; margin: 0 auto;">
+                </div>
+
+                <div class="modal-actions">
+                    <button onclick="closeQRModal()" style="background: #e2e8f0; color: #334155;">TUTUP</button>
+                </div>
+            </div>
         </div>
 
         <!-- 3. PAPARAN REKOD MASA KETIBAAN -->
         <div id="view-finish-recorder" class="glass-card text-center hidden">
             <button onclick="showView('view-home')" class="btn-secondary">← Kembali ke Halaman Utama</button>
-            <h2 style="font-size: 0.95rem; font-weight: 800;" class="mb-1">Rekod Masa Penamat</h2>
-            <p style="font-size: 0.7rem; color: #64748b;" class="mb-3">Tekan nombor kumpulan yang baru tiba:</p>
+            <h2 style="font-size: 1rem; font-weight: 800;" class="mb-1">Rekod Masa Penamat</h2>
+            <p style="font-size: 0.72rem; color: #64748b;" class="mb-3">Tekan nombor kumpulan yang baru tiba di Garisan Penamat:</p>
 
-            <!-- Skrin Maklum Balas Auto 2 Saat -->
+            <!-- Flash Screen -->
             <div id="finish-flash-screen" class="flash-screen hidden">
-                <div id="flash-team-name" style="font-size: 0.75rem;">KUMPULAN X</div>
-                <div id="flash-time-val" style="font-size: 1.25rem; font-weight: 800; margin: 2px 0;">00:00:00 AM</div>
-                <div style="font-size: 0.65rem;">✔ Masa Ketibaan Berjaya Direkodkan!</div>
+                <div id="flash-team-name" style="font-size: 0.8rem;">KUMPULAN X</div>
+                <div id="flash-time-val" style="font-size: 1.35rem; font-weight: 800; margin: 2px 0;">00:00:00 AM</div>
+                <div style="font-size: 0.7rem;">✔ Masa Ketibaan Berjaya Direkodkan!</div>
             </div>
 
-            <!-- Modal Pengesahan 2 Peringkat -->
+            <!-- Modal Pengesahan Masa Ketibaan -->
             <div id="confirm-modal" class="modal-overlay hidden">
                 <div class="modal-box">
-                    <h3 id="modal-team-title" style="font-weight: 800; font-size: 0.95rem; color: #0f172a;">KUMPULAN XX</h3>
-                    <p style="font-size: 0.7rem; color: #64748b;" class="mb-2">Masa ketibaan semasa:</p>
+                    <h3 id="modal-team-title" style="font-weight: 800; font-size: 1rem; color: #0f172a;">KUMPULAN XX</h3>
+                    <p style="font-size: 0.72rem; color: #64748b;" class="mb-2">Masa ketibaan semasa:</p>
                     <div id="modal-time-display" class="modal-time">00:00:00 AM</div>
-                    <p style="font-size: 0.7rem; font-weight: 700; color: #d97706;" class="mb-3">Adakah anda pasti mahu merekodkan masa ini?</p>
+                    <p style="font-size: 0.72rem; font-weight: 700; color: #ea580c;" class="mb-3">Adakah anda pasti mahu merekodkan masa ini?</p>
                     <div class="modal-actions">
                         <button onclick="closeConfirmModal()" style="background: #e2e8f0; color: #334155;">BATAL</button>
                         <button onclick="commitFinishTime()" style="background: #f59e0b; color: #ffffff;">PASTI</button>
@@ -432,59 +669,94 @@
 
         <!-- 4. PAPARAN PESERTA: PILIH KUMPULAN -->
         <div id="view-participant-start" class="glass-card hidden">
-            <div id="participant-cp-title" style="background: #fef3c7; color: #78350f; text-align: center; font-weight: 800; padding: 8px; border-radius: 10px; font-size: 0.8rem;" class="mb-3">
-                CHECKPOINT X
+            <div id="participant-cp-title" style="background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; text-align: center; font-weight: 800; padding: 10px; border-radius: 14px; font-size: 0.9rem;" class="mb-3">
+                📍 CHECKPOINT X
             </div>
-            <h2 style="font-size: 0.85rem; font-weight: 700;" class="mb-3">Sila Pilih Nombor Kumpulan Anda:</h2>
+            <h2 style="font-size: 0.9rem; font-weight: 800;" class="mb-2">Sila Pilih Nombor Kumpulan Anda:</h2>
             <select id="select-team">
                 <option value="">-- Pilih Nombor Kumpulan --</option>
             </select>
-            <button onclick="startParticipantQuiz()" class="btn-action btn-warning" style="justify-content: center; font-size: 0.85rem;">MULA JAWAB KUIZ</button>
+            <button onclick="startParticipantQuiz()" class="btn-action btn-warning" style="justify-content: center; font-size: 0.95rem;">MULA JAWAB KUIZ ➔</button>
         </div>
 
         <!-- 5. PAPARAN SOALAN KUIZ PESERTA -->
         <div id="view-quiz" class="glass-card hidden">
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;" class="mb-3">
-                <span id="quiz-team-badge" style="background: #eff6ff; color: #1d4ed8; font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 12px;"></span>
-                <span id="quiz-cp-badge" style="background: #fef3c7; color: #78350f; font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 12px;"></span>
+            <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-2">
+                <span id="quiz-team-badge" style="background: #eff6ff; color: #1d4ed8; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: 14px;"></span>
+                <span id="quiz-cp-badge" style="background: #fff7ed; color: #c2410c; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: 14px;"></span>
             </div>
 
-            <div id="question-number" style="font-size: 0.7rem; font-weight: 700; color: #94a3b8;" class="mb-2">Soalan 1 / 2</div>
-            <h3 id="question-text" style="font-size: 0.85rem; font-weight: 700; line-height: 1.45; color: #0f172a;" class="mb-3"></h3>
+            <div class="quiz-progress">
+                <div id="quiz-progress-bar" class="quiz-progress-bar"></div>
+            </div>
+
+            <div id="question-number" style="font-size: 0.72rem; font-weight: 800; color: #0284c7;" class="mb-2">Soalan 1 daripada 2</div>
+            <h3 id="question-text" style="font-size: 0.9rem; font-weight: 700; line-height: 1.45; color: #0f172a;" class="mb-3"></h3>
 
             <div id="options-container" class="mb-3"></div>
 
-            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                <button id="btn-prev" onclick="prevQuestion()" class="btn-secondary hidden" style="width: auto; margin-bottom:0;">Sebelum</button>
-                <button id="btn-next" onclick="nextQuestion()" class="btn-secondary" style="background: #2563eb; color: #ffffff; width: auto; margin-left: auto; margin-bottom:0;" disabled>Seterusnya</button>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; gap: 8px;">
+                <button id="btn-prev" onclick="prevQuestion()" class="btn-secondary hidden" style="width: auto; margin-bottom:0;">← Sebelum</button>
+                <button id="btn-next" onclick="nextQuestion()" class="btn-secondary" style="background: #0284c7; color: #ffffff; width: auto; margin-left: auto; margin-bottom:0; border:none;" disabled>Seterusnya ➔</button>
             </div>
         </div>
 
         <!-- 6. PAPARAN TAHNIAH / SELESAI -->
         <div id="view-completion" class="glass-card text-center hidden">
-            <h2 id="completion-title" style="font-size: 1.3rem; font-weight: 800; color: #0f172a;">TAHNIAH!</h2>
-            <p id="completion-msg" style="font-size: 0.75rem; color: #475569; margin: 6px 0;"></p>
-            <div style="background: #fffbeb; border: 1px solid #fde68a; padding: 14px; border-radius: 14px; max-width: 220px; margin: 12px auto;">
-                <div style="font-size: 0.65rem; font-weight: 800; color: #92400e;">MARKAH DIPEROLEHI</div>
-                <div id="cp-score-display" style="font-size: 1.8rem; font-weight: 800; color: #d97706; margin: 2px 0;">0 / 20</div>
+            <h2 id="completion-title" style="font-size: 1.35rem; font-weight: 800; color: #0f172a;">🎉 TAHNIAH!</h2>
+            <p id="completion-msg" style="font-size: 0.78rem; color: #475569; margin: 8px 0;"></p>
+            <div style="background: #fffbeb; border: 2px solid #fde68a; padding: 16px; border-radius: 18px; max-width: 240px; margin: 14px auto;">
+                <div style="font-size: 0.68rem; font-weight: 800; color: #92400e;">MARKAH DIPEROLEHI</div>
+                <div id="cp-score-display" style="font-size: 2rem; font-weight: 800; color: #d97706; margin: 2px 0;">0 / 20</div>
             </div>
-            <p id="completion-subtext" style="font-size: 0.7rem; color: #94a3b8;">Markah telah dikemas kini ke Carta Markah Utama.</p>
+            <p id="completion-subtext" style="font-size: 0.72rem; color: #64748b;">Teruskan perjalanan anda ke Checkpoint seterusnya!</p>
         </div>
 
-        <!-- 7. PAPARAN CARTA MARKAH (MOBILE CARDS) -->
+        <!-- 7. PAPARAN CARTA MARKAH (MOBILE CARDS & CETAKAN) -->
         <div id="view-leaderboard" class="glass-card hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-3">
-                <h2 style="font-size: 0.85rem; font-weight: 800; color: #0f172a;">Carta Kedudukan Masa Nyata</h2>
-                <button onclick="showView('view-home')" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 6px 12px;">Halaman Utama</button>
+            <!-- HEADER KHAS UNTUK CETAKAN / PDF -->
+            <div class="print-header">
+                <h1>Laporan Keputusan Rasmi</h1>
+                <h2>INTEGRITY WALK JPN PAHANG 2026</h2>
+                <p style="font-size: 0.8rem; margin-top: 4px;">Tarikh Cetakan: <span id="print-date-display"></span></p>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-3 no-print">
+                <h2 style="font-size: 0.9rem; font-weight: 800; color: #0f172a;">Live Leaderboard</h2>
+                <div style="display: flex; gap: 6px;">
+                    <button onclick="printPDFReport()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #0284c7; color: #ffffff; border: none;">
+                        🖨️ PDF
+                    </button>
+                    <button onclick="exportToCSV()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #059669; color: #ffffff; border: none;">
+                        📥 CSV
+                    </button>
+                    <button onclick="showView('view-home')" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px;">
+                        Utama
+                    </button>
+                </div>
             </div>
 
             <!-- Senarai Kad Kumpulan Terkini -->
             <div id="leaderboard-card-container" class="leaderboard-list"></div>
+
+            <!-- FOOTER KHAS PENGESAHAN TANDATANGAN (PRINT ONLY) -->
+            <div class="print-footer">
+                <div class="sig-box">
+                    <div class="sig-line"></div>
+                    <p style="font-size: 0.8rem; font-weight: bold;">Disediakan Oleh</p>
+                    <p style="font-size: 0.75rem;">Urus Setia Integrity Walk</p>
+                </div>
+                <div class="sig-box">
+                    <div class="sig-line"></div>
+                    <p style="font-size: 0.8rem; font-weight: bold;">Disahkan Oleh</p>
+                    <p style="font-size: 0.75rem;">Pengerusi Jawatankuasa</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- -------------------------------------------------------------
-         2. VANILLA JAVASCRIPT LOGIC
+         3. VANILLA JAVASCRIPT LOGIC
          ------------------------------------------------------------- -->
     <script>
         // --- BANK SOALAN ---
@@ -523,10 +795,21 @@
         }
 
         function showAdminQRView() {
-            document.getElementById('admin-cp-select').value = "";
-            document.getElementById('qr-box-container').classList.add('hidden');
-            document.getElementById('qr-instruction-text').innerText = "Pilih checkpoint di atas untuk memaparkan Kod QR.";
             showView('view-admin-qr');
+        }
+
+        // Modal QR Functions
+        function openQRModal(cpNum) {
+            const baseUrl = window.location.href.split('?')[0];
+            const targetUrl = `${baseUrl}?cp=${cpNum}`;
+            
+            document.getElementById('qr-modal-title').innerText = `CHECKPOINT ${cpNum}`;
+            document.getElementById('qr-modal-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(targetUrl)}`;
+            document.getElementById('qr-modal').classList.remove('hidden');
+        }
+
+        function closeQRModal() {
+            document.getElementById('qr-modal').classList.add('hidden');
         }
 
         // Populate Options & Grid
@@ -541,7 +824,7 @@
 
             const btn = document.createElement('button');
             btn.className = "btn-team-square";
-            btn.innerHTML = `<span style="font-size:0.5rem; opacity:0.8;">KMP</span><span style="font-size:0.95rem;">${i}</span>`;
+            btn.innerHTML = `<span style="font-size:0.5rem; opacity:0.8;">KMP</span><span style="font-size:1rem;">${i}</span>`;
             btn.onclick = () => openConfirmModal(i);
             finishTeamsGrid.appendChild(btn);
         }
@@ -553,30 +836,9 @@
             if (cpParam) {
                 currentCP = cpParam;
                 showView('view-participant-start');
-                document.getElementById('participant-cp-title').innerText = `CHECKPOINT ${currentCP}`;
+                document.getElementById('participant-cp-title').innerText = `📍 CHECKPOINT ${currentCP}`;
             }
         };
-
-        // --- PENJANA QR ---
-        function generateAdminQR() {
-            const cp = document.getElementById('admin-cp-select').value;
-            const qrBox = document.getElementById('qr-box-container');
-            const qrInstruction = document.getElementById('qr-instruction-text');
-
-            if (!cp) {
-                qrBox.classList.add('hidden');
-                qrInstruction.innerText = "Pilih checkpoint di atas untuk memaparkan Kod QR.";
-                return;
-            }
-
-            const targetUrl = `${window.location.origin}${window.location.pathname}?cp=${cp}`;
-            
-            const qrImg = document.getElementById('qr-img-element');
-            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(targetUrl)}`;
-            
-            qrBox.classList.remove('hidden');
-            qrInstruction.innerText = `Peserta imbas Kod QR ini untuk Checkpoint ${cp}.`;
-        }
 
         // Masa Ketibaan
         function accessFinishRecorder() {
@@ -675,11 +937,12 @@
 
             document.getElementById('question-number').innerText = `Soalan ${currentQIndex + 1} daripada 2`;
             document.getElementById('question-text').innerText = qData.q;
+            document.getElementById('quiz-progress-bar').style.width = `${((currentQIndex + 1) / 2) * 100}%`;
 
             document.getElementById('btn-prev').classList.toggle('hidden', currentQIndex === 0);
             const btnNext = document.getElementById('btn-next');
             btnNext.disabled = userAnswers[currentQIndex] === -1;
-            btnNext.innerText = (currentQIndex === 1) ? 'Hantar Jawapan' : 'Seterusnya';
+            btnNext.innerText = (currentQIndex === 1) ? 'Hantar Jawapan ➔' : 'Seterusnya ➔';
 
             const container = document.getElementById('options-container');
             container.innerHTML = '';
@@ -711,7 +974,7 @@
             appData[`Team_${currentTeam}`][`CP${currentCP}`] = cpScore;
             localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
 
-            document.getElementById('completion-title').innerText = "TAHNIAH!";
+            document.getElementById('completion-title').innerText = "🎉 TAHNIAH!";
             document.getElementById('completion-msg').innerText = `Kumpulan ${currentTeam} telah berjaya menjawab Checkpoint ${currentCP}!`;
             document.getElementById('cp-score-display').innerText = `${cpScore} / 20`;
 
@@ -819,6 +1082,57 @@
                     showLeaderboard();
                 }
             }
+        }
+
+        // --- FUNGSI EKSPORT DATA KE CSV / EXCEL ---
+        function exportToCSV() {
+            let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
+            let csvContent = "\uFEFFKumpulan,CP1,CP2,CP3,CP4,CP5,CP6,Jumlah Markah,Masa Ketibaan\n";
+
+            for (let i = 1; i <= 25; i++) {
+                const teamKey = `Team_${i}`;
+                const cpData = appData[teamKey] || {};
+
+                const cp1 = cpData.CP1 !== undefined ? cpData.CP1 : 0;
+                const cp2 = cpData.CP2 !== undefined ? cpData.CP2 : 0;
+                const cp3 = cpData.CP3 !== undefined ? cpData.CP3 : 0;
+                const cp4 = cpData.CP4 !== undefined ? cpData.CP4 : 0;
+                const cp5 = cpData.CP5 !== undefined ? cpData.CP5 : 0;
+                const cp6 = cpData.CP6 !== undefined ? cpData.CP6 : 0;
+                const finishTime = cpData.finishTime ? `"${cpData.finishTime}"` : '"-"';
+
+                const total = cp1 + cp2 + cp3 + cp4 + cp5 + cp6;
+
+                const row = [`Kumpulan ${i}`, cp1, cp2, cp3, cp4, cp5, cp6, total, finishTime].join(",");
+                csvContent += row + "\n";
+            }
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            
+            const today = new Date().toISOString().slice(0, 10);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `Keputusan_Integrity_Walk_JPNPahang_${today}.csv`);
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // --- FUNGSI CETAK LAPORAN PDF RASMI ---
+        function printPDFReport() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ms-MY', { 
+                day: 'numeric', 
+                month: 'long', 
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            document.getElementById('print-date-display').innerText = dateStr;
+            window.print();
         }
     </script>
 </body>
