@@ -3,164 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Integrity Walk JPN Pahang - Mobile-Friendly</title>
+    <title>Integrity Walk JPN Pahang</title>
 
     <style>
         /* -------------------------------------------------------------
-           1. VANILLA CSS STYLES (MOBILE-FIRST REKA BENTUK)
+           1. MODERN MOBILE-FIRST VANILLA CSS
            ------------------------------------------------------------- */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0284c7 100%);
+            background: #0f172a;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.8) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(2, 132, 199, 0.6) 0px, transparent 50%);
+            background-attachment: fixed;
             min-height: 100vh;
-            padding: 10px;
-            color: #1f2937;
+            padding: 12px;
+            color: #1e293b;
         }
 
         .container {
-            max-width: 500px;
+            max-width: 480px;
             margin: 0 auto;
+            padding-bottom: 20px;
         }
 
-        /* Glassmorphism Card */
+        /* Glass Cards */
         .glass-card {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(12px);
-            border-radius: 1.25rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            padding: 18px;
-            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            padding: 20px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         /* Header */
         header {
             text-align: center;
-            border-bottom: 3px solid #f59e0b;
-            padding-bottom: 10px;
+            padding: 16px 12px;
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 4px solid #f59e0b;
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
         }
 
         header h1 {
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             font-weight: 800;
-            color: #1e1b4b;
-            line-height: 1.2;
+            color: #0f172a;
+            line-height: 1.25;
         }
 
         header h1 span {
-            color: #f59e0b;
+            color: #d97706;
         }
 
-        header p {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #4b5563;
-            margin-top: 3px;
-        }
-
-        /* Menu Buttons */
-        .btn-menu {
+        /* Action Buttons */
+        .btn-action {
             width: 100%;
             border: none;
-            border-radius: 0.85rem;
-            padding: 14px 16px;
-            margin-bottom: 10px;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 12px;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #ffffff;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: transform 0.1s, background-color 0.2s;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            transition: all 0.15s ease;
         }
 
-        .btn-menu:active {
+        .btn-action:active {
             transform: scale(0.97);
+            opacity: 0.9;
         }
 
-        .btn-blue { background-color: #1e3a8a; }
-        .btn-blue:active { background-color: #172554; }
+        .btn-primary { background: linear-gradient(135deg, #1e3a8a, #2563eb); }
+        .btn-warning { background: linear-gradient(135deg, #d97706, #f59e0b); }
+        .btn-success { background: linear-gradient(135deg, #059669, #10b981); }
 
-        .btn-amber { background-color: #f59e0b; }
-        .btn-amber:active { background-color: #d97706; }
-
-        .btn-emerald { background-color: #059669; }
-        .btn-emerald:active { background-color: #047857; }
-
-        .btn-gray { 
-            background-color: #e5e7eb; 
-            color: #374151; 
-            font-weight: 700; 
-            padding: 8px 14px; 
-            border-radius: 8px; 
-            font-size: 0.75rem; 
-            border: none; 
-            cursor: pointer; 
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #334155;
+            font-weight: 700;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            border: none;
+            cursor: pointer;
             width: 100%;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
+
+        .btn-secondary:active { background: #e2e8f0; }
 
         /* Helpers */
         .hidden { display: none !important; }
         .text-center { text-align: center; }
+        .mb-2 { margin-bottom: 8px; }
         .mb-3 { margin-bottom: 12px; }
         .mb-4 { margin-bottom: 16px; }
 
-        /* Select Input Mobile Friendly */
+        /* Select Mobile */
         select {
             width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 2px solid #60a5fa;
+            padding: 14px;
+            border-radius: 14px;
+            border: 2px solid #93c5fd;
             font-weight: 700;
             font-size: 0.9rem;
-            background-color: #eff6ff;
+            background-color: #f8fafc;
+            color: #0f172a;
             text-align: center;
             margin-bottom: 14px;
             outline: none;
+            appearance: none;
+            -webkit-appearance: none;
         }
 
-        /* Grid Masa Ketibaan Penamat */
+        /* Grid Masa Ketibaan */
         .grid-teams {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
-            max-height: 280px;
+            gap: 8px;
+            max-height: 320px;
             overflow-y: auto;
-            padding: 2px;
+            padding: 4px;
         }
 
-        .btn-team-grid {
-            background-color: #fef3c7;
+        .btn-team-square {
+            background: #fef3c7;
             color: #78350f;
             font-weight: 800;
-            padding: 8px 4px;
-            border-radius: 10px;
+            padding: 12px 4px;
+            border-radius: 12px;
             border: 1px solid #fde68a;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            transition: all 0.1s;
         }
 
-        .btn-team-grid:active { background-color: #f59e0b; color: #ffffff; transform: scale(0.93); }
+        .btn-team-square:active {
+            background: #f59e0b;
+            color: #ffffff;
+            transform: scale(0.92);
+        }
 
-        /* Pop-up Modal Mobile */
+        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.65);
+            background: rgba(15, 23, 42, 0.75);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -170,98 +191,158 @@
 
         .modal-box {
             background: #ffffff;
-            border-radius: 16px;
-            padding: 20px;
-            max-width: 300px;
+            border-radius: 20px;
+            padding: 22px;
+            max-width: 320px;
             width: 100%;
             text-align: center;
-            border: 2px solid #f59e0b;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
         .modal-time {
-            font-size: 1.3rem;
-            font-weight: 900;
+            font-size: 1.35rem;
+            font-weight: 800;
             color: #1e3a8a;
-            background-color: #eff6ff;
-            padding: 8px;
-            border-radius: 10px;
+            background: #eff6ff;
+            padding: 10px;
+            border-radius: 12px;
             margin: 10px 0;
             border: 1px solid #bfdbfe;
         }
 
-        .flex-gap {
+        .modal-actions {
             display: flex;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .flex-gap button {
+        .modal-actions button {
             flex: 1;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 10px;
             border: none;
             font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             cursor: pointer;
         }
 
-        /* Quiz Options */
+        /* Quiz Buttons */
         .quiz-option-btn {
             width: 100%;
             text-align: left;
-            padding: 12px 14px;
-            border-radius: 10px;
+            padding: 14px 16px;
+            border-radius: 14px;
             border: 1.5px solid #cbd5e1;
-            background-color: #ffffff;
+            background: #ffffff;
             font-weight: 600;
-            font-size: 0.8rem;
-            margin-bottom: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
             cursor: pointer;
-            line-height: 1.3;
+            line-height: 1.4;
+            color: #334155;
+            transition: all 0.15s ease;
         }
 
-        .quiz-option-btn.selected { 
-            background-color: #dbeafe; 
-            border-color: #2563eb; 
-            color: #1e40af; 
-            font-weight: 700; 
+        .quiz-option-btn.selected {
+            background: #eff6ff;
+            border-color: #2563eb;
+            color: #1e40af;
+            font-weight: 700;
+            box-shadow: 0 0 0 1px #2563eb;
         }
 
-        /* Table Style Mobile Horizontal Scroll */
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+        /* Mobile Leaderboard Cards (Responsif Sepenuhnya) */
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 420px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+
+        .team-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .team-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .team-title {
+            font-weight: 800;
+            color: #1e3a8a;
+            font-size: 0.85rem;
+        }
+
+        .team-score-badge {
+            background: #fef3c7;
+            color: #d97706;
+            font-weight: 800;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .cp-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+            background: #f8fafc;
+            padding: 6px;
             border-radius: 8px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.7rem;
             text-align: center;
-            white-space: nowrap;
+            font-size: 0.65rem;
+            font-weight: 700;
         }
 
-        th {
-            background-color: #0f172a;
-            color: #ffffff;
-            padding: 8px 6px;
+        .cp-item {
+            display: flex;
+            flex-direction: column;
         }
 
-        td {
-            padding: 8px 6px;
-            border-bottom: 1px solid #e2e8f0;
-            font-weight: 600;
+        .cp-label {
+            color: #94a3b8;
+            font-size: 0.55rem;
         }
 
-        .bg-total { background-color: #fef3c7; color: #d97706; font-weight: 900; }
-        .bg-time { background-color: #ecfdf5; color: #047857; font-weight: 700; }
+        .team-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            color: #64748b;
+        }
+
+        .finish-time-text {
+            color: #059669;
+            font-weight: 700;
+        }
+
+        .btn-edit-small {
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.65rem;
+            cursor: pointer;
+        }
 
         .flash-screen {
-            background-color: #d1fae5;
-            border: 1.5px solid #34d399;
+            background: #ecfdf5;
+            border: 1.5px solid #10b981;
             color: #065f46;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 14px;
             font-weight: 700;
             margin-bottom: 12px;
         }
@@ -272,33 +353,34 @@
     <div class="container">
         <!-- HEADER UTAMA -->
         <header class="glass-card">
-            <h1>INTEGRITY WALK <span>JPN PAHANG</span></h1>
-            <p>Sistem Kuiz Checkpoint & Masa Ketibaan</p>
+            <span class="badge-tag">JPN PAHANG OFFICIAL</span>
+            <h1>INTEGRITY WALK <span>2026</span></h1>
+            <p>Sistem Checkpoint & Masa Ketibaan Penamat</p>
         </header>
 
         <!-- 1. MUKA DEPAN (PANEL URUS SETIA) -->
         <div id="view-home" class="glass-card text-center">
-            <h2 style="font-size: 0.95rem; font-weight: 800; color: #374151;" class="mb-3">PANEL KAWALAN URUS SETIA</h2>
+            <h2 style="font-size: 0.85rem; font-weight: 800; color: #64748b; letter-spacing: 0.5px;" class="mb-3">PANEL KAWALAN UTAMA</h2>
             
-            <button onclick="showAdminQRView()" class="btn-menu btn-blue">
-                <span>CHECKPOINT QR (1-6)</span>
+            <button onclick="showAdminQRView()" class="btn-action btn-primary">
+                <span>Papar Kod QR Checkpoint (1-6)</span>
                 <span>➔</span>
             </button>
 
-            <button onclick="accessFinishRecorder()" class="btn-menu btn-amber">
-                <span>REKOD MASA KETIBAAN</span>
+            <button onclick="accessFinishRecorder()" class="btn-action btn-warning">
+                <span>Rekod Masa Ketibaan Penamat</span>
                 <span>➔</span>
             </button>
 
-            <button onclick="showLeaderboard()" class="btn-menu btn-emerald">
-                <span>LIVE UPDATE MARKAH</span>
+            <button onclick="showLeaderboard()" class="btn-action btn-success">
+                <span>Live Update Markah & Carta</span>
                 <span>➔</span>
             </button>
         </div>
 
         <!-- 2. PAPARAN CHECKPOINT QR (URUS SETIA) -->
         <div id="view-admin-qr" class="glass-card text-center hidden">
-            <button onclick="showView('view-home')" class="btn-gray">← Halaman Utama</button>
+            <button onclick="showView('view-home')" class="btn-secondary">← Kembali ke Halaman Utama</button>
             <h2 style="font-size: 0.95rem; font-weight: 800;" class="mb-3">Penjana Kod QR Checkpoint</h2>
 
             <select id="admin-cp-select" onchange="generateAdminQR()">
@@ -311,35 +393,35 @@
                 <option value="6">Checkpoint 6</option>
             </select>
 
-            <div id="qr-box-container" style="background: #ffffff; padding: 12px; border-radius: 14px; display: inline-block; border: 2px dashed #cbd5e1;" class="mb-3 hidden">
-                <img id="qr-img-element" src="" alt="Kod QR Checkpoint" style="width: 170px; height: 170px; display: block;">
+            <div id="qr-box-container" style="background: #ffffff; padding: 14px; border-radius: 16px; display: inline-block; border: 2px dashed #cbd5e1;" class="mb-3 hidden">
+                <img id="qr-img-element" src="" alt="Kod QR Checkpoint" style="width: 180px; height: 180px; display: block;">
             </div>
-            <p id="qr-instruction-text" style="font-size: 0.7rem; font-weight: 600; color: #6b7280;">Pilih checkpoint di atas untuk memaparkan Kod QR.</p>
+            <p id="qr-instruction-text" style="font-size: 0.7rem; font-weight: 600; color: #64748b;">Pilih checkpoint di atas untuk memaparkan Kod QR.</p>
         </div>
 
         <!-- 3. PAPARAN REKOD MASA KETIBAAN -->
         <div id="view-finish-recorder" class="glass-card text-center hidden">
-            <button onclick="showView('view-home')" class="btn-gray">← Halaman Utama</button>
-            <h2 style="font-size: 0.95rem; font-weight: 800;" class="mb-2">Masa Ketibaan Penamat</h2>
-            <p style="font-size: 0.7rem; color: #6b7280;" class="mb-3">Tekan nombor kumpulan yang tiba:</p>
+            <button onclick="showView('view-home')" class="btn-secondary">← Kembali ke Halaman Utama</button>
+            <h2 style="font-size: 0.95rem; font-weight: 800;" class="mb-1">Rekod Masa Penamat</h2>
+            <p style="font-size: 0.7rem; color: #64748b;" class="mb-3">Tekan nombor kumpulan yang baru tiba:</p>
 
             <!-- Skrin Maklum Balas Auto 2 Saat -->
             <div id="finish-flash-screen" class="flash-screen hidden">
-                <div id="flash-team-name" style="font-size: 0.8rem;">KUMPULAN X</div>
-                <div id="flash-time-val" style="font-size: 1.2rem; font-weight: 900; margin: 2px 0;">00:00:00 AM</div>
-                <div style="font-size: 0.7rem;">✔ Masa Berjaya Direkodkan!</div>
+                <div id="flash-team-name" style="font-size: 0.75rem;">KUMPULAN X</div>
+                <div id="flash-time-val" style="font-size: 1.25rem; font-weight: 800; margin: 2px 0;">00:00:00 AM</div>
+                <div style="font-size: 0.65rem;">✔ Masa Ketibaan Berjaya Direkodkan!</div>
             </div>
 
-            <!-- POP-UP MODAL PENGESAHAN MASA -->
+            <!-- Modal Pengesahan 2 Peringkat -->
             <div id="confirm-modal" class="modal-overlay hidden">
                 <div class="modal-box">
-                    <h3 id="modal-team-title" style="font-weight: 800; font-size: 0.9rem;">KUMPULAN XX</h3>
-                    <p style="font-size: 0.7rem; color: #6b7280;" class="mt-2">Masa ketibaan semasa:</p>
+                    <h3 id="modal-team-title" style="font-weight: 800; font-size: 0.95rem; color: #0f172a;">KUMPULAN XX</h3>
+                    <p style="font-size: 0.7rem; color: #64748b;" class="mb-2">Masa ketibaan semasa:</p>
                     <div id="modal-time-display" class="modal-time">00:00:00 AM</div>
                     <p style="font-size: 0.7rem; font-weight: 700; color: #d97706;" class="mb-3">Adakah anda pasti mahu merekodkan masa ini?</p>
-                    <div class="flex-gap">
-                        <button onclick="closeConfirmModal()" style="background-color: #e5e7eb; color: #374151;">BATAL</button>
-                        <button onclick="commitFinishTime()" style="background-color: #f59e0b; color: #ffffff;">PASTI</button>
+                    <div class="modal-actions">
+                        <button onclick="closeConfirmModal()" style="background: #e2e8f0; color: #334155;">BATAL</button>
+                        <button onclick="commitFinishTime()" style="background: #f59e0b; color: #ffffff;">PASTI</button>
                     </div>
                 </div>
             </div>
@@ -348,73 +430,56 @@
             <div id="finish-teams-grid" class="grid-teams"></div>
         </div>
 
-        <!-- 4. PAPARAN PESERTA: PILIH KUMPULAN (DIRECT LANDING VIA QR) -->
+        <!-- 4. PAPARAN PESERTA: PILIH KUMPULAN -->
         <div id="view-participant-start" class="glass-card hidden">
-            <div id="participant-cp-title" style="background-color: #fef3c7; color: #78350f; text-align: center; font-weight: 800; padding: 6px; border-radius: 8px; font-size: 0.8rem;" class="mb-3">
+            <div id="participant-cp-title" style="background: #fef3c7; color: #78350f; text-align: center; font-weight: 800; padding: 8px; border-radius: 10px; font-size: 0.8rem;" class="mb-3">
                 CHECKPOINT X
             </div>
             <h2 style="font-size: 0.85rem; font-weight: 700;" class="mb-3">Sila Pilih Nombor Kumpulan Anda:</h2>
             <select id="select-team">
                 <option value="">-- Pilih Nombor Kumpulan --</option>
             </select>
-            <button onclick="startParticipantQuiz()" class="btn-menu btn-amber" style="justify-content: center; font-size: 0.85rem;">MULA JAWAB KUIZ</button>
+            <button onclick="startParticipantQuiz()" class="btn-action btn-warning" style="justify-content: center; font-size: 0.85rem;">MULA JAWAB KUIZ</button>
         </div>
 
         <!-- 5. PAPARAN SOALAN KUIZ PESERTA -->
         <div id="view-quiz" class="glass-card hidden">
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e5e7eb; padding-bottom: 6px;" class="mb-3">
-                <span id="quiz-team-badge" style="background-color: #dbeafe; color: #1e40af; font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 12px;"></span>
-                <span id="quiz-cp-badge" style="background-color: #fef3c7; color: #78350f; font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 12px;"></span>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;" class="mb-3">
+                <span id="quiz-team-badge" style="background: #eff6ff; color: #1d4ed8; font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 12px;"></span>
+                <span id="quiz-cp-badge" style="background: #fef3c7; color: #78350f; font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 12px;"></span>
             </div>
 
-            <div id="question-number" style="font-size: 0.7rem; font-weight: 700; color: #9ca3af;" class="mb-2">Soalan 1 / 2</div>
-            <h3 id="question-text" style="font-size: 0.85rem; font-weight: 700; line-height: 1.4; color: #111827;" class="mb-3"></h3>
+            <div id="question-number" style="font-size: 0.7rem; font-weight: 700; color: #94a3b8;" class="mb-2">Soalan 1 / 2</div>
+            <h3 id="question-text" style="font-size: 0.85rem; font-weight: 700; line-height: 1.45; color: #0f172a;" class="mb-3"></h3>
 
             <div id="options-container" class="mb-3"></div>
 
-            <div style="display: flex; justify-content: space-between; margin-top: 12px;">
-                <button id="btn-prev" onclick="prevQuestion()" class="btn-gray hidden" style="width: auto; margin-bottom:0;">Sebelum</button>
-                <button id="btn-next" onclick="nextQuestion()" class="btn-gray" style="background-color: #2563eb; color: #ffffff; width: auto; margin-left: auto; margin-bottom:0;" disabled>Seterusnya</button>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                <button id="btn-prev" onclick="prevQuestion()" class="btn-secondary hidden" style="width: auto; margin-bottom:0;">Sebelum</button>
+                <button id="btn-next" onclick="nextQuestion()" class="btn-secondary" style="background: #2563eb; color: #ffffff; width: auto; margin-left: auto; margin-bottom:0;" disabled>Seterusnya</button>
             </div>
         </div>
 
         <!-- 6. PAPARAN TAHNIAH / SELESAI -->
         <div id="view-completion" class="glass-card text-center hidden">
-            <h2 id="completion-title" style="font-size: 1.3rem; font-weight: 900; color: #111827;">TAHNIAH!</h2>
-            <p id="completion-msg" style="font-size: 0.75rem; color: #4b5563; margin: 6px 0;"></p>
-            <div style="background-color: #fffbeb; border: 1px solid #fde68a; padding: 12px; border-radius: 12px; max-width: 220px; margin: 12px auto;">
-                <div style="font-size: 0.7rem; font-weight: 800; color: #92400e;">MARKAH DIPEROLEHI</div>
-                <div id="cp-score-display" style="font-size: 1.8rem; font-weight: 900; color: #d97706; margin: 2px 0;">0 / 20</div>
+            <h2 id="completion-title" style="font-size: 1.3rem; font-weight: 800; color: #0f172a;">TAHNIAH!</h2>
+            <p id="completion-msg" style="font-size: 0.75rem; color: #475569; margin: 6px 0;"></p>
+            <div style="background: #fffbeb; border: 1px solid #fde68a; padding: 14px; border-radius: 14px; max-width: 220px; margin: 12px auto;">
+                <div style="font-size: 0.65rem; font-weight: 800; color: #92400e;">MARKAH DIPEROLEHI</div>
+                <div id="cp-score-display" style="font-size: 1.8rem; font-weight: 800; color: #d97706; margin: 2px 0;">0 / 20</div>
             </div>
-            <p id="completion-subtext" style="font-size: 0.7rem; color: #9ca3af;">Markah telah dikemas kini ke Carta Markah Utama.</p>
+            <p id="completion-subtext" style="font-size: 0.7rem; color: #94a3b8;">Markah telah dikemas kini ke Carta Markah Utama.</p>
         </div>
 
-        <!-- 7. PAPARAN CARTA MARKAH (LIVE UPDATE) -->
+        <!-- 7. PAPARAN CARTA MARKAH (MOBILE CARDS) -->
         <div id="view-leaderboard" class="glass-card hidden">
             <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-3">
-                <h2 style="font-size: 0.85rem; font-weight: 800;">Carta Markah & Masa</h2>
-                <button onclick="showView('view-home')" class="btn-gray" style="width: auto; margin-bottom: 0;">Halaman Utama</button>
+                <h2 style="font-size: 0.85rem; font-weight: 800; color: #0f172a;">Carta Kedudukan Masa Nyata</h2>
+                <button onclick="showView('view-home')" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 6px 12px;">Halaman Utama</button>
             </div>
 
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Kmp</th>
-                            <th>CP1</th>
-                            <th>CP2</th>
-                            <th>CP3</th>
-                            <th>CP4</th>
-                            <th>CP5</th>
-                            <th>CP6</th>
-                            <th>Jumlah</th>
-                            <th>Penamat</th>
-                            <th>Tindakan</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leaderboard-body"></tbody>
-                </table>
-            </div>
+            <!-- Senarai Kad Kumpulan Terkini -->
+            <div id="leaderboard-card-container" class="leaderboard-list"></div>
         </div>
     </div>
 
@@ -475,13 +540,13 @@
             selectTeam.appendChild(opt);
 
             const btn = document.createElement('button');
-            btn.className = "btn-team-grid";
-            btn.innerHTML = `<span style="font-size:0.55rem;">KMP</span><span style="font-size:0.95rem; font-weight:900;">${i}</span>`;
+            btn.className = "btn-team-square";
+            btn.innerHTML = `<span style="font-size:0.5rem; opacity:0.8;">KMP</span><span style="font-size:0.95rem;">${i}</span>`;
             btn.onclick = () => openConfirmModal(i);
             finishTeamsGrid.appendChild(btn);
         }
 
-        // AUTO-DETECT SCAN QR PARAMETER (LANGSUNG KE PILIHAN KUMPULAN)
+        // AUTO-DETECT SCAN QR PARAMETER (DIRECT TO PARTICIPANT START)
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const cpParam = urlParams.get('cp');
@@ -492,7 +557,7 @@
             }
         };
 
-        // --- PENJANA QR (PENAMBAHABIKAN PAUTAN) ---
+        // --- PENJANA QR ---
         function generateAdminQR() {
             const cp = document.getElementById('admin-cp-select').value;
             const qrBox = document.getElementById('qr-box-container');
@@ -504,7 +569,6 @@
                 return;
             }
 
-            // Memastikan pautan mengandungi pathname asal dan parameter ?cp=X
             const targetUrl = `${window.location.origin}${window.location.pathname}?cp=${cp}`;
             
             const qrImg = document.getElementById('qr-img-element');
@@ -654,13 +718,13 @@
             showView('view-completion');
         }
 
-        // Leaderboard
+        // Leaderboard - Format Kad Mesra Mobile
         function showLeaderboard() {
             showView('view-leaderboard');
 
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
-            const tbody = document.getElementById('leaderboard-body');
-            tbody.innerHTML = '';
+            const container = document.getElementById('leaderboard-card-container');
+            container.innerHTML = '';
             let teamsList = [];
 
             for (let i = 1; i <= 25; i++) {
@@ -684,22 +748,27 @@
             teamsList.sort((a, b) => b.total - a.total);
 
             teamsList.forEach((t) => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td style="font-weight:800; color:#1e3a8a;">K${t.id}</td>
-                    <td>${t.cp1}</td>
-                    <td>${t.cp2}</td>
-                    <td>${t.cp3}</td>
-                    <td>${t.cp4}</td>
-                    <td>${t.cp5}</td>
-                    <td>${t.cp6}</td>
-                    <td class="bg-total">${t.total}</td>
-                    <td class="bg-time">${t.finishTime}</td>
-                    <td>
-                        <button onclick="editTeamData(${t.id})" class="btn-gray" style="font-size:0.6rem; padding: 4px 8px; margin-bottom:0;">Ubah</button>
-                    </td>
+                const card = document.createElement('div');
+                card.className = "team-card";
+                card.innerHTML = `
+                    <div class="team-card-header">
+                        <span class="team-title">KUMPULAN ${t.id}</span>
+                        <span class="team-score-badge">${t.total} / 120 Pts</span>
+                    </div>
+                    <div class="cp-grid">
+                        <div class="cp-item"><span class="cp-label">CP1</span><span>${t.cp1}</span></div>
+                        <div class="cp-item"><span class="cp-label">CP2</span><span>${t.cp2}</span></div>
+                        <div class="cp-item"><span class="cp-label">CP3</span><span>${t.cp3}</span></div>
+                        <div class="cp-item"><span class="cp-label">CP4</span><span>${t.cp4}</span></div>
+                        <div class="cp-item"><span class="cp-label">CP5</span><span>${t.cp5}</span></div>
+                        <div class="cp-item"><span class="cp-label">CP6</span><span>${t.cp6}</span></div>
+                    </div>
+                    <div class="team-card-footer">
+                        <span>Penamat: <span class="finish-time-text">${t.finishTime}</span></span>
+                        <button onclick="editTeamData(${t.id})" class="btn-edit-small">Ubah</button>
+                    </div>
                 `;
-                tbody.appendChild(tr);
+                container.appendChild(card);
             });
         }
 
