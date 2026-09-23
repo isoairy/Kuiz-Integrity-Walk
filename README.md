@@ -2,12 +2,12 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Integrity Walk JPN Pahang - Vanilla JS & CSS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Integrity Walk JPN Pahang - Mobile-Friendly</title>
 
     <style>
         /* -------------------------------------------------------------
-           1. VANILLA CSS STYLES
+           1. VANILLA CSS STYLES (MOBILE-FIRST REKA BENTUK)
            ------------------------------------------------------------- */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
 
@@ -16,40 +16,43 @@
             margin: 0;
             padding: 0;
             font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0284c7 100%);
             min-height: 100vh;
-            padding: 15px;
+            padding: 10px;
             color: #1f2937;
         }
 
         .container {
-            max-width: 650px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
-        /* Card / Glassmorphism */
+        /* Glassmorphism Card */
         .glass-card {
-            background: rgba(255, 255, 255, 0.97);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(12px);
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-            padding: 24px;
-            margin-bottom: 20px;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            padding: 18px;
+            margin-bottom: 16px;
         }
 
         /* Header */
         header {
             text-align: center;
-            border-bottom: 4px solid #f59e0b;
+            border-bottom: 3px solid #f59e0b;
+            padding-bottom: 10px;
         }
 
         header h1 {
-            font-size: 1.4rem;
+            font-size: 1.15rem;
             font-weight: 800;
             color: #1e1b4b;
+            line-height: 1.2;
         }
 
         header h1 span {
@@ -57,21 +60,21 @@
         }
 
         header p {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             color: #4b5563;
-            margin-top: 4px;
+            margin-top: 3px;
         }
 
-        /* Navigation Buttons */
+        /* Menu Buttons */
         .btn-menu {
             width: 100%;
             border: none;
-            border-radius: 1rem;
-            padding: 16px 20px;
-            margin-bottom: 12px;
-            font-weight: 800;
-            font-size: 0.95rem;
+            border-radius: 0.85rem;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
             color: #ffffff;
             cursor: pointer;
             display: flex;
@@ -82,73 +85,82 @@
         }
 
         .btn-menu:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
 
         .btn-blue { background-color: #1e3a8a; }
-        .btn-blue:hover { background-color: #172554; }
+        .btn-blue:active { background-color: #172554; }
 
         .btn-amber { background-color: #f59e0b; }
-        .btn-amber:hover { background-color: #d97706; }
+        .btn-amber:active { background-color: #d97706; }
 
         .btn-emerald { background-color: #059669; }
-        .btn-emerald:hover { background-color: #047857; }
+        .btn-emerald:active { background-color: #047857; }
 
-        .btn-gray { background-color: #e5e7eb; color: #374151; font-weight: 700; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; border: none; cursor: pointer; }
-        .btn-gray:hover { background-color: #d1d5db; }
+        .btn-gray { 
+            background-color: #e5e7eb; 
+            color: #374151; 
+            font-weight: 700; 
+            padding: 8px 14px; 
+            border-radius: 8px; 
+            font-size: 0.75rem; 
+            border: none; 
+            cursor: pointer; 
+            width: 100%;
+            margin-bottom: 12px;
+        }
 
-        /* Helpers & Layout */
+        /* Helpers */
         .hidden { display: none !important; }
         .text-center { text-align: center; }
+        .mb-3 { margin-bottom: 12px; }
         .mb-4 { margin-bottom: 16px; }
-        .mt-2 { margin-top: 8px; }
 
-        /* Select Input */
+        /* Select Input Mobile Friendly */
         select {
             width: 100%;
             padding: 12px;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 2px solid #60a5fa;
-            font-weight: 800;
-            font-size: 1rem;
+            font-weight: 700;
+            font-size: 0.9rem;
             background-color: #eff6ff;
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             outline: none;
         }
 
-        /* Grid Kumpulan Penamat */
+        /* Grid Masa Ketibaan Penamat */
         .grid-teams {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            max-height: 300px;
+            gap: 6px;
+            max-height: 280px;
             overflow-y: auto;
-            padding: 4px;
+            padding: 2px;
         }
 
         .btn-team-grid {
             background-color: #fef3c7;
             color: #78350f;
             font-weight: 800;
-            padding: 10px;
-            border-radius: 12px;
+            padding: 8px 4px;
+            border-radius: 10px;
             border: 1px solid #fde68a;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: background-color 0.2s, transform 0.1s;
+            justify-content: center;
         }
 
-        .btn-team-grid:hover { background-color: #f59e0b; color: #ffffff; }
-        .btn-team-grid:active { transform: scale(0.95); }
+        .btn-team-grid:active { background-color: #f59e0b; color: #ffffff; transform: scale(0.93); }
 
-        /* Pop-up Modal Pengesahan Masa */
+        /* Pop-up Modal Mobile */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.65);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -159,22 +171,21 @@
         .modal-box {
             background: #ffffff;
             border-radius: 16px;
-            padding: 24px;
-            max-width: 320px;
+            padding: 20px;
+            max-width: 300px;
             width: 100%;
             text-align: center;
             border: 2px solid #f59e0b;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
         }
 
         .modal-time {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 900;
             color: #1e3a8a;
             background-color: #eff6ff;
             padding: 8px;
-            border-radius: 12px;
-            margin: 12px 0;
+            border-radius: 10px;
+            margin: 10px 0;
             border: 1px solid #bfdbfe;
         }
 
@@ -186,10 +197,10 @@
         .flex-gap button {
             flex: 1;
             padding: 10px;
-            border-radius: 10px;
+            border-radius: 8px;
             border: none;
-            font-weight: 800;
-            font-size: 0.8rem;
+            font-weight: 700;
+            font-size: 0.75rem;
             cursor: pointer;
         }
 
@@ -197,59 +208,62 @@
         .quiz-option-btn {
             width: 100%;
             text-align: left;
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1.5px solid #cbd5e1;
             background-color: #ffffff;
             font-weight: 600;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
             cursor: pointer;
-            transition: background-color 0.2s;
+            line-height: 1.3;
         }
 
-        .quiz-option-btn:hover { background-color: #eff6ff; }
-        .quiz-option-btn.selected { background-color: #dbeafe; border-color: #2563eb; color: #1e40af; font-weight: 800; }
+        .quiz-option-btn.selected { 
+            background-color: #dbeafe; 
+            border-color: #2563eb; 
+            color: #1e40af; 
+            font-weight: 700; 
+        }
 
-        /* Table Style */
+        /* Table Style Mobile Horizontal Scroll */
         .table-responsive {
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 8px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-align: center;
+            white-space: nowrap;
         }
 
         th {
             background-color: #0f172a;
             color: #ffffff;
-            padding: 8px 4px;
-            text-transform: uppercase;
+            padding: 8px 6px;
         }
 
         td {
-            padding: 8px 4px;
-            border-bottom: 1px solid #e5e7eb;
+            padding: 8px 6px;
+            border-bottom: 1px solid #e2e8f0;
             font-weight: 600;
         }
-
-        tr:hover { background-color: #eff6ff; }
 
         .bg-total { background-color: #fef3c7; color: #d97706; font-weight: 900; }
         .bg-time { background-color: #ecfdf5; color: #047857; font-weight: 700; }
 
-        /* Flash Screen */
         .flash-screen {
             background-color: #d1fae5;
-            border: 2px solid #34d399;
+            border: 1.5px solid #34d399;
             color: #065f46;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: 800;
-            margin-bottom: 16px;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
     </style>
 </head>
@@ -259,14 +273,14 @@
         <!-- HEADER UTAMA -->
         <header class="glass-card">
             <h1>INTEGRITY WALK <span>JPN PAHANG</span></h1>
-            <p>Sistem Kuiz Checkpoint & Masa Ketibaan (Vanilla Version)</p>
+            <p>Sistem Kuiz Checkpoint & Masa Ketibaan</p>
         </header>
 
-        <!-- 1. MUKA DEPAN (MENU UTAMA) -->
+        <!-- 1. MUKA DEPAN (PANEL URUS SETIA) -->
         <div id="view-home" class="glass-card text-center">
-            <h2 class="mb-4" style="font-size: 1.1rem; font-weight: 800; color: #374151;">PANEL KAWALAN URUS SETIA</h2>
+            <h2 style="font-size: 0.95rem; font-weight: 800; color: #374151;" class="mb-3">PANEL KAWALAN URUS SETIA</h2>
             
-            <button onclick="showView('view-admin-qr')" class="btn-menu btn-blue">
+            <button onclick="showAdminQRView()" class="btn-menu btn-blue">
                 <span>CHECKPOINT QR (1-6)</span>
                 <span>➔</span>
             </button>
@@ -282,12 +296,13 @@
             </button>
         </div>
 
-        <!-- 2. PAPARAN CHECKPOINT QR -->
+        <!-- 2. PAPARAN CHECKPOINT QR (URUS SETIA) -->
         <div id="view-admin-qr" class="glass-card text-center hidden">
-            <button onclick="showView('view-home')" class="btn-gray mb-4">← Kembali ke Halaman Utama</button>
-            <h2 style="font-weight: 800;" class="mb-4">Penjana Kod QR Checkpoint</h2>
+            <button onclick="showView('view-home')" class="btn-gray">← Halaman Utama</button>
+            <h2 style="font-size: 0.95rem; font-weight: 800;" class="mb-3">Penjana Kod QR Checkpoint</h2>
 
             <select id="admin-cp-select" onchange="generateAdminQR()">
+                <option value="">-- Sila Pilih Checkpoint --</option>
                 <option value="1">Checkpoint 1</option>
                 <option value="2">Checkpoint 2</option>
                 <option value="3">Checkpoint 3</option>
@@ -296,32 +311,32 @@
                 <option value="6">Checkpoint 6</option>
             </select>
 
-            <div style="background: #ffffff; padding: 16px; border-radius: 16px; display: inline-block; border: 2px dashed #cbd5e1;" class="mb-4">
-                <img id="qr-img-element" src="" alt="Kod QR Checkpoint" style="width: 180px; height: 180px; display: block;">
+            <div id="qr-box-container" style="background: #ffffff; padding: 12px; border-radius: 14px; display: inline-block; border: 2px dashed #cbd5e1;" class="mb-3 hidden">
+                <img id="qr-img-element" src="" alt="Kod QR Checkpoint" style="width: 170px; height: 170px; display: block;">
             </div>
-            <p style="font-size: 0.75rem; font-weight: 700; color: #d97706;">Imbas Kod QR ini menggunakan peranti untuk menjawab kuiz.</p>
+            <p id="qr-instruction-text" style="font-size: 0.7rem; font-weight: 600; color: #6b7280;">Pilih checkpoint di atas untuk memaparkan Kod QR.</p>
         </div>
 
         <!-- 3. PAPARAN REKOD MASA KETIBAAN -->
         <div id="view-finish-recorder" class="glass-card text-center hidden">
-            <button onclick="showView('view-home')" class="btn-gray mb-4">← Halaman Utama</button>
-            <h2 style="font-weight: 900;" class="mb-4">Masa Ketibaan Penamat</h2>
-            <p style="font-size: 0.75rem; color: #6b7280;" class="mb-4">Tekan nombor kumpulan yang tiba di garisan penamat:</p>
+            <button onclick="showView('view-home')" class="btn-gray">← Halaman Utama</button>
+            <h2 style="font-size: 0.95rem; font-weight: 800;" class="mb-2">Masa Ketibaan Penamat</h2>
+            <p style="font-size: 0.7rem; color: #6b7280;" class="mb-3">Tekan nombor kumpulan yang tiba:</p>
 
             <!-- Skrin Maklum Balas Auto 2 Saat -->
             <div id="finish-flash-screen" class="flash-screen hidden">
-                <div id="flash-team-name" style="font-size: 0.85rem;">KUMPULAN X</div>
-                <div id="flash-time-val" style="font-size: 1.4rem; font-weight: 900; margin: 4px 0;">00:00:00 AM</div>
-                <div style="font-size: 0.75rem;">✔ Masa Berjaya Direkodkan!</div>
+                <div id="flash-team-name" style="font-size: 0.8rem;">KUMPULAN X</div>
+                <div id="flash-time-val" style="font-size: 1.2rem; font-weight: 900; margin: 2px 0;">00:00:00 AM</div>
+                <div style="font-size: 0.7rem;">✔ Masa Berjaya Direkodkan!</div>
             </div>
 
             <!-- POP-UP MODAL PENGESAHAN MASA -->
             <div id="confirm-modal" class="modal-overlay hidden">
                 <div class="modal-box">
-                    <h3 id="modal-team-title" style="font-weight: 800;">KUMPULAN XX</h3>
-                    <p style="font-size: 0.75rem; color: #6b7280;" class="mt-2">Masa ketibaan semasa:</p>
+                    <h3 id="modal-team-title" style="font-weight: 800; font-size: 0.9rem;">KUMPULAN XX</h3>
+                    <p style="font-size: 0.7rem; color: #6b7280;" class="mt-2">Masa ketibaan semasa:</p>
                     <div id="modal-time-display" class="modal-time">00:00:00 AM</div>
-                    <p style="font-size: 0.75rem; font-weight: 700; color: #d97706;" class="mb-4">Adakah anda pasti mahu merekodkan masa ini?</p>
+                    <p style="font-size: 0.7rem; font-weight: 700; color: #d97706;" class="mb-3">Adakah anda pasti mahu merekodkan masa ini?</p>
                     <div class="flex-gap">
                         <button onclick="closeConfirmModal()" style="background-color: #e5e7eb; color: #374151;">BATAL</button>
                         <button onclick="commitFinishTime()" style="background-color: #f59e0b; color: #ffffff;">PASTI</button>
@@ -329,56 +344,56 @@
                 </div>
             </div>
 
-            <!-- Grid Kumpulan 1-25 -->
+            <!-- Grid Kumpulan 1-25 Mobile -->
             <div id="finish-teams-grid" class="grid-teams"></div>
         </div>
 
-        <!-- 4. PAPARAN PESERTA: PILIH KUMPULAN -->
+        <!-- 4. PAPARAN PESERTA: PILIH KUMPULAN (DIRECT LANDING VIA QR) -->
         <div id="view-participant-start" class="glass-card hidden">
-            <div id="participant-cp-title" style="background-color: #fef3c7; color: #78350f; text-align: center; font-weight: 800; padding: 8px; border-radius: 8px; font-size: 0.85rem;" class="mb-4">
+            <div id="participant-cp-title" style="background-color: #fef3c7; color: #78350f; text-align: center; font-weight: 800; padding: 6px; border-radius: 8px; font-size: 0.8rem;" class="mb-3">
                 CHECKPOINT X
             </div>
-            <h2 style="font-size: 0.95rem; font-weight: 700;" class="mb-4">Sila Pilih Nombor Kumpulan Anda:</h2>
+            <h2 style="font-size: 0.85rem; font-weight: 700;" class="mb-3">Sila Pilih Nombor Kumpulan Anda:</h2>
             <select id="select-team">
                 <option value="">-- Pilih Nombor Kumpulan --</option>
             </select>
-            <button onclick="startParticipantQuiz()" class="btn-menu btn-amber" style="justify-content: center;">MULA JAWAB KUIZ</button>
+            <button onclick="startParticipantQuiz()" class="btn-menu btn-amber" style="justify-content: center; font-size: 0.85rem;">MULA JAWAB KUIZ</button>
         </div>
 
         <!-- 5. PAPARAN SOALAN KUIZ PESERTA -->
         <div id="view-quiz" class="glass-card hidden">
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e5e7eb; padding-bottom: 8px;" class="mb-4">
-                <span id="quiz-team-badge" style="background-color: #dbeafe; color: #1e40af; font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 20px;"></span>
-                <span id="quiz-cp-badge" style="background-color: #fef3c7; color: #78350f; font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 20px;"></span>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e5e7eb; padding-bottom: 6px;" class="mb-3">
+                <span id="quiz-team-badge" style="background-color: #dbeafe; color: #1e40af; font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 12px;"></span>
+                <span id="quiz-cp-badge" style="background-color: #fef3c7; color: #78350f; font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 12px;"></span>
             </div>
 
-            <div id="question-number" style="font-size: 0.75rem; font-weight: 700; color: #9ca3af;" class="mb-4">Soalan 1 / 2</div>
-            <h3 id="question-text" style="font-size: 0.95rem; font-weight: 700; line-height: 1.5; color: #111827;" class="mb-4"></h3>
+            <div id="question-number" style="font-size: 0.7rem; font-weight: 700; color: #9ca3af;" class="mb-2">Soalan 1 / 2</div>
+            <h3 id="question-text" style="font-size: 0.85rem; font-weight: 700; line-height: 1.4; color: #111827;" class="mb-3"></h3>
 
-            <div id="options-container" class="mb-4"></div>
+            <div id="options-container" class="mb-3"></div>
 
-            <div style="display: flex; justify-content: space-between; margin-top: 16px;">
-                <button id="btn-prev" onclick="prevQuestion()" class="btn-gray hidden">Sebelum</button>
-                <button id="btn-next" onclick="nextQuestion()" class="btn-gray" style="background-color: #2563eb; color: #ffffff; margin-left: auto;" disabled>Seterusnya</button>
+            <div style="display: flex; justify-content: space-between; margin-top: 12px;">
+                <button id="btn-prev" onclick="prevQuestion()" class="btn-gray hidden" style="width: auto; margin-bottom:0;">Sebelum</button>
+                <button id="btn-next" onclick="nextQuestion()" class="btn-gray" style="background-color: #2563eb; color: #ffffff; width: auto; margin-left: auto; margin-bottom:0;" disabled>Seterusnya</button>
             </div>
         </div>
 
         <!-- 6. PAPARAN TAHNIAH / SELESAI -->
         <div id="view-completion" class="glass-card text-center hidden">
-            <h2 id="completion-title" style="font-size: 1.5rem; font-weight: 900; color: #111827;">TAHNIAH!</h2>
-            <p id="completion-msg" style="font-size: 0.8rem; color: #4b5563; margin: 8px 0;"></p>
-            <div style="background-color: #fffbeb; border: 1px solid #fde68a; padding: 16px; border-radius: 16px; max-width: 250px; margin: 16px auto;">
-                <div style="font-size: 0.75rem; font-weight: 800; color: #92400e;">MARKAH DIPEROLEHI</div>
-                <div id="cp-score-display" style="font-size: 2rem; font-weight: 900; color: #d97706; margin: 4px 0;">0 / 20</div>
+            <h2 id="completion-title" style="font-size: 1.3rem; font-weight: 900; color: #111827;">TAHNIAH!</h2>
+            <p id="completion-msg" style="font-size: 0.75rem; color: #4b5563; margin: 6px 0;"></p>
+            <div style="background-color: #fffbeb; border: 1px solid #fde68a; padding: 12px; border-radius: 12px; max-width: 220px; margin: 12px auto;">
+                <div style="font-size: 0.7rem; font-weight: 800; color: #92400e;">MARKAH DIPEROLEHI</div>
+                <div id="cp-score-display" style="font-size: 1.8rem; font-weight: 900; color: #d97706; margin: 2px 0;">0 / 20</div>
             </div>
-            <p id="completion-subtext" style="font-size: 0.75rem; color: #9ca3af;">Markah telah dikemas kini ke Carta Markah Utama.</p>
+            <p id="completion-subtext" style="font-size: 0.7rem; color: #9ca3af;">Markah telah dikemas kini ke Carta Markah Utama.</p>
         </div>
 
         <!-- 7. PAPARAN CARTA MARKAH (LIVE UPDATE) -->
         <div id="view-leaderboard" class="glass-card hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-4">
-                <h2 style="font-size: 1rem; font-weight: 800;">Carta Markah & Masa Ketibaan</h2>
-                <button onclick="showView('view-home')" class="btn-gray">Halaman Utama</button>
+            <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-3">
+                <h2 style="font-size: 0.85rem; font-weight: 800;">Carta Markah & Masa</h2>
+                <button onclick="showView('view-home')" class="btn-gray" style="width: auto; margin-bottom: 0;">Halaman Utama</button>
             </div>
 
             <div class="table-responsive">
@@ -407,7 +422,7 @@
          2. VANILLA JAVASCRIPT LOGIC
          ------------------------------------------------------------- -->
     <script>
-        // --- BANK SOALAN (15 SOALAN SUKAR) ---
+        // --- BANK SOALAN ---
         const masterQuestions = [
             { id: 1, q: "Puan Melati Madu tidak hadir bertugas selama tiga (3) hari tanpa kebenaran dan tanpa sebab munasabah. Apakah interpretasi tatatertib yang tepat?\nI. Tidak hadir tanpa cuti\nII. Boleh dikenakan tindakan tatatertib\nIII. Secara automatik dibuang kerja\nIV. Dimaafkan jika pegawai memaklumkan selepas itu", options: ["I dan II sahaja", "I dan IV sahaja", "I, II dan III sahaja", "I sahaja"], correct: 0 },
             { id: 2, q: "Encik Donald Duck aktif menggunakan media sosial dan sentiasa up to date dengan berita terkini. Beliau selalu 'Like' dan 'Share' hantaran kempen politik seorang calon di Facebook. Apakah tafsiran integriti bagi situasi ini?\nI. Boleh dianggap sebagai penglibatan dalam politik\nII. Melanggar ketetapan neutraliti penjawat awam\nIII. Dibenarkan jika tidak menulis komen\nIV. Boleh dikenakan tindakan tatatertib", options: ["I dan IV sahaja", "II dan III sahaja", "I, II dan IV sahaja", "Semua di atas"], correct: 2 },
@@ -416,7 +431,7 @@
             { id: 5, q: "Berikut adalah hukuman tatatertib yang boleh dikenakan kepada pegawai yang didapati melanggar tatakelakuan:\nI. Lucut Hak Emolumen\nII. Denda\nIII. Tangguh pergerakan gaji\nIV. Pertukaran\nV. Teguran\nVI. Amaran", options: ["I, II dan III sahaja", "I, II, III dan IV sahaja", "I, II, III dan V sahaja", "I, II, III dan VI sahaja"], correct: 3 },
             { id: 6, q: "Suapan rasuah hanya berbentuk wang tunai sahaja.", options: ["Betul", "Salah"], correct: 1 },
             { id: 7, q: "Sarip Dol mempunyai masalah hutang yang banyak dan telah menjadi pemakan gaji tidak solven tetapi tidak melaporkan masalah itu kepada Ketua Jabatannya kerana ia adalah masalah peribadi. Adakah tindakan Encik Sarip Dol betul atau salah?", options: ["Betul", "Salah"], correct: 1 },
-            { id: 8, q: "Seseorang pegawai hanya mengisytiharkan harta miliknya tetapi tidak mengisytiharkan harta yang dimiliki oleh pasangan dan anak-anak beliau. Adakah tindakan ini betul atau salah?", options: ["Betul", "Salah"], correct: 1 },
+            { id: 8, q: "Seseorang pegawai hanya mengisytiharkan harta miliknya tetapi tidak mengisytiharkan harta yang dimiliki oleh pasangan dan anak-anak beliau. Adakah tindakan Encik Sarip Dol betul atau salah?", options: ["Betul", "Salah"], correct: 1 },
             { id: 9, q: "Secara umumnya kegagalan melaporkan pemberian, janji, penawaran rasuah di bawah Seksyen 25(1) dan (2) boleh dikenakan denda tidak melebihi RM100,000.00 atau penjara tidak melebihi 10 tahun atau kedua-duanya sekali.", options: ["Betul", "Salah"], correct: 0 },
             { id: 10, q: "Peraturan 3A, P.U (A) 395/1993 mewajibkan pegawai untuk mematuhi peraturan berkaitan tatakelakuan. Pelanggaran mana-mana peruntukan boleh menyebabkan pegawai dikenakan tindakan tatatertib.", options: ["Betul", "Salah"], correct: 0 },
             { id: 11, q: "Encik Jebat ingin memohon pertukaran ke negeri kelahirannya atas alasan menjaga ibu bapa yang sakit. Namun, permohonannya belum diluluskan. Beliau kemudian meminta bantuan sahabat lamanya yang merupakan Ahli Parlimen kawasan untuk mengeluarkan surat sokongan bagi 'mempercepatkan proses'. Tindakan Encik Jebat dari sudut integriti adalah:", options: ["Tidak salah kerana hal keluarga mendesak", "Tidak salah kerana tidak melibatkan wang", "Salah kerana membawa pengaruh luar untuk menyokong permohonan", "Dibenarkan"], correct: 2 },
@@ -435,14 +450,21 @@
         let pendingTeamId = null;
         let pendingTimeStr = "";
 
-        // Fungsi Tunjuk/Sembunyi Paparan
+        // Navigation
         function showView(viewId) {
             const views = ['view-home', 'view-admin-qr', 'view-finish-recorder', 'view-participant-start', 'view-quiz', 'view-completion', 'view-leaderboard'];
             views.forEach(v => document.getElementById(v).classList.add('hidden'));
             document.getElementById(viewId).classList.remove('hidden');
         }
 
-        // Penjana Pilihan Kumpulan & Grid
+        function showAdminQRView() {
+            document.getElementById('admin-cp-select').value = "";
+            document.getElementById('qr-box-container').classList.add('hidden');
+            document.getElementById('qr-instruction-text').innerText = "Pilih checkpoint di atas untuk memaparkan Kod QR.";
+            showView('view-admin-qr');
+        }
+
+        // Populate Options & Grid
         const selectTeam = document.getElementById('select-team');
         const finishTeamsGrid = document.getElementById('finish-teams-grid');
 
@@ -454,11 +476,12 @@
 
             const btn = document.createElement('button');
             btn.className = "btn-team-grid";
-            btn.innerHTML = `<span style="font-size:0.65rem;">KMP</span><span style="font-size:1.1rem; font-weight:900;">${i}</span>`;
+            btn.innerHTML = `<span style="font-size:0.55rem;">KMP</span><span style="font-size:0.95rem; font-weight:900;">${i}</span>`;
             btn.onclick = () => openConfirmModal(i);
             finishTeamsGrid.appendChild(btn);
         }
 
+        // AUTO-DETECT SCAN QR PARAMETER (LANGSUNG KE PILIHAN KUMPULAN)
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const cpParam = urlParams.get('cp');
@@ -469,18 +492,29 @@
             }
         };
 
-        // --- PENJANA QR (VANILLA IMAGE API) ---
+        // --- PENJANA QR (PENAMBAHABIKAN PAUTAN) ---
         function generateAdminQR() {
             const cp = document.getElementById('admin-cp-select').value;
-            const baseUrl = window.location.href.split('?')[0];
-            const qrUrl = `${baseUrl}?cp=${cp}`;
+            const qrBox = document.getElementById('qr-box-container');
+            const qrInstruction = document.getElementById('qr-instruction-text');
+
+            if (!cp) {
+                qrBox.classList.add('hidden');
+                qrInstruction.innerText = "Pilih checkpoint di atas untuk memaparkan Kod QR.";
+                return;
+            }
+
+            // Memastikan pautan mengandungi pathname asal dan parameter ?cp=X
+            const targetUrl = `${window.location.origin}${window.location.pathname}?cp=${cp}`;
             
-            // Menggunakan API QR Percuma tanpa perlukan library tambahan
             const qrImg = document.getElementById('qr-img-element');
-            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(qrUrl)}`;
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(targetUrl)}`;
+            
+            qrBox.classList.remove('hidden');
+            qrInstruction.innerText = `Peserta imbas Kod QR ini untuk Checkpoint ${cp}.`;
         }
 
-        // --- MASA KETIBAAN (PASSWORD: 2022) ---
+        // Masa Ketibaan
         function accessFinishRecorder() {
             const pass = prompt("Sila masukkan kata laluan Urus Setia untuk Masa Ketibaan:");
             if (pass === "2022") {
@@ -518,7 +552,6 @@
         function commitFinishTime() {
             if(!pendingTeamId) return;
 
-            // Simpan masa ke LocalStorage
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             if(!appData[`Team_${pendingTeamId}`]) appData[`Team_${pendingTeamId}`] = {};
             appData[`Team_${pendingTeamId}`].finishTime = pendingTimeStr;
@@ -535,7 +568,7 @@
             }, 2000);
         }
 
-        // --- LOGIK KUIZ PESERTA ---
+        // Logik Kuiz
         function getQuestionsForTeamAndCP(teamId, cpNum) {
             const t = parseInt(teamId) || 1;
             const c = parseInt(cpNum) || 1;
@@ -550,7 +583,6 @@
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             const teamData = appData[`Team_${currentTeam}`] || {};
 
-            // Semak jika sudah dijawab
             if (teamData[`CP${currentCP}`] !== undefined) {
                 showAlreadyCompletedScreen(teamData[`CP${currentCP}`]);
                 return;
@@ -569,7 +601,7 @@
 
         function showAlreadyCompletedScreen(score) {
             document.getElementById('completion-title').innerText = "CHECKPOINT SELESAI!";
-            document.getElementById('completion-msg').innerText = `Kumpulan ${currentTeam} telah pun menghantar jawapan untuk Checkpoint ${currentCP} sebelum ini. Jawapan tidak boleh diubah lagi.`;
+            document.getElementById('completion-msg').innerText = `Kumpulan ${currentTeam} telah menghantar jawapan untuk Checkpoint ${currentCP}. Jawapan terkunci.`;
             document.getElementById('cp-score-display').innerText = `${score} / 20`;
             showView('view-completion');
         }
@@ -610,20 +642,19 @@
                 if (ans === currentActiveQuestions[idx].correct) cpScore += 10;
             });
 
-            // Simpan Markah ke LocalStorage
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             if(!appData[`Team_${currentTeam}`]) appData[`Team_${currentTeam}`] = {};
             appData[`Team_${currentTeam}`][`CP${currentCP}`] = cpScore;
             localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
 
             document.getElementById('completion-title').innerText = "TAHNIAH!";
-            document.getElementById('completion-msg').innerText = `Kumpulan ${currentTeam} telah berjaya menghantar jawapan di Checkpoint ${currentCP}!`;
+            document.getElementById('completion-msg').innerText = `Kumpulan ${currentTeam} telah berjaya menjawab Checkpoint ${currentCP}!`;
             document.getElementById('cp-score-display').innerText = `${cpScore} / 20`;
 
             showView('view-completion');
         }
 
-        // --- CARTA MARKAH (LIVE UPDATE VIA LOCALSTORAGE) ---
+        // Leaderboard
         function showLeaderboard() {
             showView('view-leaderboard');
 
@@ -665,28 +696,28 @@
                     <td class="bg-total">${t.total}</td>
                     <td class="bg-time">${t.finishTime}</td>
                     <td>
-                        <button onclick="editTeamData(${t.id})" class="btn-gray" style="font-size:0.65rem;">Ubah</button>
+                        <button onclick="editTeamData(${t.id})" class="btn-gray" style="font-size:0.6rem; padding: 4px 8px; margin-bottom:0;">Ubah</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        // --- UBAH / PEMBETULAN ADMIN (PASSWORD: 2022) ---
+        // Edit Admin
         function editTeamData(teamId) {
-            const pass = prompt(`Masukkan kata laluan untuk pembetulan data Kumpulan ${teamId}:`);
+            const pass = prompt(`Masukkan kata laluan untuk pembetulan Kumpulan ${teamId}:`);
             if (pass !== "2022") {
                 alert("Kata laluan salah!");
                 return;
             }
 
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
-            const choice = prompt(`Pilihan Tindakan KUMPULAN ${teamId}:\n1. Kemaskini Markah Checkpoint\n2. Kemaskini/Padam Masa Ketibaan\n3. Buka Semula Kunci Kuiz (Allow Retake)\n4. Padam Keseluruhan Data Kumpulan Ini\n\nTaip nombor (1, 2, 3 atau 4):`);
+            const choice = prompt(`Pilihan KUMPULAN ${teamId}:\n1. Kemaskini Markah Checkpoint\n2. Kemaskini/Padam Masa Ketibaan\n3. Buka Semula Kunci Kuiz (Allow Retake)\n4. Padam Data Kumpulan\n\nTaip nombor (1-4):`);
 
             if (choice === "1") {
-                const cpNum = prompt("Masukkan nombor Checkpoint (1-6):");
+                const cpNum = prompt("Nombor Checkpoint (1-6):");
                 if (cpNum >= 1 && cpNum <= 6) {
-                    const newScore = prompt(`Masukkan markah baharu CP${cpNum} (0, 10, atau 20):`);
+                    const newScore = prompt(`Markah baharu CP${cpNum} (0, 10, 20):`);
                     if (newScore !== null && !isNaN(newScore)) {
                         if(!appData[`Team_${teamId}`]) appData[`Team_${teamId}`] = {};
                         appData[`Team_${teamId}`][`CP${cpNum}`] = parseInt(newScore);
@@ -696,7 +727,7 @@
                     }
                 }
             } else if (choice === "2") {
-                const newTime = prompt(`Masukkan masa ketibaan (contoh: 10:30:15 AM) ATAU biarkan kosong untuk MEMADAM:`);
+                const newTime = prompt(`Masukkan masa ketibaan (contoh: 10:30:15 AM) ATAU biarkan kosong untuk padam:`);
                 if(!appData[`Team_${teamId}`]) appData[`Team_${teamId}`] = {};
                 if (newTime === "") delete appData[`Team_${teamId}`].finishTime;
                 else if (newTime !== null) appData[`Team_${teamId}`].finishTime = newTime;
@@ -704,22 +735,22 @@
                 alert("Masa ketibaan dikemaskini!");
                 showLeaderboard();
             } else if (choice === "3") {
-                const cpNum = prompt("Masukkan nombor Checkpoint yang mahu dibuka semula kuncinya (1-6):");
+                const cpNum = prompt("Nombor Checkpoint untuk buka kunci (1-6):");
                 if (cpNum >= 1 && cpNum <= 6 && appData[`Team_${teamId}`]) {
                     delete appData[`Team_${teamId}`][`CP${cpNum}`];
                     localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
-                    alert(`Kunci Checkpoint ${cpNum} dibuka semula.`);
+                    alert(`Kunci CP${cpNum} dibuka.`);
                     showLeaderboard();
                 }
             } else if (choice === "4") {
                 if (confirm(`Padam KESELURUHAN data Kumpulan ${teamId}?`)) {
                     delete appData[`Team_${teamId}`];
                     localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
-                    alert("Data kumpulan dipadam.");
+                    alert("Data dipadam.");
                     showLeaderboard();
                 }
             }
         }
     </script>
 </body>
-</html># Kuiz-Integrity-Walk
+</html>
