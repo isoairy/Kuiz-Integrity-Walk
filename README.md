@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Integrity Walk JPN Pahang 2026</title>
 
+    <!-- Firebase SDK (Modular Cloud Database) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
     <style>
         /* -------------------------------------------------------------
            1. MODERN MOBILE-FIRST ATHLETIC THEME (CSS)
@@ -25,6 +29,7 @@
             --sports-orange: #f97316;
             --sports-amber: #f59e0b;
             --sports-green: #10b981;
+            --sports-red: #ef4444;
             --bg-gradient: linear-gradient(160deg, #0f172a 0%, #1e293b 50%, #0369a1 100%);
             --glass-bg: rgba(255, 255, 255, 0.96);
             --card-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
@@ -44,7 +49,6 @@
             padding-bottom: 24px;
         }
 
-        /* Glass Cards */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
@@ -58,7 +62,6 @@
             overflow: hidden;
         }
 
-        /* Header */
         header {
             text-align: center;
             padding: 18px 14px;
@@ -90,9 +93,7 @@
             letter-spacing: -0.5px;
         }
 
-        header h1 span {
-            color: var(--sports-orange);
-        }
+        header h1 span { color: var(--sports-orange); }
 
         .event-stats-bar {
             display: flex;
@@ -109,7 +110,6 @@
 
         .stat-item { display: flex; align-items: center; gap: 4px; }
 
-        /* Action Buttons Mobile Optimized */
         .btn-action {
             width: 100%;
             min-height: 54px;
@@ -128,10 +128,7 @@
             transition: transform 0.1s ease, box-shadow 0.1s ease;
         }
 
-        .btn-action:active {
-            transform: scale(0.97);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
+        .btn-action:active { transform: scale(0.97); }
 
         .btn-primary { background: linear-gradient(135deg, #0284c7, #2563eb); }
         .btn-warning { background: linear-gradient(135deg, #ea580c, #f59e0b); }
@@ -154,16 +151,11 @@
             gap: 6px;
         }
 
-        .btn-secondary:active { background: #e2e8f0; }
-
-        /* Helpers */
         .hidden { display: none !important; }
         .text-center { text-align: center; }
         .mb-2 { margin-bottom: 8px; }
         .mb-3 { margin-bottom: 12px; }
-        .mb-4 { margin-bottom: 16px; }
 
-        /* Select Mobile Custom */
         select {
             width: 100%;
             min-height: 50px;
@@ -177,12 +169,8 @@
             text-align: center;
             margin-bottom: 14px;
             outline: none;
-            appearance: none;
-            -webkit-appearance: none;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        /* Checkpoint Selection Grid (Penjana QR) */
         .cp-select-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -202,31 +190,8 @@
             gap: 6px;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: all 0.15s ease;
         }
 
-        .btn-cp-card:active {
-            transform: scale(0.96);
-            border-color: var(--sports-orange);
-            background: #fff7ed;
-        }
-
-        .btn-cp-card .cp-num {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-        }
-
-        .btn-cp-card .cp-tag {
-            font-size: 0.65rem;
-            font-weight: 800;
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 3px 8px;
-            border-radius: 10px;
-        }
-
-        /* Grid Masa Ketibaan */
         .grid-teams {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -251,17 +216,10 @@
             min-height: 52px;
         }
 
-        .btn-team-square:active {
-            background: #f59e0b;
-            color: #ffffff;
-            transform: scale(0.92);
-        }
-
-        /* Modal Overlay (Universal) */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.82);
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
@@ -274,7 +232,7 @@
             background: #ffffff;
             border-radius: 24px;
             padding: 24px;
-            max-width: 340px;
+            max-width: 360px;
             width: 100%;
             text-align: center;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
@@ -297,11 +255,7 @@
             border: 1px solid #bfdbfe;
         }
 
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-        }
-
+        .modal-actions { display: flex; gap: 10px; }
         .modal-actions button {
             flex: 1;
             padding: 14px;
@@ -312,7 +266,6 @@
             cursor: pointer;
         }
 
-        /* Quiz Buttons (Touch Friendly) */
         .quiz-option-btn {
             width: 100%;
             min-height: 52px;
@@ -327,12 +280,6 @@
             cursor: pointer;
             line-height: 1.4;
             color: #334155;
-            transition: all 0.15s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .quiz-option-btn:active {
-            transform: scale(0.98);
         }
 
         .quiz-option-btn.selected {
@@ -340,17 +287,47 @@
             border-color: #2563eb;
             color: #1e40af;
             font-weight: 700;
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
         }
 
-        /* Leaderboard Mobile Cards */
+        /* Modal Penerangan Jawapan */
+        .feedback-badge {
+            font-size: 3rem;
+            margin-bottom: 6px;
+        }
+        .feedback-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .feedback-correct-ans {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        .feedback-explanation {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            color: #334155;
+            text-align: left;
+            line-height: 1.45;
+            margin-bottom: 16px;
+        }
+
         .leaderboard-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
             max-height: 420px;
             overflow-y: auto;
-            padding-right: 2px;
         }
 
         .team-card {
@@ -361,21 +338,10 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
-        .team-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .team-title {
-            font-weight: 800;
-            color: #0f172a;
-            font-size: 0.9rem;
-        }
-
+        .team-card-header { display: flex; justify-content: space-between; align-items: center; }
+        .team-title { font-weight: 800; color: #0f172a; font-size: 0.9rem; }
         .team-score-badge {
             background: #fffbeb;
             color: #d97706;
@@ -396,158 +362,32 @@
             text-align: center;
             font-size: 0.68rem;
             font-weight: 700;
-            border: 1px solid #f1f5f9;
         }
 
-        .cp-item {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
+        .cp-item { display: flex; flex-direction: column; gap: 2px; }
+        .cp-label { color: #94a3b8; font-size: 0.58rem; }
+        .team-card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #64748b; }
+        .finish-time-text { color: #059669; font-weight: 800; }
+        .btn-edit-small { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 10px; font-weight: 700; font-size: 0.7rem; }
+        .flash-screen { background: #ecfdf5; border: 2px solid #10b981; color: #065f46; padding: 14px; border-radius: 16px; font-weight: 700; margin-bottom: 12px; }
 
-        .cp-label {
-            color: #94a3b8;
-            font-size: 0.58rem;
-        }
+        .quiz-progress { height: 6px; width: 100%; background: #e2e8f0; border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+        .quiz-progress-bar { height: 100%; background: var(--sports-orange); width: 50%; transition: width 0.2s ease; }
 
-        .team-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-            color: #64748b;
-        }
-
-        .finish-time-text {
-            color: #059669;
-            font-weight: 800;
-        }
-
-        .btn-edit-small {
-            background: #f1f5f9;
-            color: #334155;
-            border: 1px solid #cbd5e1;
-            padding: 6px 12px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.7rem;
-            cursor: pointer;
-        }
-
-        .flash-screen {
-            background: #ecfdf5;
-            border: 2px solid #10b981;
-            color: #065f46;
-            padding: 14px;
-            border-radius: 16px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        /* Progress Bar Checkpoint Kuiz */
-        .quiz-progress {
-            height: 6px;
-            width: 100%;
-            background: #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 14px;
-        }
-        .quiz-progress-bar {
-            height: 100%;
-            background: var(--sports-orange);
-            width: 50%;
-            transition: width 0.2s ease;
-        }
-
-        /* -------------------------------------------------------------
-           2. FORMAT PRINT / PDF LAPORAN RASMI (CSS)
-           ------------------------------------------------------------- */
         @media print {
-            body {
-                background: #ffffff !important;
-                color: #000000 !important;
-                padding: 0 !important;
-            }
-
-            .container {
-                max-width: 100% !important;
-                padding: 0 !important;
-            }
-
-            header, 
-            #view-home, 
-            #view-admin-qr, 
-            #view-finish-recorder, 
-            #view-participant-start, 
-            #view-quiz, 
-            #view-completion,
-            .btn-secondary,
-            .btn-edit-small,
-            .no-print {
-                display: none !important;
-            }
-
-            #view-leaderboard {
-                display: block !important;
-                background: none !important;
-                box-shadow: none !important;
-                border: none !important;
-                padding: 0 !important;
-            }
-
-            .print-header {
-                display: block !important;
-                text-align: center;
-                border-bottom: 2px solid #000000;
-                padding-bottom: 12px;
-                margin-bottom: 20px;
-            }
-
-            .print-header h1 {
-                font-size: 1.5rem;
-                color: #000000;
-                text-transform: uppercase;
-            }
-
-            .leaderboard-list {
-                max-height: none !important;
-                overflow: visible !important;
-                display: grid !important;
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 10px !important;
-            }
-
-            .team-card {
-                border: 1px solid #000000 !important;
-                box-shadow: none !important;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-
-            .print-footer {
-                display: flex !important;
-                justify-content: space-between;
-                margin-top: 40px;
-                padding-top: 20px;
-                page-break-inside: avoid;
-            }
-
-            .sig-box {
-                text-align: center;
-                width: 200px;
-            }
-
-            .sig-line {
-                border-bottom: 1px solid #000000;
-                margin-top: 50px;
-                margin-bottom: 5px;
-            }
+            body { background: #ffffff !important; color: #000000 !important; padding: 0 !important; }
+            .container { max-width: 100% !important; padding: 0 !important; }
+            header, #view-home, #view-admin-qr, #view-finish-recorder, #view-participant-start, #view-quiz, #view-completion, .btn-secondary, .btn-edit-small, .no-print { display: none !important; }
+            #view-leaderboard { display: block !important; background: none !important; box-shadow: none !important; border: none !important; padding: 0 !important; }
+            .print-header { display: block !important; text-align: center; border-bottom: 2px solid #000000; padding-bottom: 12px; margin-bottom: 20px; }
+            .leaderboard-list { max-height: none !important; overflow: visible !important; display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+            .team-card { border: 1px solid #000000 !important; box-shadow: none !important; break-inside: avoid; }
+            .print-footer { display: flex !important; justify-content: space-between; margin-top: 40px; padding-top: 20px; break-inside: avoid; }
+            .sig-box { text-align: center; width: 200px; }
+            .sig-line { border-bottom: 1px solid #000000; margin-top: 50px; margin-bottom: 5px; }
         }
 
-        .print-header, .print-footer {
-            display: none;
-        }
+        .print-header, .print-footer { display: none; }
     </style>
 </head>
 <body>
@@ -585,38 +425,19 @@
             </button>
         </div>
 
-        <!-- 2. PAPARAN CHECKPOINT QR (URUS SETIA - GRID BUTTONS) -->
+        <!-- 2. PAPARAN CHECKPOINT QR (URUS SETIA) -->
         <div id="view-admin-qr" class="glass-card text-center hidden">
             <button onclick="showView('view-home')" class="btn-secondary">← Kembali ke Halaman Utama</button>
             <h2 style="font-size: 1rem; font-weight: 800;" class="mb-1">Penjana Kod QR Checkpoint</h2>
             <p style="font-size: 0.72rem; color: #64748b;" class="mb-3">Tekan butang checkpoint di bawah untuk memaparkan Kod QR:</p>
 
-            <!-- Grid Butang Checkpoint -->
             <div class="cp-select-grid">
-                <div class="btn-cp-card" onclick="openQRModal(1)">
-                    <span class="cp-num">Checkpoint 1</span>
-                    <span class="cp-tag">0.5 KM</span>
-                </div>
-                <div class="btn-cp-card" onclick="openQRModal(2)">
-                    <span class="cp-num">Checkpoint 2</span>
-                    <span class="cp-tag">1.0 KM</span>
-                </div>
-                <div class="btn-cp-card" onclick="openQRModal(3)">
-                    <span class="cp-num">Checkpoint 3</span>
-                    <span class="cp-tag">1.5 KM</span>
-                </div>
-                <div class="btn-cp-card" onclick="openQRModal(4)">
-                    <span class="cp-num">Checkpoint 4</span>
-                    <span class="cp-tag">2.0 KM</span>
-                </div>
-                <div class="btn-cp-card" onclick="openQRModal(5)">
-                    <span class="cp-num">Checkpoint 5</span>
-                    <span class="cp-tag">2.5 KM</span>
-                </div>
-                <div class="btn-cp-card" onclick="openQRModal(6)">
-                    <span class="cp-num">Checkpoint 6</span>
-                    <span class="cp-tag">3.0 KM (Penamat)</span>
-                </div>
+                <div class="btn-cp-card" onclick="openQRModal(1)"><span style="font-size:1.1rem; font-weight:800;">Checkpoint 1</span><span style="font-size:0.65rem; background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:10px; font-weight:800;">0.5 KM</span></div>
+                <div class="btn-cp-card" onclick="openQRModal(2)"><span style="font-size:1.1rem; font-weight:800;">Checkpoint 2</span><span style="font-size:0.65rem; background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:10px; font-weight:800;">1.0 KM</span></div>
+                <div class="btn-cp-card" onclick="openQRModal(3)"><span style="font-size:1.1rem; font-weight:800;">Checkpoint 3</span><span style="font-size:0.65rem; background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:10px; font-weight:800;">1.5 KM</span></div>
+                <div class="btn-cp-card" onclick="openQRModal(4)"><span style="font-size:1.1rem; font-weight:800;">Checkpoint 4</span><span style="font-size:0.65rem; background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:10px; font-weight:800;">2.0 KM</span></div>
+                <div class="btn-cp-card" onclick="openQRModal(5)"><span style="font-size:1.1rem; font-weight:800;">Checkpoint 5</span><span style="font-size:0.65rem; background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:10px; font-weight:800;">2.5 KM</span></div>
+                <div class="btn-cp-card" onclick="openQRModal(6)"><span style="font-size:1.1rem; font-weight:800;">Checkpoint 6</span><span style="font-size:0.65rem; background:#e0f2fe; color:#0369a1; padding:3px 8px; border-radius:10px; font-weight:800;">3.0 KM (Penamat)</span></div>
             </div>
         </div>
 
@@ -642,14 +463,12 @@
             <h2 style="font-size: 1rem; font-weight: 800;" class="mb-1">Rekod Masa Penamat</h2>
             <p style="font-size: 0.72rem; color: #64748b;" class="mb-3">Tekan nombor kumpulan yang baru tiba di Garisan Penamat:</p>
 
-            <!-- Flash Screen -->
             <div id="finish-flash-screen" class="flash-screen hidden">
                 <div id="flash-team-name" style="font-size: 0.8rem;">KUMPULAN X</div>
                 <div id="flash-time-val" style="font-size: 1.35rem; font-weight: 800; margin: 2px 0;">00:00:00 AM</div>
                 <div style="font-size: 0.7rem;">✔ Masa Ketibaan Berjaya Direkodkan!</div>
             </div>
 
-            <!-- Modal Pengesahan Masa Ketibaan -->
             <div id="confirm-modal" class="modal-overlay hidden">
                 <div class="modal-box">
                     <h3 id="modal-team-title" style="font-weight: 800; font-size: 1rem; color: #0f172a;">KUMPULAN XX</h3>
@@ -663,7 +482,6 @@
                 </div>
             </div>
 
-            <!-- Grid Kumpulan 1-25 Mobile -->
             <div id="finish-teams-grid" class="grid-teams"></div>
         </div>
 
@@ -697,7 +515,28 @@
 
             <div style="display: flex; justify-content: space-between; margin-top: 10px; gap: 8px;">
                 <button id="btn-prev" onclick="prevQuestion()" class="btn-secondary hidden" style="width: auto; margin-bottom:0;">← Sebelum</button>
-                <button id="btn-next" onclick="nextQuestion()" class="btn-secondary" style="background: #0284c7; color: #ffffff; width: auto; margin-left: auto; margin-bottom:0; border:none;" disabled>Seterusnya ➔</button>
+                <button id="btn-next" onclick="nextQuestion()" class="btn-secondary" style="background: #0284c7; color: #ffffff; width: auto; margin-left: auto; margin-bottom:0; border:none;" disabled>Semak Jawapan ➔</button>
+            </div>
+        </div>
+
+        <!-- MODAL POPUP PENERANGAN JAWAPAN & ILMU -->
+        <div id="explanation-modal" class="modal-overlay hidden">
+            <div class="modal-box">
+                <div id="feedback-badge" class="feedback-badge">✅</div>
+                <h3 id="feedback-title" class="feedback-title" style="color: #10b981;">TAHNIAH, TEPAT sekali!</h3>
+                
+                <div id="feedback-correct-ans" class="feedback-correct-ans">
+                    <strong>Jawapan Betul:</strong> A. I dan II sahaja
+                </div>
+
+                <div class="feedback-explanation">
+                    <strong>💡 Penerangan Ilmu Integriti:</strong><br>
+                    <span id="feedback-exp-text">Penjawat awam yang tidak hadir bertugas tanpa cuti atau kebenaran terlebih dahulu boleh dikenakan tindakan tatatertib mengikut Peraturan-Peraturan Pegawai Awam (Kelakuan dan Tatatertib) 1993.</span>
+                </div>
+
+                <div class="modal-actions">
+                    <button id="btn-continue-quiz" onclick="closeExplanationModal()" style="background: #0284c7; color: #ffffff;">TERUSKAN ➔</button>
+                </div>
             </div>
         </div>
 
@@ -712,9 +551,8 @@
             <p id="completion-subtext" style="font-size: 0.72rem; color: #64748b;">Teruskan perjalanan anda ke Checkpoint seterusnya!</p>
         </div>
 
-        <!-- 7. PAPARAN CARTA MARKAH (MOBILE CARDS & CETAKAN) -->
+        <!-- 7. PAPARAN CARTA MARKAH -->
         <div id="view-leaderboard" class="glass-card hidden">
-            <!-- HEADER KHAS UNTUK CETAKAN / PDF -->
             <div class="print-header">
                 <h1>Laporan Keputusan Rasmi</h1>
                 <h2>INTEGRITY WALK JPN PAHANG 2026</h2>
@@ -722,24 +560,16 @@
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-3 no-print">
-                <h2 style="font-size: 0.9rem; font-weight: 800; color: #0f172a;">Live Leaderboard</h2>
+                <h2 style="font-size: 0.9rem; font-weight: 800; color: #0f172a;">Live Leaderboard (Cloud Sync)</h2>
                 <div style="display: flex; gap: 6px;">
-                    <button onclick="printPDFReport()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #0284c7; color: #ffffff; border: none;">
-                        🖨️ PDF
-                    </button>
-                    <button onclick="exportToCSV()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #059669; color: #ffffff; border: none;">
-                        📥 CSV
-                    </button>
-                    <button onclick="showView('view-home')" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px;">
-                        Utama
-                    </button>
+                    <button onclick="printPDFReport()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #0284c7; color: #ffffff; border: none;">🖨️ PDF</button>
+                    <button onclick="exportToCSV()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #059669; color: #ffffff; border: none;">📥 CSV</button>
+                    <button onclick="showView('view-home')" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px;">Utama</button>
                 </div>
             </div>
 
-            <!-- Senarai Kad Kumpulan Terkini -->
             <div id="leaderboard-card-container" class="leaderboard-list"></div>
 
-            <!-- FOOTER KHAS PENGESAHAN TANDATANGAN (PRINT ONLY) -->
             <div class="print-footer">
                 <div class="sig-box">
                     <div class="sig-line"></div>
@@ -755,30 +585,48 @@
         </div>
     </div>
 
-    <!-- -------------------------------------------------------------
-         3. VANILLA JAVASCRIPT LOGIC
-         ------------------------------------------------------------- -->
+    <!-- LOGIK JAVASCRIPT & FIREBASE -->
     <script>
-        // --- BANK SOALAN ---
+        // --- KONFIGURASI FIREBASE REALTIME DATABASE ---
+        // MASUKKAN MAKLUMAT FIREBASE ANDA DI SINI
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "your-project.firebaseapp.com",
+            databaseURL: "https://your-project-default-rtdb.firebaseio.com",
+            projectId: "your-project",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
+
+        // Initialize Firebase (Jika belum ada akaun, sistem akan kekal guna LocalStorage sebagai fallback)
+        let db = null;
+        try {
+            if (firebaseConfig.databaseURL !== "https://your-project-default-rtdb.firebaseio.com") {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.database();
+            }
+        } catch(e) { console.log("Firebase tidak dikonfigurasikan lagi."); }
+
+        // --- BANK SOALAN + PENERANGAN ILMU INTEGRITI ---
         const masterQuestions = [
-            { id: 1, q: "Puan Melati Madu tidak hadir bertugas selama tiga (3) hari tanpa kebenaran dan tanpa sebab munasabah. Apakah interpretasi tatatertib yang tepat?\nI. Tidak hadir tanpa cuti\nII. Boleh dikenakan tindakan tatatertib\nIII. Secara automatik dibuang kerja\nIV. Dimaafkan jika pegawai memaklumkan selepas itu", options: ["I dan II sahaja", "I dan IV sahaja", "I, II dan III sahaja", "I sahaja"], correct: 0 },
-            { id: 2, q: "Encik Donald Duck aktif menggunakan media sosial dan sentiasa up to date dengan berita terkini. Beliau selalu 'Like' dan 'Share' hantaran kempen politik seorang calon di Facebook. Apakah tafsiran integriti bagi situasi ini?\nI. Boleh dianggap sebagai penglibatan dalam politik\nII. Melanggar ketetapan neutraliti penjawat awam\nIII. Dibenarkan jika tidak menulis komen\nIV. Boleh dikenakan tindakan tatatertib", options: ["I dan IV sahaja", "II dan III sahaja", "I, II dan IV sahaja", "Semua di atas"], correct: 2 },
-            { id: 3, q: "Puan Ranee Mukherjee hadir ke pejabat jam 8.55 pagi dan keluar minum jam 9.30 pagi untuk menikmati teh tarik buih dan Nasi Kambing Mengamuk. Beliau pulang semula jam 10.15 pagi dan menggantikan semula masa tersebut dengan bekerja lebih masa. Apakah tafsiran integriti bagi situasi ini?\nI. Pematuhan waktu bekerja bukan sekadar jumlah jam bekerja, tetapi keberadaan di tempat kerja\nII. Tidak menjadi kesalahan kerana beliau sangat lapar\nIII. Dibenarkan jika produktiviti tetap sama\nIV. Boleh dianggap melanggar peraturan waktu bekerja", options: ["I dan II sahaja", "I dan IV sahaja", "I, III dan IV sahaja", "I sahaja"], correct: 1 },
-            { id: 4, q: "Encik Mustar sering memuji penampilan Puan Seri Indah seperti berikut: 'Awak ni kalau senyum memang buat pejabat berseri..'\nPada awalnya Puan Seri Indah hanya tersenyum sopan tetapi mula rasa tidak selesa apabila pujian terlalu kerap dan bernada peribadi. Situasi ini boleh ditafsirkan sebagai:\nI. Pujian berulang boleh menyebabkan rasa tidak selesa dan dikategori gangguan seksual\nII. Niat bukan ukuran, tapi kesan kepada mangsa adalah utama\nIII. Tidak salah kerana sekadar memuji\nIV. Ayat digunakan tidak membawa maksud seksual", options: ["I dan II sahaja", "I, III dan IV sahaja", "I, II dan IV sahaja", "Semua di atas"], correct: 0 },
-            { id: 5, q: "Berikut adalah hukuman tatatertib yang boleh dikenakan kepada pegawai yang didapati melanggar tatakelakuan:\nI. Lucut Hak Emolumen\nII. Denda\nIII. Tangguh pergerakan gaji\nIV. Pertukaran\nV. Teguran\nVI. Amaran", options: ["I, II dan III sahaja", "I, II, III dan IV sahaja", "I, II, III dan V sahaja", "I, II, III dan VI sahaja"], correct: 3 },
-            { id: 6, q: "Suapan rasuah hanya berbentuk wang tunai sahaja.", options: ["Betul", "Salah"], correct: 1 },
-            { id: 7, q: "Sarip Dol mempunyai masalah hutang yang banyak dan telah menjadi pemakan gaji tidak solven tetapi tidak melaporkan masalah itu kepada Ketua Jabatannya kerana ia adalah masalah peribadi. Adakah tindakan Encik Sarip Dol betul atau salah?", options: ["Betul", "Salah"], correct: 1 },
-            { id: 8, q: "Seseorang pegawai hanya mengisytiharkan harta miliknya tetapi tidak mengisytiharkan harta yang dimiliki oleh pasangan dan anak-anak beliau. Adakah tindakan Encik Sarip Dol betul atau salah?", options: ["Betul", "Salah"], correct: 1 },
-            { id: 9, q: "Secara umumnya kegagalan melaporkan pemberian, janji, penawaran rasuah di bawah Seksyen 25(1) dan (2) boleh dikenakan denda tidak melebihi RM100,000.00 atau penjara tidak melebihi 10 tahun atau kedua-duanya sekali.", options: ["Betul", "Salah"], correct: 0 },
-            { id: 10, q: "Peraturan 3A, P.U (A) 395/1993 mewajibkan pegawai untuk mematuhi peraturan berkaitan tatakelakuan. Pelanggaran mana-mana peruntukan boleh menyebabkan pegawai dikenakan tindakan tatatertib.", options: ["Betul", "Salah"], correct: 0 },
-            { id: 11, q: "Encik Jebat ingin memohon pertukaran ke negeri kelahirannya atas alasan menjaga ibu bapa yang sakit. Namun, permohonannya belum diluluskan. Beliau kemudian meminta bantuan sahabat lamanya yang merupakan Ahli Parlimen kawasan untuk mengeluarkan surat sokongan bagi 'mempercepatkan proses'. Tindakan Encik Jebat dari sudut integriti adalah:", options: ["Tidak salah kerana hal keluarga mendesak", "Tidak salah kerana tidak melibatkan wang", "Salah kerana membawa pengaruh luar untuk menyokong permohonan", "Dibenarkan"], correct: 2 },
-            { id: 12, q: "Jika pegawai gagal mengemukakan Surat Tunjuk Sebab dalam tempoh yang ditetapkan, maka:", options: ["Kes dianggap selesai kerana tiada jawapan", "Pegawai dianggap tidak bersalah", "Prosiding boleh dimulakan terhadap pegawai", "Surat baharu perlu dikeluarkan"], correct: 2 },
-            { id: 13, q: "Hadir ke pejabat tetapi tidak melaksanakan tugas dengan sengaja atau malas boleh ditafsirkan sebagai:", options: ["Tidak berdisiplin", "Tidak pandai mengurus masa", "Kurang berusaha", "Kecuaian"], correct: 2 },
-            { id: 14, q: "Seseorang pegawai yang disabitkan dengan kesalahan rasuah boleh dikenakan tindakan berikut KECUALI:", options: ["Dikenakan tindakan tatatertib", "Dikenakan tindakan di bawah Akta SPRM", "Diberikan teguran atau amaran bertulis oleh Ketua Jabatan", "Ditukarkan jabatan"], correct: 2 },
-            { id: 15, q: "Pengisytiharan harta hendaklah dibuat dalam keadaan berikut KECUALI:", options: ["Sekali dalam tempoh lima (5) tahun", "Lantikan pertama", "Bila-bila masa yang dikehendaki oleh Kerajaan", "Setiap kali bertukar Jabatan atau tempat bertugas"], correct: 3 }
+            { id: 1, q: "Puan Melati Madu tidak hadir bertugas selama tiga (3) hari tanpa kebenaran dan tanpa sebab munasabah. Apakah interpretasi tatatertib yang tepat?\nI. Tidak hadir tanpa cuti\nII. Boleh dikenakan tindakan tatatertib\nIII. Secara automatik dibuang kerja\nIV. Dimaafkan jika pegawai memaklumkan selepas itu", options: ["I dan II sahaja", "I dan IV sahaja", "I, II dan III sahaja", "I sahaja"], correct: 0, exp: "Ketidakhadiran tanpa cuti/kebenaran ialah pelanggaran tatakelakuan di bawah Peraturan 24 P.U.(A) 395/1993. Ia tidak membawa hukuman buang kerja secara automatik tanpa prosiding." },
+            { id: 2, q: "Encik Donald Duck aktif menggunakan media sosial dan sentiasa up to date dengan berita terkini. Beliau selalu 'Like' dan 'Share' hantaran kempen politik seorang calon di Facebook. Apakah tafsiran integriti bagi situasi ini?\nI. Boleh dianggap sebagai penglibatan dalam politik\nII. Melanggar ketetapan neutraliti penjawat awam\nIII. Dibenarkan jika tidak menulis komen\nIV. Boleh dikenakan tindakan tatatertib", options: ["I dan IV sahaja", "II dan III sahaja", "I, II dan IV sahaja", "Semua di atas"], correct: 2, exp: "Penjawat awam terikat dengan Peraturan 21 P.U.(A) 395/1993 mengenai kewajipan mengekalkan sikap berkecuali (neutraliti) dan dilarang membuat sebarang tindakan yang menyokong parti politik." },
+            { id: 3, q: "Puan Ranee Mukherjee hadir ke pejabat jam 8.55 pagi dan keluar minum jam 9.30 pagi untuk menikmati teh tarik buih dan Nasi Kambing Mengamuk. Beliau pulang semula jam 10.15 pagi dan menggantikan semula masa tersebut dengan bekerja lebih masa. Apakah tafsiran integriti bagi situasi ini?\nI. Pematuhan waktu bekerja bukan sekadar jumlah jam bekerja, tetapi keberadaan di tempat kerja\nII. Tidak menjadi kesalahan kerana beliau sangat lapar\nIII. Dibenarkan jika produktiviti tetap sama\nIV. Boleh dianggap melanggar peraturan waktu bekerja", options: ["I dan II sahaja", "I dan IV sahaja", "I, III dan IV sahaja", "I sahaja"], correct: 1, exp: "Masa bekerja diatur mengikut Waktu Bekerja Pejabat. Keluar minum tanpa urusan rasmi semasa waktu pejabat dikira mengabaikan tugas dan melanggar Peraturan 4(2)(g)." },
+            { id: 4, q: "Encik Mustar sering memuji penampilan Puan Seri Indah seperti berikut: 'Awak ni kalau senyum memang buat pejabat berseri..'\nPada awalnya Puan Seri Indah hanya tersenyum sopan tetapi mula rasa tidak selesa apabila pujian terlalu kerap dan bernada peribadi. Situasi ini boleh ditafsirkan sebagai:\nI. Pujian berulang boleh menyebabkan rasa tidak selesa dan dikategori gangguan seksual\nII. Niat bukan ukuran, tapi kesan kepada mangsa adalah utama\nIII. Tidak salah kerana sekadar memuji\nIV. Ayat digunakan tidak membawa maksud seksual", options: ["I dan II sahaja", "I, III dan IV sahaja", "I, II dan IV sahaja", "Semua di atas"], correct: 0, exp: "Gangguan seksual lisan mengikut Peraturan 4A P.U.(A) 395/1993 merangkumi sebarang komen/pujian bernada peribadi secara berulang yang tidak diingini atau menimbulkan rasa kurang selesa." },
+            { id: 5, q: "Berikut adalah hukuman tatatertib yang boleh dikenakan kepada pegawai yang didapati melanggar tatakelakuan:\nI. Lucut Hak Emolumen\nII. Denda\nIII. Tangguh pergerakan gaji\nIV. Pertukaran\nV. Teguran\nVI. Amaran", options: ["I, II dan III sahaja", "I, II, III dan IV sahaja", "I, II, III dan V sahaja", "I, II, III dan VI sahaja"], correct: 3, exp: "Mengikut Peraturan 38, terdapat 7 jenis hukuman tatatertib sah: Amaran, Denda, Lucut Hak Emolumen, Tangguh Pergerakan Gaji, Turun Gaji, Turun Pangkat, dan Buang Kerja." },
+            { id: 6, q: "Suapan rasuah hanya berbentuk wang tunai sahaja.", options: ["Betul", "Salah"], correct: 1, exp: "Di bawah Seksyen 3 Akta SPRM 2009, suapan meliputi wang, hadiah, pinjaman, jawatan, perkhidmatan, diskaun, atau sebarang bentuk faedah berharga." },
+            { id: 7, q: "Sarip Dol mempunyai masalah hutang yang banyak dan telah menjadi pemakan gaji tidak solven tetapi tidak melaporkan masalah itu kepada Ketua Jabatannya kerana ia adalah masalah peribadi. Adakah tindakan Encik Sarip Dol betul atau salah?", options: ["Betul", "Salah"], correct: 1, exp: "Mengikut Peraturan 13 P.U.(A) 395/1993, pegawai yang menghadapi keterhutangan kewangan yang serius atau kebankrapan wajib melaporkan segera kepada Ketua Jabatan." },
+            { id: 8, q: "Seseorang pegawai hanya mengisytiharkan harta miliknya tetapi tidak mengisytiharkan harta yang dimiliki oleh pasangan dan anak-anak beliau. Adakah tindakan Encik Sarip Dol betul atau salah?", options: ["Betul", "Salah"], correct: 1, exp: "Di bawah Peraturan 10 P.U.(A) 395/1993, pengisytiharan harta hendaklah merangkumi harta pegawai, pasangan, serta anak-anak yang di bawah tanggungan." },
+            { id: 9, q: "Secara umumnya kegagalan melaporkan pemberian, janji, penawaran rasuah di bawah Seksyen 25(1) dan (2) boleh dikenakan denda tidak melebihi RM100,000.00 atau penjara tidak melebihi 10 tahun atau kedua-duanya sekali.", options: ["Betul", "Salah"], correct: 0, exp: "Gagal melaporkan transaksi rasuah atau penawaran suapan adalah satu kesalahan jenayah berat di bawah Seksyen 25 Akta SPRM 2009." },
+            { id: 10, q: "Peraturan 3A, P.U (A) 395/1993 mewajibkan pegawai untuk mematuhi peraturan berkaitan tatakelakuan. Pelanggaran mana-mana peruntukan boleh menyebabkan pegawai dikenakan tindakan tatatertib.", options: ["Betul", "Salah"], correct: 0, exp: "Peraturan 3A menegaskan kewajipan setiap pegawai awam untuk mematuhi segala arahan dan peruntukan tatakelakuan yang ditetapkan." },
+            { id: 11, q: "Encik Jebat ingin memohon pertukaran ke negeri kelahirannya atas alasan menjaga ibu bapa yang sakit. Namun, permohonannya belum diluluskan. Beliau kemudian meminta bantuan sahabat lamanya yang merupakan Ahli Parlimen kawasan untuk mengeluarkan surat sokongan bagi 'mempercepatkan proses'. Tindakan Encik Jebat dari sudut integriti adalah:", options: ["Tidak salah kerana hal keluarga mendesak", "Tidak salah kerana tidak melibatkan wang", "Salah kerana membawa pengaruh luar untuk menyokong permohonan", "Dibenarkan"], correct: 2, exp: "Peraturan 14 P.U.(A) 395/1993 melarang pegawai awam menggunakan pengaruh atau tekanan luar bagi memajukan tuntutan peribadi atau permohonan perkhidmatan." },
+            { id: 12, q: "Jika pegawai gagal mengemukakan Surat Tunjuk Sebab dalam tempoh yang ditetapkan, maka:", options: ["Kes dianggap selesai kerana tiada jawapan", "Pegawai dianggap tidak bersalah", "Prosiding boleh dimulakan terhadap pegawai", "Surat baharu perlu dikeluarkan"], correct: 2, exp: "Kegagalan menjawab surat tunjuk sebab membolehkan Pihak Berkuasa Tatatertib membuat keputusan berdasarkan dokumen sedia ada tanpa penyerahan jawapan pegawai." },
+            { id: 13, q: "Hadir ke pejabat tetapi tidak melaksanakan tugas dengan sengaja atau malas boleh ditafsirkan sebagai:", options: ["Tidak berdisiplin", "Tidak pandai mengurus masa", "Kurang berusaha", "Kecuaian"], correct: 2, exp: "Mengabaikan tugas semasa berada di pejabat disifatkan sebagai kurang berusaha dan melanggar Peraturan 4(2)(g)." },
+            { id: 14, q: "Seseorang pegawai yang disabitkan dengan kesalahan rasuah boleh dikenakan tindakan berikut KECUALI:", options: ["Dikenakan tindakan tatatertib", "Dikenakan tindakan di bawah Akta SPRM", "Diberikan teguran atau amaran bertulis oleh Ketua Jabatan", "Ditukarkan jabatan"], correct: 2, exp: "Kesalahan rasuah yang disabitkan Mahkamah membawa tindakan tatatertib berat (seperti buang kerja) dan tidak boleh diselesaikan sekadar teguran lisan atau amaran dalaman." },
+            { id: 15, q: "Pengisytiharan harta hendaklah dibuat dalam keadaan berikut KECUALI:", options: ["Sekali dalam tempoh lima (5) tahun", "Lantikan pertama", "Bila-bila masa yang dikehendaki oleh Kerajaan", "Setiap kali bertukar Jabatan atau tempat bertugas"], correct: 3, exp: "Pertukaran tempat bertugas sahaja tidak mewajibkan pengisytiharan harta baharu melainkan telah genap tempoh 5 tahun atau diminta oleh Kerajaan." }
         ];
 
-        // --- PEMBOLEH UBAH GLOBAL ---
         let currentTeam = null;
         let currentCP = "1";
         let currentQIndex = 0;
@@ -787,32 +635,24 @@
         let pendingTeamId = null;
         let pendingTimeStr = "";
 
-        // Navigation
         function showView(viewId) {
             const views = ['view-home', 'view-admin-qr', 'view-finish-recorder', 'view-participant-start', 'view-quiz', 'view-completion', 'view-leaderboard'];
             views.forEach(v => document.getElementById(v).classList.add('hidden'));
             document.getElementById(viewId).classList.remove('hidden');
         }
 
-        function showAdminQRView() {
-            showView('view-admin-qr');
-        }
+        function showAdminQRView() { showView('view-admin-qr'); }
 
-        // Modal QR Functions
         function openQRModal(cpNum) {
             const baseUrl = window.location.href.split('?')[0];
             const targetUrl = `${baseUrl}?cp=${cpNum}`;
-            
             document.getElementById('qr-modal-title').innerText = `CHECKPOINT ${cpNum}`;
             document.getElementById('qr-modal-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(targetUrl)}`;
             document.getElementById('qr-modal').classList.remove('hidden');
         }
 
-        function closeQRModal() {
-            document.getElementById('qr-modal').classList.add('hidden');
-        }
+        function closeQRModal() { document.getElementById('qr-modal').classList.add('hidden'); }
 
-        // Populate Options & Grid
         const selectTeam = document.getElementById('select-team');
         const finishTeamsGrid = document.getElementById('finish-teams-grid');
 
@@ -829,7 +669,6 @@
             finishTeamsGrid.appendChild(btn);
         }
 
-        // AUTO-DETECT SCAN QR PARAMETER (DIRECT TO PARTICIPANT START)
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const cpParam = urlParams.get('cp');
@@ -838,16 +677,25 @@
                 showView('view-participant-start');
                 document.getElementById('participant-cp-title').innerText = `📍 CHECKPOINT ${currentCP}`;
             }
+
+            // Mula Dengar Live Update Firebase jika wujud
+            if (db) {
+                db.ref('integrity_walk_data').on('value', (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        localStorage.setItem('integrity_walk_data', JSON.stringify(data));
+                        if (!document.getElementById('view-leaderboard').classList.contains('hidden')) {
+                            renderLeaderboardCards(data);
+                        }
+                    }
+                });
+            }
         };
 
-        // Masa Ketibaan
         function accessFinishRecorder() {
             const pass = prompt("Sila masukkan kata laluan Urus Setia untuk Masa Ketibaan:");
-            if (pass === "2022") {
-                showView('view-finish-recorder');
-            } else if (pass !== null) {
-                alert("Kata laluan salah!");
-            }
+            if (pass === "2022") showView('view-finish-recorder');
+            else if (pass !== null) alert("Kata laluan salah!");
         }
 
         function getCurrentTimeFormatted() {
@@ -863,7 +711,6 @@
         function openConfirmModal(teamId) {
             pendingTeamId = teamId;
             pendingTimeStr = getCurrentTimeFormatted();
-
             document.getElementById('modal-team-title').innerText = `KUMPULAN ${teamId}`;
             document.getElementById('modal-time-display').innerText = pendingTimeStr;
             document.getElementById('confirm-modal').classList.remove('hidden');
@@ -875,26 +722,30 @@
             pendingTimeStr = "";
         }
 
+        function saveDataToCloudAndLocal(data) {
+            localStorage.setItem('integrity_walk_data', JSON.stringify(data));
+            if (db) {
+                db.ref('integrity_walk_data').set(data);
+            }
+        }
+
         function commitFinishTime() {
             if(!pendingTeamId) return;
 
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             if(!appData[`Team_${pendingTeamId}`]) appData[`Team_${pendingTeamId}`] = {};
             appData[`Team_${pendingTeamId}`].finishTime = pendingTimeStr;
-            localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+
+            saveDataToCloudAndLocal(appData);
 
             document.getElementById('flash-team-name').innerText = `KUMPULAN ${pendingTeamId}`;
             document.getElementById('flash-time-val').innerText = pendingTimeStr;
             document.getElementById('finish-flash-screen').classList.remove('hidden');
 
             closeConfirmModal();
-
-            setTimeout(() => {
-                document.getElementById('finish-flash-screen').classList.add('hidden');
-            }, 2000);
+            setTimeout(() => { document.getElementById('finish-flash-screen').classList.add('hidden'); }, 2000);
         }
 
-        // Logik Kuiz
         function getQuestionsForTeamAndCP(teamId, cpNum) {
             const t = parseInt(teamId) || 1;
             const c = parseInt(cpNum) || 1;
@@ -942,7 +793,6 @@
             document.getElementById('btn-prev').classList.toggle('hidden', currentQIndex === 0);
             const btnNext = document.getElementById('btn-next');
             btnNext.disabled = userAnswers[currentQIndex] === -1;
-            btnNext.innerText = (currentQIndex === 1) ? 'Hantar Jawapan ➔' : 'Seterusnya ➔';
 
             const container = document.getElementById('options-container');
             container.innerHTML = '';
@@ -958,9 +808,34 @@
         }
 
         function prevQuestion() { if (currentQIndex > 0) { currentQIndex--; renderQuestion(); } }
+
         function nextQuestion() {
-            if (currentQIndex < 1) { currentQIndex++; renderQuestion(); }
-            else { finishCheckpoint(); }
+            const qData = currentActiveQuestions[currentQIndex];
+            const userAns = userAnswers[currentQIndex];
+            const isCorrect = (userAns === qData.correct);
+
+            // Tampilkan Modal Feedback Penerangan Jawapan
+            document.getElementById('feedback-badge').innerText = isCorrect ? "🎉" : "❌";
+            document.getElementById('feedback-title').innerText = isCorrect ? "TEPAT SEKALI!" : "KURANG TEPAT!";
+            document.getElementById('feedback-title').style.color = isCorrect ? "#10b981" : "#ef4444";
+            
+            const correctOptChar = String.fromCharCode(65 + qData.correct);
+            const correctOptText = qData.options[qData.correct];
+            document.getElementById('feedback-correct-ans').innerHTML = `<strong>Jawapan Betul:</strong> ${correctOptChar}. ${correctOptText}`;
+            document.getElementById('feedback-exp-text').innerText = qData.exp;
+
+            document.getElementById('explanation-modal').classList.remove('hidden');
+        }
+
+        function closeExplanationModal() {
+            document.getElementById('explanation-modal').classList.add('hidden');
+            
+            if (currentQIndex < 1) {
+                currentQIndex++;
+                renderQuestion();
+            } else {
+                finishCheckpoint();
+            }
         }
 
         function finishCheckpoint() {
@@ -972,7 +847,8 @@
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             if(!appData[`Team_${currentTeam}`]) appData[`Team_${currentTeam}`] = {};
             appData[`Team_${currentTeam}`][`CP${currentCP}`] = cpScore;
-            localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+
+            saveDataToCloudAndLocal(appData);
 
             document.getElementById('completion-title').innerText = "🎉 TAHNIAH!";
             document.getElementById('completion-msg').innerText = `Kumpulan ${currentTeam} telah berjaya menjawab Checkpoint ${currentCP}!`;
@@ -981,11 +857,13 @@
             showView('view-completion');
         }
 
-        // Leaderboard - Format Kad Mesra Mobile
         function showLeaderboard() {
             showView('view-leaderboard');
-
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
+            renderLeaderboardCards(appData);
+        }
+
+        function renderLeaderboardCards(appData) {
             const container = document.getElementById('leaderboard-card-container');
             container.innerHTML = '';
             let teamsList = [];
@@ -1035,13 +913,9 @@
             });
         }
 
-        // Edit Admin
         function editTeamData(teamId) {
             const pass = prompt(`Masukkan kata laluan untuk pembetulan Kumpulan ${teamId}:`);
-            if (pass !== "2022") {
-                alert("Kata laluan salah!");
-                return;
-            }
+            if (pass !== "2022") { alert("Kata laluan salah!"); return; }
 
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             const choice = prompt(`Pilihan KUMPULAN ${teamId}:\n1. Kemaskini Markah Checkpoint\n2. Kemaskini/Padam Masa Ketibaan\n3. Buka Semula Kunci Kuiz (Allow Retake)\n4. Padam Data Kumpulan\n\nTaip nombor (1-4):`);
@@ -1053,7 +927,7 @@
                     if (newScore !== null && !isNaN(newScore)) {
                         if(!appData[`Team_${teamId}`]) appData[`Team_${teamId}`] = {};
                         appData[`Team_${teamId}`][`CP${cpNum}`] = parseInt(newScore);
-                        localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+                        saveDataToCloudAndLocal(appData);
                         alert("Markah dikemaskini!");
                         showLeaderboard();
                     }
@@ -1063,28 +937,27 @@
                 if(!appData[`Team_${teamId}`]) appData[`Team_${teamId}`] = {};
                 if (newTime === "") delete appData[`Team_${teamId}`].finishTime;
                 else if (newTime !== null) appData[`Team_${teamId}`].finishTime = newTime;
-                localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+                saveDataToCloudAndLocal(appData);
                 alert("Masa ketibaan dikemaskini!");
                 showLeaderboard();
             } else if (choice === "3") {
                 const cpNum = prompt("Nombor Checkpoint untuk buka kunci (1-6):");
                 if (cpNum >= 1 && cpNum <= 6 && appData[`Team_${teamId}`]) {
                     delete appData[`Team_${teamId}`][`CP${cpNum}`];
-                    localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+                    saveDataToCloudAndLocal(appData);
                     alert(`Kunci CP${cpNum} dibuka.`);
                     showLeaderboard();
                 }
             } else if (choice === "4") {
                 if (confirm(`Padam KESELURUHAN data Kumpulan ${teamId}?`)) {
                     delete appData[`Team_${teamId}`];
-                    localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+                    saveDataToCloudAndLocal(appData);
                     alert("Data dipadam.");
                     showLeaderboard();
                 }
             }
         }
 
-        // --- FUNGSI EKSPORT DATA KE CSV / EXCEL ---
         function exportToCSV() {
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             let csvContent = "\uFEFFKumpulan,CP1,CP2,CP3,CP4,CP5,CP6,Jumlah Markah,Masa Ketibaan\n";
@@ -1092,7 +965,6 @@
             for (let i = 1; i <= 25; i++) {
                 const teamKey = `Team_${i}`;
                 const cpData = appData[teamKey] || {};
-
                 const cp1 = cpData.CP1 !== undefined ? cpData.CP1 : 0;
                 const cp2 = cpData.CP2 !== undefined ? cpData.CP2 : 0;
                 const cp3 = cpData.CP3 !== undefined ? cpData.CP3 : 0;
@@ -1100,38 +972,23 @@
                 const cp5 = cpData.CP5 !== undefined ? cpData.CP5 : 0;
                 const cp6 = cpData.CP6 !== undefined ? cpData.CP6 : 0;
                 const finishTime = cpData.finishTime ? `"${cpData.finishTime}"` : '"-"';
-
                 const total = cp1 + cp2 + cp3 + cp4 + cp5 + cp6;
 
-                const row = [`Kumpulan ${i}`, cp1, cp2, cp3, cp4, cp5, cp6, total, finishTime].join(",");
-                csvContent += row + "\n";
+                csvContent += [`Kumpulan ${i}`, cp1, cp2, cp3, cp4, cp5, cp6, total, finishTime].join(",") + "\n";
             }
 
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
-            
-            const today = new Date().toISOString().slice(0, 10);
             link.setAttribute("href", url);
-            link.setAttribute("download", `Keputusan_Integrity_Walk_JPNPahang_${today}.csv`);
-            
+            link.setAttribute("download", `Keputusan_Integrity_Walk_${new Date().toISOString().slice(0, 10)}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
 
-        // --- FUNGSI CETAK LAPORAN PDF RASMI ---
         function printPDFReport() {
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('ms-MY', { 
-                day: 'numeric', 
-                month: 'long', 
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            
-            document.getElementById('print-date-display').innerText = dateStr;
+            document.getElementById('print-date-display').innerText = new Date().toLocaleDateString('ms-MY', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
             window.print();
         }
     </script>
