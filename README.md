@@ -425,7 +425,6 @@
                 <span>➔</span>
             </button>
 
-            <!-- BUTANG ADMIN RESET (DITAMBAH DI SINI) -->
             <button onclick="resetAllDataAdmin()" class="btn-action btn-danger" style="margin-top: 10px;">
                 <span>⚠️ Admin: Reset Semua Data</span>
                 <span>🔄</span>
