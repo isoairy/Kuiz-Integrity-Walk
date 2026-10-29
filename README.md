@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Integrity Walk JPN Pahang 2026</title>
 
+    <!-- Firebase SDK (Modular Cloud Database) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
     <style>
         /* -------------------------------------------------------------
            1. MODERN MOBILE-FIRST ATHLETIC THEME (CSS)
@@ -559,7 +563,7 @@
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-3 no-print">
-                <h2 style="font-size: 0.9rem; font-weight: 800; color: #0f172a;">Live Leaderboard</h2>
+                <h2 style="font-size: 0.9rem; font-weight: 800; color: #0f172a;">Live Leaderboard (Cloud Sync)</h2>
                 <div style="display: flex; gap: 6px;">
                     <button type="button" onclick="printPDFReport()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #0284c7; color: #ffffff; border: none;">🖨️ PDF</button>
                     <button type="button" onclick="exportToCSV()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #059669; color: #ffffff; border: none;">📥 CSV</button>
@@ -585,11 +589,34 @@
     </div>
 
     <!-- -------------------------------------------------------------
-         LOGIK JAVASCRIPT RASMI (KOD BERSIH & KALIS GAGAL)
+         LOGIK JAVASCRIPT & FIREBASE REALTIME SYNC (RASMI)
          ------------------------------------------------------------- -->
     <script>
         // Pautan Rasmi GitHub Pages Pengguna
         var PUBLIC_BASE_URL = "https://isoairy.github.io/Kuiz-Integrity-Walk/";
+
+        // Konfigurasi Rasmi Firebase Realtime Database
+        var firebaseConfig = {
+            apiKey: "AIzaSyDPBG2PMfiWXkY4eY1EDCW3Lzl5t9WBk08",
+            authDomain: "integrity-walk-2026.firebaseapp.com",
+            databaseURL: "https://integrity-walk-2026-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "integrity-walk-2026",
+            storageBucket: "integrity-walk-2026.firebasestorage.app",
+            messagingSenderId: "406228454961",
+            appId: "1:406228454961:web:1dba68516f009f97078f10",
+            measurementId: "G-GF0D63TDR3"
+        };
+
+        // Inisialisasi Firebase Secara Selamat
+        var db = null;
+        try {
+            if (typeof firebase !== 'undefined') {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.database();
+            }
+        } catch(e) {
+            console.warn("Ralat permulaan Firebase:", e);
+        }
 
         // Senarai 33 Kumpulan Rasmi
         var customTeams = [
@@ -628,7 +655,7 @@
             "CAMERON D'PUNCAK"
         ];
 
-        // Bank Soalan & Jawapan
+        // Bank Soalan & Penerangan Jawapan
         var masterQuestions = [
             { id: 1, q: "Puan Melati Madu tidak hadir bertugas selama tiga (3) hari tanpa kebenaran dan tanpa sebab munasabah. Apakah interpretasi tatatertib yang tepat?\nI. Tidak hadir tanpa cuti\nII. Boleh dikenakan tindakan tatatertib\nIII. Secara automatik dibuang kerja\nIV. Dimaafkan jika pegawai memaklumkan selepas itu", options: ["I dan II sahaja", "I dan IV sahaja", "I, II dan III sahaja", "I sahaja"], correct: 0, exp: "Ketidakhadiran tanpa cuti/kebenaran ialah pelanggaran tatakelakuan di bawah Peraturan 24 P.U.(A) 395/1993. Ia tidak membawa hukuman buang kerja secara automatik tanpa prosiding." },
             { id: 2, q: "Encik Donald Duck aktif menggunakan media sosial dan sentiasa up to date dengan berita terkini. Beliau selalu 'Like' dan 'Share' hantaran kempen politik seorang calon di Facebook. Apakah tafsiran integriti bagi situasi ini?\nI. Boleh dianggap sebagai penglibatan dalam politik\nII. Melanggar ketetapan neutraliti penjawat awam\nIII. Dibenarkan jika tidak menulis komen\nIV. Boleh dikenakan tindakan tatatertib", options: ["I dan IV sahaja", "II dan III sahaja", "I, II dan IV sahaja", "Semua di atas"], correct: 2, exp: "Penjawat awam terikat dengan Peraturan 21 P.U.(A) 395/1993 mengenai kewajipan mengekalkan sikap berkecuali (neutraliti) dan dilarang membuat sebarang tindakan yang menyokong parti politik." },
@@ -691,6 +718,14 @@
 
         function closeQRModal() { document.getElementById('qr-modal').classList.add('hidden'); }
 
+        // Fungsi Simpan Data Secara Serentak (Cloud + Local)
+        function saveDataToCloudAndLocal(data) {
+            localStorage.setItem('integrity_walk_data', JSON.stringify(data));
+            if (db) {
+                db.ref('integrity_walk_data').set(data);
+            }
+        }
+
         // Bina Elemen Dropdown dan Butang Kumpulan
         function buildTeamElements() {
             var selectTeam = document.getElementById('select-team');
@@ -719,9 +754,27 @@
             }
         }
 
-        // Semak URL dan Sesi Semasa Dokumen Selesai Dibina
+        // Semak URL, Sesi, dan Dengar Cloud Sync
         window.addEventListener('DOMContentLoaded', function() {
             buildTeamElements();
+
+            // Pasang Firebase Cloud Listener untuk Kemas Kini Automatik Carta Markah
+            if (db) {
+                db.ref('integrity_walk_data').on('value', function(snapshot) {
+                    var cloudData = snapshot.val();
+                    if (cloudData) {
+                        localStorage.setItem('integrity_walk_data', JSON.stringify(cloudData));
+                        if (!document.getElementById('view-leaderboard').classList.contains('hidden')) {
+                            renderLeaderboardCards(cloudData);
+                        }
+                    } else {
+                        localStorage.removeItem('integrity_walk_data');
+                        if (!document.getElementById('view-leaderboard').classList.contains('hidden')) {
+                            renderLeaderboardCards({});
+                        }
+                    }
+                });
+            }
 
             var urlParams = new URLSearchParams(window.location.search);
             var cpParam = urlParams.get('cp');
@@ -794,7 +847,7 @@
             if(!appData['Team_' + pendingTeamId]) appData['Team_' + pendingTeamId] = {};
             appData['Team_' + pendingTeamId].finishTime = pendingTimeStr;
 
-            localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+            saveDataToCloudAndLocal(appData);
 
             var teamName = customTeams[pendingTeamId - 1] || ('KUMPULAN ' + pendingTeamId);
             document.getElementById('flash-team-name').innerText = teamName;
@@ -926,7 +979,7 @@
             if(!appData['Team_' + currentTeam]) appData['Team_' + currentTeam] = {};
             appData['Team_' + currentTeam]['CP' + currentCP] = cpScore;
 
-            localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+            saveDataToCloudAndLocal(appData);
             sessionStorage.removeItem('active_quiz_cp_' + currentCP);
 
             var teamName = customTeams[currentTeam - 1] || ('KUMPULAN ' + currentTeam);
@@ -1010,7 +1063,7 @@
                     if (newScore !== null && !isNaN(newScore)) {
                         if(!appData['Team_' + teamId]) appData['Team_' + teamId] = {};
                         appData['Team_' + teamId]['CP' + cpNum] = parseInt(newScore, 10);
-                        localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+                        saveDataToCloudAndLocal(appData);
                         alert('Markah dikemaskini!');
                         showLeaderboard();
                     }
@@ -1020,21 +1073,21 @@
                 if(!appData['Team_' + teamId]) appData['Team_' + teamId] = {};
                 if (newTime === '') delete appData['Team_' + teamId].finishTime;
                 else if (newTime !== null) appData['Team_' + teamId].finishTime = newTime;
-                localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+                saveDataToCloudAndLocal(appData);
                 alert('Masa ketibaan dikemaskini!');
                 showLeaderboard();
             } else if (choice === '3') {
                 var cpNumToUnlock = prompt('Nombor Checkpoint untuk buka kunci (1-6):');
                 if (cpNumToUnlock >= 1 && cpNumToUnlock <= 6 && appData['Team_' + teamId]) {
                     delete appData['Team_' + teamId]['CP' + cpNumToUnlock];
-                    localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+                    saveDataToCloudAndLocal(appData);
                     alert('Kunci CP' + cpNumToUnlock + ' dibuka.');
                     showLeaderboard();
                 }
             } else if (choice === '4') {
                 if (confirm('Padam KESELURUHAN data bagi ' + teamName + '?')) {
                     delete appData['Team_' + teamId];
-                    localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
+                    saveDataToCloudAndLocal(appData);
                     alert('Data dipadam.');
                     showLeaderboard();
                 }
@@ -1047,6 +1100,9 @@
                 if (confirm('AMARAN: Adakah anda pasti mahu memadam KESELURUHAN data markah kuiz dan masa ketibaan bagi KESEMUA 33 KUMPULAN? Tindakan ini tidak boleh dibatalkan!')) {
                     localStorage.removeItem('integrity_walk_data');
                     sessionStorage.clear();
+                    if (db) {
+                        db.ref('integrity_walk_data').remove();
+                    }
                     alert('Semua data telah berjaya di-RESET!');
                     showLeaderboard();
                 }
