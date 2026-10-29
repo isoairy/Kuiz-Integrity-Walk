@@ -219,7 +219,7 @@
 
         .grid-teams {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 8px;
             max-height: 380px;
             overflow-y: auto;
@@ -230,21 +230,23 @@
             background: #fffbeb;
             color: #78350f;
             font-weight: 800;
-            padding: 10px 4px;
+            padding: 12px 6px;
             border-radius: 14px;
             border: 1px solid #fde68a;
             cursor: pointer;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 58px;
+            min-height: 52px;
+            text-align: center;
+            font-size: 0.72rem;
+            line-height: 1.25;
         }
 
         .btn-team-square:active {
             background: #f59e0b;
             color: #ffffff;
-            transform: scale(0.95);
+            transform: scale(0.96);
         }
 
         .modal-overlay {
@@ -492,14 +494,14 @@
             <p style="font-size: 0.72rem; color: #64748b;" class="mb-3">Tekan kumpulan yang baru tiba di Garisan Penamat:</p>
 
             <div id="finish-flash-screen" class="flash-screen hidden">
-                <div id="flash-team-name" style="font-size: 0.8rem;">KUMPULAN X</div>
+                <div id="flash-team-name" style="font-size: 0.8rem;">KUMPULAN</div>
                 <div id="flash-time-val" style="font-size: 1.35rem; font-weight: 800; margin: 2px 0;">00:00:00 AM</div>
                 <div style="font-size: 0.7rem;">✔ Masa Ketibaan Berjaya Direkodkan!</div>
             </div>
 
             <div id="confirm-modal" class="modal-overlay hidden">
                 <div class="modal-box">
-                    <h3 id="modal-team-title" style="font-weight: 800; font-size: 1rem; color: #0f172a;">KUMPULAN XX</h3>
+                    <h3 id="modal-team-title" style="font-weight: 800; font-size: 1rem; color: #0f172a;">KUMPULAN</h3>
                     <p style="font-size: 0.72rem; color: #64748b;" class="mb-2">Masa ketibaan semasa:</p>
                     <div id="modal-time-display" class="modal-time">00:00:00 AM</div>
                     <p style="font-size: 0.72rem; font-weight: 700; color: #ea580c;" class="mb-3">Adakah anda pasti mahu merekodkan masa ini?</p>
@@ -528,11 +530,11 @@
             <div id="pin-input-section" class="pin-box">
                 <label style="font-size: 0.75rem; font-weight: 800; color: #0369a1; display: block;">🔐 PIN KESELAMATAN KUMPULAN (4 DIGIT)</label>
                 <input type="password" id="input-team-pin" maxlength="4" placeholder="••••" autocomplete="off">
-                <p id="pin-status-msg" style="font-size: 0.7rem; color: #64748b; margin-top: 6px;">Masukkan PIN 4-digit rasmi kumpulan untuk mengesahkan peranti ini.</p>
+                <p id="pin-status-msg" style="font-size: 0.7rem; color: #64748b; margin-top: 6px;">Masukkan PIN rasmi kumpulan untuk mengesahkan peranti ini.</p>
             </div>
 
             <div id="pin-verified-badge" class="hidden" style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 10px; border-radius: 14px; font-size: 0.75rem; font-weight: 700; text-align: center; margin-bottom: 14px;">
-                ✔ Peranti ini telah disahkan untuk kumpulan ini.
+                ✔ Peranti ini telah disahkan bagi kumpulan ini.
             </div>
 
             <button type="button" onclick="startParticipantQuiz()" class="btn-action btn-warning" style="justify-content: center; font-size: 0.95rem;">MULA JAWAB KUIZ ➔</button>
@@ -626,7 +628,7 @@
     </div>
 
     <!-- -------------------------------------------------------------
-         LOGIK JAVASCRIPT & FIREBASE REALTIME SYNC (RASMI)
+         LOGIK JAVASCRIPT & FIREBASE REALTIME SYNC
          ------------------------------------------------------------- -->
     <script>
         // Pautan Rasmi GitHub Pages Pengguna
@@ -692,7 +694,7 @@
             "CAMERON D'PUNCAK"
         ];
 
-        // PIN Keselamatan 4-Digit Rasmi bagi Setiap Kumpulan (1001 - 1033)
+        // Format PIN Asal 1001 - 1033 (Mengikut Indeks Kumpulan 1 hingga 33)
         var teamPINs = {
             1: "1001", 2: "1002", 3: "1003", 4: "1004", 5: "1005",
             6: "1006", 7: "1007", 8: "1008", 9: "1009", 10: "1010",
@@ -774,7 +776,7 @@
             }
         }
 
-        // Bina Elemen Dropdown dan Butang Kumpulan
+        // Bina Elemen Dropdown dan Grid Butang Tanpa Nombor Siri di Pangkal
         function buildTeamElements() {
             var selectTeam = document.getElementById('select-team');
             var finishTeamsGrid = document.getElementById('finish-teams-grid');
@@ -783,7 +785,7 @@
                 for (var i = 0; i < customTeams.length; i++) {
                     var opt = document.createElement('option');
                     opt.value = i + 1;
-                    opt.textContent = (i + 1) + '. ' + customTeams[i];
+                    opt.textContent = customTeams[i]; // HANYA NAMA KUMPULAN (TANPA NOMBOR 1.-33.)
                     selectTeam.appendChild(opt);
                 }
             }
@@ -794,7 +796,7 @@
                         var btn = document.createElement('button');
                         btn.type = 'button';
                         btn.className = 'btn-team-square';
-                        btn.innerHTML = '<span style="font-size:0.6rem; opacity:0.8; font-weight:800;">#' + teamId + '</span><span style="font-size:0.7rem; font-weight:700; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; max-width:85px;">' + customTeams[teamId - 1] + '</span>';
+                        btn.innerHTML = '<span style="font-weight:700;">' + customTeams[teamId - 1] + '</span>'; // HANYA NAMA KUMPULAN
                         btn.onclick = function() { openConfirmModal(teamId); };
                         finishTeamsGrid.appendChild(btn);
                     })(j + 1);
@@ -867,7 +869,7 @@
                         userAnswers = sess.answers;
                         currentActiveQuestions = getQuestionsForTeamAndCP(currentTeam, currentCP);
 
-                        document.getElementById('quiz-team-badge').innerText = customTeams[currentTeam - 1] || ('KUMPULAN ' + currentTeam);
+                        document.getElementById('quiz-team-badge').innerText = customTeams[currentTeam - 1] || 'KUMPULAN';
                         document.getElementById('quiz-cp-badge').innerText = 'CHECKPOINT ' + currentCP;
 
                         showView('view-quiz');
@@ -915,7 +917,7 @@
         function openConfirmModal(teamId) {
             pendingTeamId = teamId;
             pendingTimeStr = getCurrentTimeFormatted();
-            var teamName = customTeams[teamId - 1] || ('KUMPULAN ' + teamId);
+            var teamName = customTeams[teamId - 1] || 'KUMPULAN';
             document.getElementById('modal-team-title').innerText = teamName;
             document.getElementById('modal-time-display').innerText = pendingTimeStr;
             document.getElementById('confirm-modal').classList.remove('hidden');
@@ -936,7 +938,7 @@
 
             saveDataToCloudAndLocal(appData);
 
-            var teamName = customTeams[pendingTeamId - 1] || ('KUMPULAN ' + pendingTeamId);
+            var teamName = customTeams[pendingTeamId - 1] || 'KUMPULAN';
             document.getElementById('flash-team-name').innerText = teamName;
             document.getElementById('flash-time-val').innerText = pendingTimeStr;
             document.getElementById('finish-flash-screen').classList.remove('hidden');
@@ -1006,7 +1008,7 @@
                 answers: userAnswers
             }));
 
-            var teamName = customTeams[currentTeam - 1] || ('KUMPULAN ' + currentTeam);
+            var teamName = customTeams[currentTeam - 1] || 'KUMPULAN';
             document.getElementById('quiz-team-badge').innerText = teamName;
             document.getElementById('quiz-cp-badge').innerText = 'CHECKPOINT ' + currentCP;
 
@@ -1015,7 +1017,7 @@
         }
 
         function showAlreadyCompletedScreen(score) {
-            var teamName = customTeams[currentTeam - 1] || ('KUMPULAN ' + currentTeam);
+            var teamName = customTeams[currentTeam - 1] || 'KUMPULAN';
             document.getElementById('completion-title').innerText = 'CHECKPOINT SELESAI!';
             document.getElementById('completion-msg').innerText = teamName + ' telah menghantar jawapan untuk Checkpoint ' + currentCP + '. Jawapan terkunci.';
             document.getElementById('cp-score-display').innerText = score + ' / 20';
@@ -1098,7 +1100,7 @@
             saveDataToCloudAndLocal(appData);
             sessionStorage.removeItem('active_quiz_cp_' + currentCP);
 
-            var teamName = customTeams[currentTeam - 1] || ('KUMPULAN ' + currentTeam);
+            var teamName = customTeams[currentTeam - 1] || 'KUMPULAN';
             document.getElementById('completion-title').innerText = '🎉 TAHNIAH!';
             document.getElementById('completion-msg').innerText = teamName + ' telah berjaya menjawab Checkpoint ' + currentCP + '!';
             document.getElementById('cp-score-display').innerText = cpScore + ' / 20';
@@ -1145,7 +1147,7 @@
                 card.className = 'team-card';
                 card.innerHTML = 
                     '<div class="team-card-header">' +
-                        '<span class="team-title">' + t.id + '. ' + t.name + '</span>' +
+                        '<span class="team-title">' + t.name + '</span>' + // HANYA NAMA KUMPULAN
                         '<span class="team-score-badge">' + t.total + ' / 120 Pts</span>' +
                     '</div>' +
                     '<div class="cp-grid">' +
@@ -1168,7 +1170,7 @@
             var pass = prompt('Masukkan kata laluan untuk pembetulan kumpulan:');
             if (pass !== '2022') { alert('Kata laluan salah!'); return; }
 
-            var teamName = customTeams[teamId - 1] || ('KUMPULAN ' + teamId);
+            var teamName = customTeams[teamId - 1] || 'KUMPULAN';
             var appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             var choice = prompt('Pilihan untuk ' + teamName + ':\n1. Kemaskini Markah Checkpoint\n2. Kemaskini/Padam Masa Ketibaan\n3. Buka Semula Kunci Kuiz (Allow Retake)\n4. Padam Data Kumpulan\n\nTaip nombor (1-4):');
 
