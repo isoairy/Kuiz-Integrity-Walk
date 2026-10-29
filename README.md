@@ -448,7 +448,7 @@
                 <p style="font-size: 0.7rem; color: #64748b;" class="mb-3">Imbas Kod QR ini menggunakan peranti untuk menjawab kuiz.</p>
                 
                 <div style="background: #ffffff; padding: 12px; border-radius: 16px; display: inline-block; border: 2px dashed #38bdf8;" class="mb-3">
-                    <img id="qr-modal-img" src="" alt="Kod QR Checkpoint" style="width: 190px; height: 190px; display: block; margin: 0 auto;">
+                    <img id="qr-modal-img" src="" alt="Kod QR Checkpoint" style="width: 220px; height: 220px; display: block; margin: 0 auto;">
                 </div>
 
                 <div class="modal-actions">
@@ -585,9 +585,12 @@
     </div>
 
     <!-- -------------------------------------------------------------
-         LOGIK JAVASCRIPT BEBAS DARIPADA SEBARANG TEKS ASING & RALAT
+         LOGIK JAVASCRIPT RASMI (KOD BERSIH & KALIS GAGAL)
          ------------------------------------------------------------- -->
     <script>
+        // Pautan Rasmi GitHub Pages Pengguna
+        var PUBLIC_BASE_URL = "https://isoairy.github.io/Kuiz-Integrity-Walk/";
+
         // Senarai 33 Kumpulan Rasmi
         var customTeams = [
             "PEMBELAJARAN",
@@ -652,7 +655,7 @@
         var pendingTeamId = null;
         var pendingTimeStr = "";
 
-        // Fungsi Penukaran Paparan
+        // Fungsi Navigasi Tab
         function showView(viewId) {
             var views = ['view-home', 'view-admin-qr', 'view-finish-recorder', 'view-participant-start', 'view-quiz', 'view-completion', 'view-leaderboard'];
             for (var i = 0; i < views.length; i++) {
@@ -669,17 +672,26 @@
 
         function showAdminQRView() { showView('view-admin-qr'); }
 
+        // Penjana Kod QR yang Sentiasa Sah (Online & Offline)
         function openQRModal(cpNum) {
-            var baseUrl = window.location.href.split('?')[0];
+            var baseUrl = (window.location.protocol.indexOf('http') === 0) 
+                ? window.location.href.split('?')[0] 
+                : PUBLIC_BASE_URL;
+
+            if (baseUrl.slice(-1) !== '/' && baseUrl.indexOf('.html') === -1) {
+                baseUrl += '/';
+            }
+
             var targetUrl = baseUrl + '?cp=' + cpNum;
+
             document.getElementById('qr-modal-title').innerText = 'CHECKPOINT ' + cpNum;
-            document.getElementById('qr-modal-img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(targetUrl);
+            document.getElementById('qr-modal-img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=' + encodeURIComponent(targetUrl);
             document.getElementById('qr-modal').classList.remove('hidden');
         }
 
         function closeQRModal() { document.getElementById('qr-modal').classList.add('hidden'); }
 
-        // Jana Elemen Dropdown dan Butang Kumpulan
+        // Bina Elemen Dropdown dan Butang Kumpulan
         function buildTeamElements() {
             var selectTeam = document.getElementById('select-team');
             var finishTeamsGrid = document.getElementById('finish-teams-grid');
@@ -707,7 +719,7 @@
             }
         }
 
-        // Semak URL dan Sesi Semasa Dokumen Siap Dimuatkan
+        // Semak URL dan Sesi Semasa Dokumen Selesai Dibina
         window.addEventListener('DOMContentLoaded', function() {
             buildTeamElements();
 
