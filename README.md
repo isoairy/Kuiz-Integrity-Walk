@@ -164,7 +164,7 @@
             border-radius: 16px;
             border: 2px solid #38bdf8;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             background-color: #f0f9ff;
             color: #0c4a6e;
             text-align: center;
@@ -195,9 +195,9 @@
 
         .grid-teams {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            max-height: 320px;
+            max-height: 380px;
             overflow-y: auto;
             padding: 4px;
         }
@@ -206,7 +206,7 @@
             background: #fffbeb;
             color: #78350f;
             font-weight: 800;
-            padding: 12px 4px;
+            padding: 10px 4px;
             border-radius: 14px;
             border: 1px solid #fde68a;
             cursor: pointer;
@@ -214,7 +214,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 52px;
+            min-height: 58px;
+        }
+
+        .btn-team-square:active {
+            background: #f59e0b;
+            color: #ffffff;
+            transform: scale(0.95);
         }
 
         .modal-overlay {
@@ -290,16 +296,8 @@
             font-weight: 700;
         }
 
-        /* Modal Penerangan Jawapan */
-        .feedback-badge {
-            font-size: 3rem;
-            margin-bottom: 6px;
-        }
-        .feedback-title {
-            font-size: 1.15rem;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
+        .feedback-badge { font-size: 3rem; margin-bottom: 6px; }
+        .feedback-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 8px; }
         .feedback-correct-ans {
             background: #f0fdf4;
             border: 1px solid #bbf7d0;
@@ -342,7 +340,7 @@
         }
 
         .team-card-header { display: flex; justify-content: space-between; align-items: center; }
-        .team-title { font-weight: 800; color: #0f172a; font-size: 0.9rem; }
+        .team-title { font-weight: 800; color: #0f172a; font-size: 0.88rem; }
         .team-score-badge {
             background: #fffbeb;
             color: #d97706;
@@ -402,7 +400,7 @@
             <div class="event-stats-bar">
                 <div class="stat-item">📍 <span>3.0 KM</span></div>
                 <div class="stat-item">🏁 <span>6 Checkpoint</span></div>
-                <div class="stat-item">👥 <span>25 Kumpulan</span></div>
+                <div class="stat-item">👥 <span>33 Kumpulan</span></div>
             </div>
         </header>
 
@@ -467,7 +465,7 @@
         <div id="view-finish-recorder" class="glass-card text-center hidden">
             <button onclick="showView('view-home')" class="btn-secondary">← Kembali ke Halaman Utama</button>
             <h2 style="font-size: 1rem; font-weight: 800;" class="mb-1">Rekod Masa Penamat</h2>
-            <p style="font-size: 0.72rem; color: #64748b;" class="mb-3">Tekan nombor kumpulan yang baru tiba di Garisan Penamat:</p>
+            <p style="font-size: 0.72rem; color: #64748b;" class="mb-3">Tekan kumpulan yang baru tiba di Garisan Penamat:</p>
 
             <div id="finish-flash-screen" class="flash-screen hidden">
                 <div id="flash-team-name" style="font-size: 0.8rem;">KUMPULAN X</div>
@@ -496,9 +494,9 @@
             <div id="participant-cp-title" style="background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; text-align: center; font-weight: 800; padding: 10px; border-radius: 14px; font-size: 0.9rem;" class="mb-3">
                 📍 CHECKPOINT X
             </div>
-            <h2 style="font-size: 0.9rem; font-weight: 800;" class="mb-2">Sila Pilih Nombor Kumpulan Anda:</h2>
+            <h2 style="font-size: 0.9rem; font-weight: 800;" class="mb-2">Sila Pilih Nama Kumpulan Anda:</h2>
             <select id="select-team">
-                <option value="">-- Pilih Nombor Kumpulan --</option>
+                <option value="">-- Pilih Kumpulan --</option>
             </select>
             <button onclick="startParticipantQuiz()" class="btn-action btn-warning" style="justify-content: center; font-size: 0.95rem;">MULA JAWAB KUIZ ➔</button>
         </div>
@@ -506,7 +504,7 @@
         <!-- 5. PAPARAN SOALAN KUIZ PESERTA -->
         <div id="view-quiz" class="glass-card hidden">
             <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-2">
-                <span id="quiz-team-badge" style="background: #eff6ff; color: #1d4ed8; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: 14px;"></span>
+                <span id="quiz-team-badge" style="background: #eff6ff; color: #1d4ed8; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: 14px; max-width: 65%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></span>
                 <span id="quiz-cp-badge" style="background: #fff7ed; color: #c2410c; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: 14px;"></span>
             </div>
 
@@ -519,9 +517,9 @@
 
             <div id="options-container" class="mb-3"></div>
 
-            <div style="display: flex; justify-content: space-between; margin-top: 10px; gap: 8px;">
-                <button id="btn-prev" onclick="prevQuestion()" class="btn-secondary hidden" style="width: auto; margin-bottom:0;">← Sebelum</button>
-                <button id="btn-next" onclick="nextQuestion()" class="btn-secondary" style="background: #0284c7; color: #ffffff; width: auto; margin-left: auto; margin-bottom:0; border:none;" disabled>Semak Jawapan ➔</button>
+            <!-- BUTANG 'SEBELUM' TELAH DIPADAMKAN SUPAYA PESERTA TIDAK BOLEH BERPATAH BALIK -->
+            <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                <button id="btn-next" onclick="nextQuestion()" class="btn-secondary" style="background: #0284c7; color: #ffffff; width: 100%; margin-bottom:0; border:none; padding: 14px;" disabled>Hantar Jawapan ➔</button>
             </div>
         </div>
 
@@ -593,18 +591,54 @@
 
     <!-- LOGIK JAVASCRIPT & FIREBASE -->
     <script>
+        // --- SENARAI 33 NAMA KUMPULAN RASMI ---
+        const customTeams = [
+            "PEMBELAJARAN",
+            "SPS2",
+            "SPI GROUP",
+            "SPS",
+            "UPB",
+            "AKP SPP",
+            "UPB 2",
+            "UPB Team 3",
+            "GNB690",
+            "KEWANGAN TROOP",
+            "ADMIN GURLZ",
+            "SpeEd Team",
+            "X5",
+            "CAP AYAM",
+            "UNIT PERJAWATAN",
+            "Letops",
+            "3PK GOJ 's",
+            "MI MIN SO PAN",
+            "#SIP POWER (SIHAT, INTEGRITI, PRODUKTIF)",
+            "GEGIRLS SSTP",
+            "SRI KANDI",
+            "SERVICES",
+            "BENTONG BERIA",
+            "PPD LIPIS",
+            "PPD PEKAN",
+            "SPMd ROMPIN",
+            "MISSTEMPOYAK RB",
+            "BERA UNGGUL",
+            "PPD JERANTUT",
+            "PPD MARAN",
+            "PPD KUANTAN",
+            "SEKTOR PALING MUDAH DIDEKATI",
+            "CAMERON D'PUNCAK"
+        ];[cite: 2]
+
         // --- KONFIGURASI FIREBASE REALTIME DATABASE ---
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBPO7ZQIVLTKfVvWkWGCJE_d5MXqZTIbjk",
-  authDomain: "realtime-database-9a9fe.firebaseapp.com",
-  databaseURL: "https://realtime-database-9a9fe-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "realtime-database-9a9fe",
-  storageBucket: "realtime-database-9a9fe.firebasestorage.app",
-  messagingSenderId: "185532409116",
-  appId: "1:185532409116:web:6ace4ac26675e683adc6d9",
-  measurementId: "G-RV31BY36NG"
-};
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "your-project.firebaseapp.com",
+            databaseURL: "https://your-project-default-rtdb.firebaseio.com",
+            projectId: "your-project",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
+
         let db = null;
         try {
             if (firebaseConfig.databaseURL !== "https://your-project-default-rtdb.firebaseio.com") {
@@ -661,24 +695,52 @@ const firebaseConfig = {
         const selectTeam = document.getElementById('select-team');
         const finishTeamsGrid = document.getElementById('finish-teams-grid');
 
-        for(let i=1; i<=25; i++) {
+        customTeams.forEach((teamName, index) => {
+            const teamId = index + 1;
+            
             const opt = document.createElement('option');
-            opt.value = i;
-            opt.textContent = `KUMPULAN ${i}`;
+            opt.value = teamId;
+            opt.textContent = `${teamId}. ${teamName}`;
             selectTeam.appendChild(opt);
 
             const btn = document.createElement('button');
             btn.className = "btn-team-square";
-            btn.innerHTML = `<span style="font-size:0.5rem; opacity:0.8;">KMP</span><span style="font-size:1rem;">${i}</span>`;
-            btn.onclick = () => openConfirmModal(i);
+            btn.innerHTML = `
+                <span style="font-size:0.6rem; opacity:0.8; font-weight:800;">#${teamId}</span>
+                <span style="font-size:0.7rem; font-weight:700; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; max-width:85px;">${teamName}</span>
+            `;
+            btn.onclick = () => openConfirmModal(teamId);
             finishTeamsGrid.appendChild(btn);
-        }
+        });
 
+        // AUTO-DETECT KES REFRESH / SCAN QR DENGAN SESSI AKTIF
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const cpParam = urlParams.get('cp');
             if (cpParam) {
                 currentCP = cpParam;
+
+                // Periksa jika ada sesi kuiz checkpoint ini yang sedang berjalan tetapi belum selesai
+                const savedSession = sessionStorage.getItem(`active_quiz_cp_${currentCP}`);
+                if (savedSession) {
+                    try {
+                        const sess = JSON.parse(savedSession);
+                        currentTeam = sess.team;
+                        currentQIndex = sess.qIndex;
+                        userAnswers = sess.answers;
+                        currentActiveQuestions = getQuestionsForTeamAndCP(currentTeam, currentCP);
+
+                        document.getElementById('quiz-team-badge').innerText = customTeams[currentTeam - 1] || `KUMPULAN ${currentTeam}`;
+                        document.getElementById('quiz-cp-badge').innerText = `CHECKPOINT ${currentCP}`;
+
+                        showView('view-quiz');
+                        renderQuestion();
+                        return;
+                    } catch(e) {
+                        sessionStorage.removeItem(`active_quiz_cp_${currentCP}`);
+                    }
+                }
+
                 showView('view-participant-start');
                 document.getElementById('participant-cp-title').innerText = `📍 CHECKPOINT ${currentCP}`;
             }
@@ -720,7 +782,8 @@ const firebaseConfig = {
         function openConfirmModal(teamId) {
             pendingTeamId = teamId;
             pendingTimeStr = getCurrentTimeFormatted();
-            document.getElementById('modal-team-title').innerText = `KUMPULAN ${teamId}`;
+            const teamName = customTeams[teamId - 1] || `KUMPULAN ${teamId}`;
+            document.getElementById('modal-team-title').innerText = `${teamName}`;
             document.getElementById('modal-time-display').innerText = pendingTimeStr;
             document.getElementById('confirm-modal').classList.remove('hidden');
         }
@@ -747,7 +810,8 @@ const firebaseConfig = {
 
             saveDataToCloudAndLocal(appData);
 
-            document.getElementById('flash-team-name').innerText = `KUMPULAN ${pendingTeamId}`;
+            const teamName = customTeams[pendingTeamId - 1] || `KUMPULAN ${pendingTeamId}`;
+            document.getElementById('flash-team-name').innerText = `${teamName}`;
             document.getElementById('flash-time-val').innerText = pendingTimeStr;
             document.getElementById('finish-flash-screen').classList.remove('hidden');
 
@@ -764,7 +828,7 @@ const firebaseConfig = {
 
         function startParticipantQuiz() {
             currentTeam = selectTeam.value;
-            if(!currentTeam) { alert("Sila pilih Nombor Kumpulan anda!"); return; }
+            if(!currentTeam) { alert("Sila pilih Nama Kumpulan anda!"); return; }
 
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             const teamData = appData[`Team_${currentTeam}`] || {};
@@ -778,7 +842,15 @@ const firebaseConfig = {
             userAnswers = [-1, -1];
             currentActiveQuestions = getQuestionsForTeamAndCP(currentTeam, currentCP);
 
-            document.getElementById('quiz-team-badge').innerText = `KUMPULAN ${currentTeam}`;
+            // Simpan sesi bermula
+            sessionStorage.setItem(`active_quiz_cp_${currentCP}`, JSON.stringify({
+                team: currentTeam,
+                qIndex: 0,
+                answers: userAnswers
+            }));
+
+            const teamName = customTeams[currentTeam - 1] || `KUMPULAN ${currentTeam}`;
+            document.getElementById('quiz-team-badge').innerText = `${teamName}`;
             document.getElementById('quiz-cp-badge').innerText = `CHECKPOINT ${currentCP}`;
 
             showView('view-quiz');
@@ -786,8 +858,9 @@ const firebaseConfig = {
         }
 
         function showAlreadyCompletedScreen(score) {
+            const teamName = customTeams[currentTeam - 1] || `KUMPULAN ${currentTeam}`;
             document.getElementById('completion-title').innerText = "CHECKPOINT SELESAI!";
-            document.getElementById('completion-msg').innerText = `Kumpulan ${currentTeam} telah menghantar jawapan untuk Checkpoint ${currentCP}. Jawapan terkunci.`;
+            document.getElementById('completion-msg').innerText = `${teamName} telah menghantar jawapan untuk Checkpoint ${currentCP}. Jawapan terkunci.`;
             document.getElementById('cp-score-display').innerText = `${score} / 20`;
             showView('view-completion');
         }
@@ -799,9 +872,9 @@ const firebaseConfig = {
             document.getElementById('question-text').innerText = qData.q;
             document.getElementById('quiz-progress-bar').style.width = `${((currentQIndex + 1) / 2) * 100}%`;
 
-            document.getElementById('btn-prev').classList.toggle('hidden', currentQIndex === 0);
             const btnNext = document.getElementById('btn-next');
             btnNext.disabled = userAnswers[currentQIndex] === -1;
+            btnNext.innerText = (currentQIndex === 0) ? 'Hantar Jawapan Soalan 1 ➔' : 'Hantar Jawapan & Tamat ➔';
 
             const container = document.getElementById('options-container');
             container.innerHTML = '';
@@ -811,18 +884,20 @@ const firebaseConfig = {
                 const btn = document.createElement('button');
                 btn.className = `quiz-option-btn ${selectedAns === idx ? 'selected' : ''}`;
                 btn.innerText = `${String.fromCharCode(65 + idx)}. ${optText}`;
-                btn.onclick = () => { userAnswers[currentQIndex] = idx; renderQuestion(); };
+                btn.onclick = () => { 
+                    userAnswers[currentQIndex] = idx; 
+                    renderQuestion(); 
+                };
                 container.appendChild(btn);
             });
         }
-
-        function prevQuestion() { if (currentQIndex > 0) { currentQIndex--; renderQuestion(); } }
 
         function nextQuestion() {
             const qData = currentActiveQuestions[currentQIndex];
             const userAns = userAnswers[currentQIndex];
             const isCorrect = (userAns === qData.correct);
 
+            // Papar Pop-up Penjelasan Jawapan
             document.getElementById('feedback-badge').innerText = isCorrect ? "🎉" : "❌";
             document.getElementById('feedback-title').innerText = isCorrect ? "TEPAT SEKALI!" : "KURANG TEPAT!";
             document.getElementById('feedback-title').style.color = isCorrect ? "#10b981" : "#ef4444";
@@ -838,8 +913,14 @@ const firebaseConfig = {
         function closeExplanationModal() {
             document.getElementById('explanation-modal').classList.add('hidden');
             
-            if (currentQIndex < 1) {
-                currentQIndex++;
+            if (currentQIndex === 0) {
+                // KUNCI JAWAPAN SOALAN 1 DAN TERUSKAN KE SOALAN 2
+                currentQIndex = 1;
+                sessionStorage.setItem(`active_quiz_cp_${currentCP}`, JSON.stringify({
+                    team: currentTeam,
+                    qIndex: 1,
+                    answers: userAnswers
+                }));
                 renderQuestion();
             } else {
                 finishCheckpoint();
@@ -858,8 +939,12 @@ const firebaseConfig = {
 
             saveDataToCloudAndLocal(appData);
 
+            // Padam sesi aktif kuiz kerana kuiz checkpoint ini telah selesai sepenuhnya
+            sessionStorage.removeItem(`active_quiz_cp_${currentCP}`);
+
+            const teamName = customTeams[currentTeam - 1] || `KUMPULAN ${currentTeam}`;
             document.getElementById('completion-title').innerText = "🎉 TAHNIAH!";
-            document.getElementById('completion-msg').innerText = `Kumpulan ${currentTeam} telah berjaya menjawab Checkpoint ${currentCP}!`;
+            document.getElementById('completion-msg').innerText = `${teamName} telah berjaya menjawab Checkpoint ${currentCP}!`;
             document.getElementById('cp-score-display').innerText = `${cpScore} / 20`;
 
             showView('view-completion');
@@ -876,7 +961,8 @@ const firebaseConfig = {
             container.innerHTML = '';
             let teamsList = [];
 
-            for (let i = 1; i <= 25; i++) {
+            customTeams.forEach((teamName, index) => {
+                const i = index + 1;
                 const teamKey = `Team_${i}`;
                 const cpData = appData[teamKey] || {};
                 const cp1 = cpData.CP1 !== undefined ? cpData.CP1 : '-';
@@ -891,8 +977,8 @@ const firebaseConfig = {
                               (typeof cp3 === 'number' ? cp3 : 0) + (typeof cp4 === 'number' ? cp4 : 0) +
                               (typeof cp5 === 'number' ? cp5 : 0) + (typeof cp6 === 'number' ? cp6 : 0);
                 
-                teamsList.push({ id: i, cp1, cp2, cp3, cp4, cp5, cp6, finishTime, total });
-            }
+                teamsList.push({ id: i, name: teamName, cp1, cp2, cp3, cp4, cp5, cp6, finishTime, total });
+            });
 
             teamsList.sort((a, b) => b.total - a.total);
 
@@ -901,7 +987,7 @@ const firebaseConfig = {
                 card.className = "team-card";
                 card.innerHTML = `
                     <div class="team-card-header">
-                        <span class="team-title">KUMPULAN ${t.id}</span>
+                        <span class="team-title">${t.id}. ${t.name}</span>
                         <span class="team-score-badge">${t.total} / 120 Pts</span>
                     </div>
                     <div class="cp-grid">
@@ -922,11 +1008,12 @@ const firebaseConfig = {
         }
 
         function editTeamData(teamId) {
-            const pass = prompt(`Masukkan kata laluan untuk pembetulan Kumpulan ${teamId}:`);
+            const pass = prompt(`Masukkan kata laluan untuk pembetulan kumpulan:`);
             if (pass !== "2022") { alert("Kata laluan salah!"); return; }
 
+            const teamName = customTeams[teamId - 1] || `KUMPULAN ${teamId}`;
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
-            const choice = prompt(`Pilihan KUMPULAN ${teamId}:\n1. Kemaskini Markah Checkpoint\n2. Kemaskini/Padam Masa Ketibaan\n3. Buka Semula Kunci Kuiz (Allow Retake)\n4. Padam Data Kumpulan\n\nTaip nombor (1-4):`);
+            const choice = prompt(`Pilihan untuk ${teamName}:\n1. Kemaskini Markah Checkpoint\n2. Kemaskini/Padam Masa Ketibaan\n3. Buka Semula Kunci Kuiz (Allow Retake)\n4. Padam Data Kumpulan\n\nTaip nombor (1-4):`);
 
             if (choice === "1") {
                 const cpNum = prompt("Nombor Checkpoint (1-6):");
@@ -957,7 +1044,7 @@ const firebaseConfig = {
                     showLeaderboard();
                 }
             } else if (choice === "4") {
-                if (confirm(`Padam KESELURUHAN data Kumpulan ${teamId}?`)) {
+                if (confirm(`Padam KESELURUHAN data bagi ${teamName}?`)) {
                     delete appData[`Team_${teamId}`];
                     saveDataToCloudAndLocal(appData);
                     alert("Data dipadam.");
@@ -970,23 +1057,27 @@ const firebaseConfig = {
         function resetAllDataAdmin() {
             const pass = prompt("Sila masukkan kata laluan Admin untuk RESET SEMUA DATA:");
             if (pass === "Integriti2022") {
-                if (confirm("AMARAN: Adakah anda pasti mahu memadam KESELURUHAN data markah kuiz dan masa ketibaan bagi SEMUA KUMPULAN? Tindakan ini tidak boleh dibatalkan!")) {
+                if (confirm("AMARAN: Adakah anda pasti mahu memadam KESELURUHAN data markah kuiz dan masa ketibaan bagi KESEMUA 33 KUMPULAN? Tindakan ini tidak boleh dibatalkan!")) {
                     localStorage.removeItem('integrity_walk_data');
+                    sessionStorage.clear();
                     if (db) {
                         db.ref('integrity_walk_data').remove();
                     }
                     alert("Semua data telah berjaya di-RESET!");
+                    showLeaderboard();
                 }
             } else if (pass !== null) {
                 alert("Kata laluan Admin salah!");
             }
         }
 
+        // --- FUNGSI EKSPORT CSV / EXCEL ---
         function exportToCSV() {
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
-            let csvContent = "\uFEFFKumpulan,CP1,CP2,CP3,CP4,CP5,CP6,Jumlah Markah,Masa Ketibaan\n";
+            let csvContent = "\uFEFFBil,Nama Kumpulan,CP1,CP2,CP3,CP4,CP5,CP6,Jumlah Markah,Masa Ketibaan\n";
 
-            for (let i = 1; i <= 25; i++) {
+            customTeams.forEach((teamName, index) => {
+                const i = index + 1;
                 const teamKey = `Team_${i}`;
                 const cpData = appData[teamKey] || {};
                 const cp1 = cpData.CP1 !== undefined ? cpData.CP1 : 0;
@@ -998,8 +1089,8 @@ const firebaseConfig = {
                 const finishTime = cpData.finishTime ? `"${cpData.finishTime}"` : '"-"';
                 const total = cp1 + cp2 + cp3 + cp4 + cp5 + cp6;
 
-                csvContent += [`Kumpulan ${i}`, cp1, cp2, cp3, cp4, cp5, cp6, total, finishTime].join(",") + "\n";
-            }
+                csvContent += [i, `"${teamName}"`, cp1, cp2, cp3, cp4, cp5, cp6, total, finishTime].join(",") + "\n";
+            });
 
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
@@ -1011,6 +1102,7 @@ const firebaseConfig = {
             document.body.removeChild(link);
         }
 
+        // --- FUNGSI CETAK LAPORAN PDF RASMI ---
         function printPDFReport() {
             document.getElementById('print-date-display').innerText = new Date().toLocaleDateString('ms-MY', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
             window.print();
