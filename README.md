@@ -517,7 +517,6 @@
 
             <div id="options-container" class="mb-3"></div>
 
-            <!-- BUTANG 'SEBELUM' TELAH DIPADAMKAN SUPAYA PESERTA TIDAK BOLEH BERPATAH BALIK -->
             <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
                 <button id="btn-next" onclick="nextQuestion()" class="btn-secondary" style="background: #0284c7; color: #ffffff; width: 100%; margin-bottom:0; border:none; padding: 14px;" disabled>Hantar Jawapan ➔</button>
             </div>
@@ -564,7 +563,7 @@
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-3 no-print">
-                <h2 style="font-size: 0.9rem; font-weight: 800; color: #0f172a;">Live Leaderboard (Cloud Sync)</h2>
+                <h2 style="font-size: 0.9rem; font-weight: 800; color: #0f172a;">Live Leaderboard</h2>
                 <div style="display: flex; gap: 6px;">
                     <button onclick="printPDFReport()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #0284c7; color: #ffffff; border: none;">🖨️ PDF</button>
                     <button onclick="exportToCSV()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #059669; color: #ffffff; border: none;">📥 CSV</button>
@@ -639,13 +638,19 @@
             appId: "1:123456789:web:abcdef"
         };
 
+        // Inisialisasi Firebase yang aman (Tidak akan macet/crash bila konfigurasi belum diganti)
         let db = null;
         try {
-            if (firebaseConfig.databaseURL !== "https://your-project-default-rtdb.firebaseio.com") {
+            if (typeof firebase !== 'undefined' && 
+                firebaseConfig.apiKey && 
+                firebaseConfig.apiKey !== "YOUR_API_KEY" && 
+                firebaseConfig.databaseURL !== "https://your-project-default-rtdb.firebaseio.com") {
                 firebase.initializeApp(firebaseConfig);
                 db = firebase.database();
             }
-        } catch(e) { console.log("Firebase tidak dikonfigurasikan lagi."); }
+        } catch(e) { 
+            console.warn("Firebase tidak diaktifkan, beralih ke LocalStorage fallback.", e); 
+        }
 
         // --- BANK SOALAN + PENERANGAN ILMU INTEGRITI ---
         const masterQuestions = [
@@ -676,8 +681,12 @@
 
         function showView(viewId) {
             const views = ['view-home', 'view-admin-qr', 'view-finish-recorder', 'view-participant-start', 'view-quiz', 'view-completion', 'view-leaderboard'];
-            views.forEach(v => document.getElementById(v).classList.add('hidden'));
-            document.getElementById(viewId).classList.remove('hidden');
+            views.forEach(v => {
+                const el = document.getElementById(v);
+                if (el) el.classList.add('hidden');
+            });
+            const target = document.getElementById(viewId);
+            if (target) target.classList.remove('hidden');
         }
 
         function showAdminQRView() { showView('view-admin-qr'); }
@@ -692,35 +701,38 @@
 
         function closeQRModal() { document.getElementById('qr-modal').classList.add('hidden'); }
 
+        // Bangun Opsi Kumpulan dan Grid Tombol
         const selectTeam = document.getElementById('select-team');
         const finishTeamsGrid = document.getElementById('finish-teams-grid');
 
-        customTeams.forEach((teamName, index) => {
-            const teamId = index + 1;
-            
-            const opt = document.createElement('option');
-            opt.value = teamId;
-            opt.textContent = `${teamId}. ${teamName}`;
-            selectTeam.appendChild(opt);
+        if (selectTeam && finishTeamsGrid) {
+            customTeams.forEach((teamName, index) => {
+                const teamId = index + 1;
+                
+                const opt = document.createElement('option');
+                opt.value = teamId;
+                opt.textContent = `${teamId}. ${teamName}`;
+                selectTeam.appendChild(opt);
 
-            const btn = document.createElement('button');
-            btn.className = "btn-team-square";
-            btn.innerHTML = `
-                <span style="font-size:0.6rem; opacity:0.8; font-weight:800;">#${teamId}</span>
-                <span style="font-size:0.7rem; font-weight:700; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; max-width:85px;">${teamName}</span>
-            `;
-            btn.onclick = () => openConfirmModal(teamId);
-            finishTeamsGrid.appendChild(btn);
-        });
+                const btn = document.createElement('button');
+                btn.className = "btn-team-square";
+                btn.innerHTML = `
+                    <span style="font-size:0.6rem; opacity:0.8; font-weight:800;">#${teamId}</span>
+                    <span style="font-size:0.7rem; font-weight:700; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; max-width:85px;">${teamName}</span>
+                `;
+                btn.onclick = () => openConfirmModal(teamId);
+                finishTeamsGrid.appendChild(btn);
+            });
+        }
 
-        // AUTO-DETECT KES REFRESH / SCAN QR DENGAN SESSI AKTIF
+        // AUTO-DETECT STATUS KUIZ SAAT REFRESH
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const cpParam = urlParams.get('cp');
             if (cpParam) {
                 currentCP = cpParam;
 
-                // Periksa jika ada sesi kuiz checkpoint ini yang sedang berjalan tetapi belum selesai
+                // Periksa sesi kuiz yang belum tuntas untuk mencegah reset pada pertanyaan 1
                 const savedSession = sessionStorage.getItem(`active_quiz_cp_${currentCP}`);
                 if (savedSession) {
                     try {
@@ -842,7 +854,6 @@
             userAnswers = [-1, -1];
             currentActiveQuestions = getQuestionsForTeamAndCP(currentTeam, currentCP);
 
-            // Simpan sesi bermula
             sessionStorage.setItem(`active_quiz_cp_${currentCP}`, JSON.stringify({
                 team: currentTeam,
                 qIndex: 0,
@@ -897,7 +908,6 @@
             const userAns = userAnswers[currentQIndex];
             const isCorrect = (userAns === qData.correct);
 
-            // Papar Pop-up Penjelasan Jawapan
             document.getElementById('feedback-badge').innerText = isCorrect ? "🎉" : "❌";
             document.getElementById('feedback-title').innerText = isCorrect ? "TEPAT SEKALI!" : "KURANG TEPAT!";
             document.getElementById('feedback-title').style.color = isCorrect ? "#10b981" : "#ef4444";
@@ -914,7 +924,6 @@
             document.getElementById('explanation-modal').classList.add('hidden');
             
             if (currentQIndex === 0) {
-                // KUNCI JAWAPAN SOALAN 1 DAN TERUSKAN KE SOALAN 2
                 currentQIndex = 1;
                 sessionStorage.setItem(`active_quiz_cp_${currentCP}`, JSON.stringify({
                     team: currentTeam,
@@ -938,8 +947,6 @@
             appData[`Team_${currentTeam}`][`CP${currentCP}`] = cpScore;
 
             saveDataToCloudAndLocal(appData);
-
-            // Padam sesi aktif kuiz kerana kuiz checkpoint ini telah selesai sepenuhnya
             sessionStorage.removeItem(`active_quiz_cp_${currentCP}`);
 
             const teamName = customTeams[currentTeam - 1] || `KUMPULAN ${currentTeam}`;
