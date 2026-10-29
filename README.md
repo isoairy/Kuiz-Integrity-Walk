@@ -584,10 +584,12 @@
         </div>
     </div>
 
-    <!-- LOGIK JAVASCRIPT BEBAS RALAT -->
+    <!-- -------------------------------------------------------------
+         LOGIK JAVASCRIPT BEBAS DARIPADA SEBARANG TEKS ASING & RALAT
+         ------------------------------------------------------------- -->
     <script>
-        // --- SENARAI 33 NAMA KUMPULAN RASMI (BERSIH & SELAMAT) ---
-        const customTeams = [
+        // Senarai 33 Kumpulan Rasmi
+        var customTeams = [
             "PEMBELAJARAN",
             "SPS2",
             "SPI GROUP",
@@ -621,10 +623,10 @@
             "PPD KUANTAN",
             "SEKTOR PALING MUDAH DIDEKATI",
             "CAMERON D'PUNCAK"
-        ];[cite: 2]
+        ];
 
-        // --- BANK SOALAN + PENERANGAN ILMU INTEGRITI ---
-        const masterQuestions = [
+        // Bank Soalan & Jawapan
+        var masterQuestions = [
             { id: 1, q: "Puan Melati Madu tidak hadir bertugas selama tiga (3) hari tanpa kebenaran dan tanpa sebab munasabah. Apakah interpretasi tatatertib yang tepat?\nI. Tidak hadir tanpa cuti\nII. Boleh dikenakan tindakan tatatertib\nIII. Secara automatik dibuang kerja\nIV. Dimaafkan jika pegawai memaklumkan selepas itu", options: ["I dan II sahaja", "I dan IV sahaja", "I, II dan III sahaja", "I sahaja"], correct: 0, exp: "Ketidakhadiran tanpa cuti/kebenaran ialah pelanggaran tatakelakuan di bawah Peraturan 24 P.U.(A) 395/1993. Ia tidak membawa hukuman buang kerja secara automatik tanpa prosiding." },
             { id: 2, q: "Encik Donald Duck aktif menggunakan media sosial dan sentiasa up to date dengan berita terkini. Beliau selalu 'Like' dan 'Share' hantaran kempen politik seorang calon di Facebook. Apakah tafsiran integriti bagi situasi ini?\nI. Boleh dianggap sebagai penglibatan dalam politik\nII. Melanggar ketetapan neutraliti penjawat awam\nIII. Dibenarkan jika tidak menulis komen\nIV. Boleh dikenakan tindakan tatatertib", options: ["I dan IV sahaja", "II dan III sahaja", "I, II dan IV sahaja", "Semua di atas"], correct: 2, exp: "Penjawat awam terikat dengan Peraturan 21 P.U.(A) 395/1993 mengenai kewajipan mengekalkan sikap berkecuali (neutraliti) dan dilarang membuat sebarang tindakan yang menyokong parti politik." },
             { id: 3, q: "Puan Ranee Mukherjee hadir ke pejabat jam 8.55 pagi dan keluar minum jam 9.30 pagi untuk menikmati teh tarik buih dan Nasi Kambing Mengamuk. Beliau pulang semula jam 10.15 pagi dan menggantikan semula masa tersebut dengan bekerja lebih masa. Apakah tafsiran integriti bagi situasi ini?\nI. Pematuhan waktu bekerja bukan sekadar jumlah jam bekerja, tetapi keberadaan di tempat kerja\nII. Tidak menjadi kesalahan kerana beliau sangat lapar\nIII. Dibenarkan jika produktiviti tetap sama\nIV. Boleh dianggap melanggar peraturan waktu bekerja", options: ["I dan II sahaja", "I dan IV sahaja", "I, III dan IV sahaja", "I sahaja"], correct: 1, exp: "Masa bekerja diatur mengikut Waktu Bekerja Pejabat. Keluar minum tanpa urusan rasmi semasa waktu pejabat dikira mengabaikan tugas dan melanggar Peraturan 4(2)(g)." },
@@ -642,120 +644,127 @@
             { id: 15, q: "Pengisytiharan harta hendaklah dibuat dalam keadaan berikut KECUALI:", options: ["Sekali dalam tempoh lima (5) tahun", "Lantikan pertama", "Bila-bila masa yang dikehendaki oleh Kerajaan", "Setiap kali bertukar Jabatan atau tempat bertugas"], correct: 3, exp: "Pertukaran tempat bertugas sahaja tidak mewajibkan pengisytiharan harta baharu melainkan telah genap tempoh 5 tahun atau diminta oleh Kerajaan." }
         ];
 
-        let currentTeam = null;
-        let currentCP = "1";
-        let currentQIndex = 0;
-        let userAnswers = [-1, -1];
-        let currentActiveQuestions = [];
-        let pendingTeamId = null;
-        let pendingTimeStr = "";
+        var currentTeam = null;
+        var currentCP = "1";
+        var currentQIndex = 0;
+        var userAnswers = [-1, -1];
+        var currentActiveQuestions = [];
+        var pendingTeamId = null;
+        var pendingTimeStr = "";
 
         // Fungsi Penukaran Paparan
         function showView(viewId) {
-            const views = ['view-home', 'view-admin-qr', 'view-finish-recorder', 'view-participant-start', 'view-quiz', 'view-completion', 'view-leaderboard'];
-            for (let i = 0; i < views.length; i++) {
-                const el = document.getElementById(views[i]);
-                if (el) el.classList.add('hidden');
+            var views = ['view-home', 'view-admin-qr', 'view-finish-recorder', 'view-participant-start', 'view-quiz', 'view-completion', 'view-leaderboard'];
+            for (var i = 0; i < views.length; i++) {
+                var el = document.getElementById(views[i]);
+                if (el) {
+                    el.classList.add('hidden');
+                }
             }
-            const target = document.getElementById(viewId);
-            if (target) target.classList.remove('hidden');
+            var target = document.getElementById(viewId);
+            if (target) {
+                target.classList.remove('hidden');
+            }
         }
 
         function showAdminQRView() { showView('view-admin-qr'); }
 
         function openQRModal(cpNum) {
-            const baseUrl = window.location.href.split('?')[0];
-            const targetUrl = `${baseUrl}?cp=${cpNum}`;
-            document.getElementById('qr-modal-title').innerText = `CHECKPOINT ${cpNum}`;
-            document.getElementById('qr-modal-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(targetUrl)}`;
+            var baseUrl = window.location.href.split('?')[0];
+            var targetUrl = baseUrl + '?cp=' + cpNum;
+            document.getElementById('qr-modal-title').innerText = 'CHECKPOINT ' + cpNum;
+            document.getElementById('qr-modal-img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(targetUrl);
             document.getElementById('qr-modal').classList.remove('hidden');
         }
 
         function closeQRModal() { document.getElementById('qr-modal').classList.add('hidden'); }
 
-        // Bina Elemen Dropdown dan Butang Kumpulan Sejurus Halaman Dimuatkan
-        window.addEventListener('DOMContentLoaded', () => {
-            const selectTeam = document.getElementById('select-team');
-            const finishTeamsGrid = document.getElementById('finish-teams-grid');
+        // Jana Elemen Dropdown dan Butang Kumpulan
+        function buildTeamElements() {
+            var selectTeam = document.getElementById('select-team');
+            var finishTeamsGrid = document.getElementById('finish-teams-grid');
 
             if (selectTeam && selectTeam.options.length <= 1) {
-                customTeams.forEach((teamName, index) => {
-                    const teamId = index + 1;
-                    const opt = document.createElement('option');
-                    opt.value = teamId;
-                    opt.textContent = `${teamId}. ${teamName}`;
+                for (var i = 0; i < customTeams.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = i + 1;
+                    opt.textContent = (i + 1) + '. ' + customTeams[i];
                     selectTeam.appendChild(opt);
-                });
+                }
             }
 
             if (finishTeamsGrid && finishTeamsGrid.children.length === 0) {
-                customTeams.forEach((teamName, index) => {
-                    const teamId = index + 1;
-                    const btn = document.createElement('button');
-                    btn.type = "button";
-                    btn.className = "btn-team-square";
-                    btn.innerHTML = `
-                        <span style="font-size:0.6rem; opacity:0.8; font-weight:800;">#${teamId}</span>
-                        <span style="font-size:0.7rem; font-weight:700; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; max-width:85px;">${teamName}</span>
-                    `;
-                    btn.onclick = () => openConfirmModal(teamId);
-                    finishTeamsGrid.appendChild(btn);
-                });
+                for (var j = 0; j < customTeams.length; j++) {
+                    (function(teamId) {
+                        var btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = 'btn-team-square';
+                        btn.innerHTML = '<span style="font-size:0.6rem; opacity:0.8; font-weight:800;">#' + teamId + '</span><span style="font-size:0.7rem; font-weight:700; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; max-width:85px;">' + customTeams[teamId - 1] + '</span>';
+                        btn.onclick = function() { openConfirmModal(teamId); };
+                        finishTeamsGrid.appendChild(btn);
+                    })(j + 1);
+                }
             }
+        }
 
-            // Periksa jika peserta mengimbas QR (URL mengandungi ?cp=X)
-            const urlParams = new URLSearchParams(window.location.search);
-            const cpParam = urlParams.get('cp');
+        // Semak URL dan Sesi Semasa Dokumen Siap Dimuatkan
+        window.addEventListener('DOMContentLoaded', function() {
+            buildTeamElements();
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var cpParam = urlParams.get('cp');
             if (cpParam) {
                 currentCP = cpParam;
 
-                // Periksa sesi kuiz yang belum selesai bagi mengelakkan refresh
-                const savedSession = sessionStorage.getItem(`active_quiz_cp_${currentCP}`);
+                var savedSession = sessionStorage.getItem('active_quiz_cp_' + currentCP);
                 if (savedSession) {
                     try {
-                        const sess = JSON.parse(savedSession);
+                        var sess = JSON.parse(savedSession);
                         currentTeam = sess.team;
                         currentQIndex = sess.qIndex;
                         userAnswers = sess.answers;
                         currentActiveQuestions = getQuestionsForTeamAndCP(currentTeam, currentCP);
 
-                        document.getElementById('quiz-team-badge').innerText = customTeams[currentTeam - 1] || `KUMPULAN ${currentTeam}`;
-                        document.getElementById('quiz-cp-badge').innerText = `CHECKPOINT ${currentCP}`;
+                        document.getElementById('quiz-team-badge').innerText = customTeams[currentTeam - 1] || ('KUMPULAN ' + currentTeam);
+                        document.getElementById('quiz-cp-badge').innerText = 'CHECKPOINT ' + currentCP;
 
                         showView('view-quiz');
                         renderQuestion();
                         return;
                     } catch(e) {
-                        sessionStorage.removeItem(`active_quiz_cp_${currentCP}`);
+                        sessionStorage.removeItem('active_quiz_cp_' + currentCP);
                     }
                 }
 
                 showView('view-participant-start');
-                document.getElementById('participant-cp-title').innerText = `📍 CHECKPOINT ${currentCP}`;
+                document.getElementById('participant-cp-title').innerText = '📍 CHECKPOINT ' + currentCP;
             }
         });
 
         function accessFinishRecorder() {
-            const pass = prompt("Sila masukkan kata laluan Urus Setia untuk Masa Ketibaan:");
-            if (pass === "2022") showView('view-finish-recorder');
-            else if (pass !== null) alert("Kata laluan salah!");
+            var pass = prompt('Sila masukkan kata laluan Urus Setia untuk Masa Ketibaan:');
+            if (pass === '2022') {
+                showView('view-finish-recorder');
+            } else if (pass !== null) {
+                alert('Kata laluan salah!');
+            }
         }
 
         function getCurrentTimeFormatted() {
-            const now = new Date();
-            let hours = now.getHours();
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const ampm = hours >= 12 ? 'PM' : 'AM';
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = String(now.getMinutes()).padStart(2, '0');
+            var seconds = String(now.getSeconds()).padStart(2, '0');
+            var ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12 || 12;
-            return `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
+            return String(hours).padStart(2, '0') + ':' + minutes + ':' + seconds + ' ' + ampm;
         }
 
         function openConfirmModal(teamId) {
             pendingTeamId = teamId;
             pendingTimeStr = getCurrentTimeFormatted();
-            const teamName = customTeams[teamId - 1] || `KUMPULAN ${teamId}`;
-            document.getElementById('modal-team-title').innerText = `${teamName}`;
+            var teamName = customTeams[teamId - 1] || ('KUMPULAN ' + teamId);
+            document.getElementById('modal-team-title').innerText = teamName;
             document.getElementById('modal-time-display').innerText = pendingTimeStr;
             document.getElementById('confirm-modal').classList.remove('hidden');
         }
@@ -763,44 +772,46 @@
         function closeConfirmModal() {
             document.getElementById('confirm-modal').classList.add('hidden');
             pendingTeamId = null;
-            pendingTimeStr = "";
+            pendingTimeStr = '';
         }
 
         function commitFinishTime() {
             if(!pendingTeamId) return;
 
-            let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
-            if(!appData[`Team_${pendingTeamId}`]) appData[`Team_${pendingTeamId}`] = {};
-            appData[`Team_${pendingTeamId}`].finishTime = pendingTimeStr;
+            var appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
+            if(!appData['Team_' + pendingTeamId]) appData['Team_' + pendingTeamId] = {};
+            appData['Team_' + pendingTeamId].finishTime = pendingTimeStr;
 
             localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
 
-            const teamName = customTeams[pendingTeamId - 1] || `KUMPULAN ${pendingTeamId}`;
-            document.getElementById('flash-team-name').innerText = `${teamName}`;
+            var teamName = customTeams[pendingTeamId - 1] || ('KUMPULAN ' + pendingTeamId);
+            document.getElementById('flash-team-name').innerText = teamName;
             document.getElementById('flash-time-val').innerText = pendingTimeStr;
             document.getElementById('finish-flash-screen').classList.remove('hidden');
 
             closeConfirmModal();
-            setTimeout(() => { document.getElementById('finish-flash-screen').classList.add('hidden'); }, 2000);
+            setTimeout(function() { 
+                document.getElementById('finish-flash-screen').classList.add('hidden'); 
+            }, 2000);
         }
 
         function getQuestionsForTeamAndCP(teamId, cpNum) {
-            const t = parseInt(teamId) || 1;
-            const c = parseInt(cpNum) || 1;
-            const hash = (t * 7 + c * 13) % masterQuestions.length;
+            var t = parseInt(teamId, 10) || 1;
+            var c = parseInt(cpNum, 10) || 1;
+            var hash = (t * 7 + c * 13) % masterQuestions.length;
             return [masterQuestions[hash], masterQuestions[(hash + 5) % masterQuestions.length]];
         }
 
         function startParticipantQuiz() {
-            const selectEl = document.getElementById('select-team');
+            var selectEl = document.getElementById('select-team');
             currentTeam = selectEl ? selectEl.value : null;
-            if(!currentTeam) { alert("Sila pilih Nama Kumpulan anda!"); return; }
+            if(!currentTeam) { alert('Sila pilih Nama Kumpulan anda!'); return; }
 
-            let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
-            const teamData = appData[`Team_${currentTeam}`] || {};
+            var appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
+            var teamData = appData['Team_' + currentTeam] || {};
 
-            if (teamData[`CP${currentCP}`] !== undefined) {
-                showAlreadyCompletedScreen(teamData[`CP${currentCP}`]);
+            if (teamData['CP' + currentCP] !== undefined) {
+                showAlreadyCompletedScreen(teamData['CP' + currentCP]);
                 return;
             }
 
@@ -808,68 +819,70 @@
             userAnswers = [-1, -1];
             currentActiveQuestions = getQuestionsForTeamAndCP(currentTeam, currentCP);
 
-            sessionStorage.setItem(`active_quiz_cp_${currentCP}`, JSON.stringify({
+            sessionStorage.setItem('active_quiz_cp_' + currentCP, JSON.stringify({
                 team: currentTeam,
                 qIndex: 0,
                 answers: userAnswers
             }));
 
-            const teamName = customTeams[currentTeam - 1] || `KUMPULAN ${currentTeam}`;
-            document.getElementById('quiz-team-badge').innerText = `${teamName}`;
-            document.getElementById('quiz-cp-badge').innerText = `CHECKPOINT ${currentCP}`;
+            var teamName = customTeams[currentTeam - 1] || ('KUMPULAN ' + currentTeam);
+            document.getElementById('quiz-team-badge').innerText = teamName;
+            document.getElementById('quiz-cp-badge').innerText = 'CHECKPOINT ' + currentCP;
 
             showView('view-quiz');
             renderQuestion();
         }
 
         function showAlreadyCompletedScreen(score) {
-            const teamName = customTeams[currentTeam - 1] || `KUMPULAN ${currentTeam}`;
-            document.getElementById('completion-title').innerText = "CHECKPOINT SELESAI!";
-            document.getElementById('completion-msg').innerText = `${teamName} telah menghantar jawapan untuk Checkpoint ${currentCP}. Jawapan terkunci.`;
-            document.getElementById('cp-score-display').innerText = `${score} / 20`;
+            var teamName = customTeams[currentTeam - 1] || ('KUMPULAN ' + currentTeam);
+            document.getElementById('completion-title').innerText = 'CHECKPOINT SELESAI!';
+            document.getElementById('completion-msg').innerText = teamName + ' telah menghantar jawapan untuk Checkpoint ' + currentCP + '. Jawapan terkunci.';
+            document.getElementById('cp-score-display').innerText = score + ' / 20';
             showView('view-completion');
         }
 
         function renderQuestion() {
-            const qData = currentActiveQuestions[currentQIndex];
+            var qData = currentActiveQuestions[currentQIndex];
 
-            document.getElementById('question-number').innerText = `Soalan ${currentQIndex + 1} daripada 2`;
+            document.getElementById('question-number').innerText = 'Soalan ' + (currentQIndex + 1) + ' daripada 2';
             document.getElementById('question-text').innerText = qData.q;
-            document.getElementById('quiz-progress-bar').style.width = `${((currentQIndex + 1) / 2) * 100}%`;
+            document.getElementById('quiz-progress-bar').style.width = (((currentQIndex + 1) / 2) * 100) + '%';
 
-            const btnNext = document.getElementById('btn-next');
+            var btnNext = document.getElementById('btn-next');
             btnNext.disabled = userAnswers[currentQIndex] === -1;
             btnNext.innerText = (currentQIndex === 0) ? 'Hantar Jawapan Soalan 1 ➔' : 'Hantar Jawapan & Tamat ➔';
 
-            const container = document.getElementById('options-container');
+            var container = document.getElementById('options-container');
             container.innerHTML = '';
-            const selectedAns = userAnswers[currentQIndex];
+            var selectedAns = userAnswers[currentQIndex];
 
-            qData.options.forEach((optText, idx) => {
-                const btn = document.createElement('button');
-                btn.type = "button";
-                btn.className = `quiz-option-btn ${selectedAns === idx ? 'selected' : ''}`;
-                btn.innerText = `${String.fromCharCode(65 + idx)}. ${optText}`;
-                btn.onclick = () => { 
-                    userAnswers[currentQIndex] = idx; 
-                    renderQuestion(); 
-                };
-                container.appendChild(btn);
-            });
+            for (var idx = 0; idx < qData.options.length; idx++) {
+                (function(optIndex) {
+                    var btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'quiz-option-btn ' + (selectedAns === optIndex ? 'selected' : '');
+                    btn.innerText = String.fromCharCode(65 + optIndex) + '. ' + qData.options[optIndex];
+                    btn.onclick = function() {
+                        userAnswers[currentQIndex] = optIndex;
+                        renderQuestion();
+                    };
+                    container.appendChild(btn);
+                })(idx);
+            }
         }
 
         function nextQuestion() {
-            const qData = currentActiveQuestions[currentQIndex];
-            const userAns = userAnswers[currentQIndex];
-            const isCorrect = (userAns === qData.correct);
+            var qData = currentActiveQuestions[currentQIndex];
+            var userAns = userAnswers[currentQIndex];
+            var isCorrect = (userAns === qData.correct);
 
-            document.getElementById('feedback-badge').innerText = isCorrect ? "🎉" : "❌";
-            document.getElementById('feedback-title').innerText = isCorrect ? "TEPAT SEKALI!" : "KURANG TEPAT!";
-            document.getElementById('feedback-title').style.color = isCorrect ? "#10b981" : "#ef4444";
+            document.getElementById('feedback-badge').innerText = isCorrect ? '🎉' : '❌';
+            document.getElementById('feedback-title').innerText = isCorrect ? 'TEPAT SEKALI!' : 'KURANG TEPAT!';
+            document.getElementById('feedback-title').style.color = isCorrect ? '#10b981' : '#ef4444';
             
-            const correctOptChar = String.fromCharCode(65 + qData.correct);
-            const correctOptText = qData.options[qData.correct];
-            document.getElementById('feedback-correct-ans').innerHTML = `<strong>Jawapan Betul:</strong> ${correctOptChar}. ${correctOptText}`;
+            var correctOptChar = String.fromCharCode(65 + qData.correct);
+            var correctOptText = qData.options[qData.correct];
+            document.getElementById('feedback-correct-ans').innerHTML = '<strong>Jawapan Betul:</strong> ' + correctOptChar + '. ' + correctOptText;
             document.getElementById('feedback-exp-text').innerText = qData.exp;
 
             document.getElementById('explanation-modal').classList.remove('hidden');
@@ -880,7 +893,7 @@
             
             if (currentQIndex === 0) {
                 currentQIndex = 1;
-                sessionStorage.setItem(`active_quiz_cp_${currentCP}`, JSON.stringify({
+                sessionStorage.setItem('active_quiz_cp_' + currentCP, JSON.stringify({
                     team: currentTeam,
                     qIndex: 1,
                     answers: userAnswers
@@ -892,168 +905,170 @@
         }
 
         function finishCheckpoint() {
-            let cpScore = 0;
-            userAnswers.forEach((ans, idx) => {
-                if (ans === currentActiveQuestions[idx].correct) cpScore += 10;
-            });
+            var cpScore = 0;
+            for (var idx = 0; idx < userAnswers.length; idx++) {
+                if (userAnswers[idx] === currentActiveQuestions[idx].correct) cpScore += 10;
+            }
 
-            let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
-            if(!appData[`Team_${currentTeam}`]) appData[`Team_${currentTeam}`] = {};
-            appData[`Team_${currentTeam}`][`CP${currentCP}`] = cpScore;
+            var appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
+            if(!appData['Team_' + currentTeam]) appData['Team_' + currentTeam] = {};
+            appData['Team_' + currentTeam]['CP' + currentCP] = cpScore;
 
             localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
-            sessionStorage.removeItem(`active_quiz_cp_${currentCP}`);
+            sessionStorage.removeItem('active_quiz_cp_' + currentCP);
 
-            const teamName = customTeams[currentTeam - 1] || `KUMPULAN ${currentTeam}`;
-            document.getElementById('completion-title').innerText = "🎉 TAHNIAH!";
-            document.getElementById('completion-msg').innerText = `${teamName} telah berjaya menjawab Checkpoint ${currentCP}!`;
-            document.getElementById('cp-score-display').innerText = `${cpScore} / 20`;
+            var teamName = customTeams[currentTeam - 1] || ('KUMPULAN ' + currentTeam);
+            document.getElementById('completion-title').innerText = '🎉 TAHNIAH!';
+            document.getElementById('completion-msg').innerText = teamName + ' telah berjaya menjawab Checkpoint ' + currentCP + '!';
+            document.getElementById('cp-score-display').innerText = cpScore + ' / 20';
 
             showView('view-completion');
         }
 
         function showLeaderboard() {
             showView('view-leaderboard');
-            let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
+            var appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             renderLeaderboardCards(appData);
         }
 
         function renderLeaderboardCards(appData) {
-            const container = document.getElementById('leaderboard-card-container');
+            var container = document.getElementById('leaderboard-card-container');
             container.innerHTML = '';
-            let teamsList = [];
+            var teamsList = [];
 
-            customTeams.forEach((teamName, index) => {
-                const i = index + 1;
-                const teamKey = `Team_${i}`;
-                const cpData = appData[teamKey] || {};
-                const cp1 = cpData.CP1 !== undefined ? cpData.CP1 : '-';
-                const cp2 = cpData.CP2 !== undefined ? cpData.CP2 : '-';
-                const cp3 = cpData.CP3 !== undefined ? cpData.CP3 : '-';
-                const cp4 = cpData.CP4 !== undefined ? cpData.CP4 : '-';
-                const cp5 = cpData.CP5 !== undefined ? cpData.CP5 : '-';
-                const cp6 = cpData.CP6 !== undefined ? cpData.CP6 : '-';
-                const finishTime = cpData.finishTime || '-';
+            for (var index = 0; index < customTeams.length; index++) {
+                var teamName = customTeams[index];
+                var i = index + 1;
+                var teamKey = 'Team_' + i;
+                var cpData = appData[teamKey] || {};
+                var cp1 = cpData.CP1 !== undefined ? cpData.CP1 : '-';
+                var cp2 = cpData.CP2 !== undefined ? cpData.CP2 : '-';
+                var cp3 = cpData.CP3 !== undefined ? cpData.CP3 : '-';
+                var cp4 = cpData.CP4 !== undefined ? cpData.CP4 : '-';
+                var cp5 = cpData.CP5 !== undefined ? cpData.CP5 : '-';
+                var cp6 = cpData.CP6 !== undefined ? cpData.CP6 : '-';
+                var finishTime = cpData.finishTime || '-';
 
-                const total = (typeof cp1 === 'number' ? cp1 : 0) + (typeof cp2 === 'number' ? cp2 : 0) +
-                              (typeof cp3 === 'number' ? cp3 : 0) + (typeof cp4 === 'number' ? cp4 : 0) +
-                              (typeof cp5 === 'number' ? cp5 : 0) + (typeof cp6 === 'number' ? cp6 : 0);
+                var total = (typeof cp1 === 'number' ? cp1 : 0) + (typeof cp2 === 'number' ? cp2 : 0) +
+                            (typeof cp3 === 'number' ? cp3 : 0) + (typeof cp4 === 'number' ? cp4 : 0) +
+                            (typeof cp5 === 'number' ? cp5 : 0) + (typeof cp6 === 'number' ? cp6 : 0);
                 
-                teamsList.push({ id: i, name: teamName, cp1, cp2, cp3, cp4, cp5, cp6, finishTime, total });
-            });
+                teamsList.push({ id: i, name: teamName, cp1: cp1, cp2: cp2, cp3: cp3, cp4: cp4, cp5: cp5, cp6: cp6, finishTime: finishTime, total: total });
+            }
 
-            teamsList.sort((a, b) => b.total - a.total);
+            teamsList.sort(function(a, b) { return b.total - a.total; });
 
-            teamsList.forEach((t) => {
-                const card = document.createElement('div');
-                card.className = "team-card";
-                card.innerHTML = `
-                    <div class="team-card-header">
-                        <span class="team-title">${t.id}. ${t.name}</span>
-                        <span class="team-score-badge">${t.total} / 120 Pts</span>
-                    </div>
-                    <div class="cp-grid">
-                        <div class="cp-item"><span class="cp-label">CP1</span><span>${t.cp1}</span></div>
-                        <div class="cp-item"><span class="cp-label">CP2</span><span>${t.cp2}</span></div>
-                        <div class="cp-item"><span class="cp-label">CP3</span><span>${t.cp3}</span></div>
-                        <div class="cp-item"><span class="cp-label">CP4</span><span>${t.cp4}</span></div>
-                        <div class="cp-item"><span class="cp-label">CP5</span><span>${t.cp5}</span></div>
-                        <div class="cp-item"><span class="cp-label">CP6</span><span>${t.cp6}</span></div>
-                    </div>
-                    <div class="team-card-footer">
-                        <span>Penamat: <span class="finish-time-text">${t.finishTime}</span></span>
-                        <button type="button" onclick="editTeamData(${t.id})" class="btn-edit-small">Ubah</button>
-                    </div>
-                `;
+            for (var j = 0; j < teamsList.length; j++) {
+                var t = teamsList[j];
+                var card = document.createElement('div');
+                card.className = 'team-card';
+                card.innerHTML = 
+                    '<div class="team-card-header">' +
+                        '<span class="team-title">' + t.id + '. ' + t.name + '</span>' +
+                        '<span class="team-score-badge">' + t.total + ' / 120 Pts</span>' +
+                    '</div>' +
+                    '<div class="cp-grid">' +
+                        '<div class="cp-item"><span class="cp-label">CP1</span><span>' + t.cp1 + '</span></div>' +
+                        '<div class="cp-item"><span class="cp-label">CP2</span><span>' + t.cp2 + '</span></div>' +
+                        '<div class="cp-item"><span class="cp-label">CP3</span><span>' + t.cp3 + '</span></div>' +
+                        '<div class="cp-item"><span class="cp-label">CP4</span><span>' + t.cp4 + '</span></div>' +
+                        '<div class="cp-item"><span class="cp-label">CP5</span><span>' + t.cp5 + '</span></div>' +
+                        '<div class="cp-item"><span class="cp-label">CP6</span><span>' + t.cp6 + '</span></div>' +
+                    '</div>' +
+                    '<div class="team-card-footer">' +
+                        '<span>Penamat: <span class="finish-time-text">' + t.finishTime + '</span></span>' +
+                        '<button type="button" onclick="editTeamData(' + t.id + ')" class="btn-edit-small">Ubah</button>' +
+                    '</div>';
                 container.appendChild(card);
-            });
+            }
         }
 
         function editTeamData(teamId) {
-            const pass = prompt(`Masukkan kata laluan untuk pembetulan kumpulan:`);
-            if (pass !== "2022") { alert("Kata laluan salah!"); return; }
+            var pass = prompt('Masukkan kata laluan untuk pembetulan kumpulan:');
+            if (pass !== '2022') { alert('Kata laluan salah!'); return; }
 
-            const teamName = customTeams[teamId - 1] || `KUMPULAN ${teamId}`;
-            let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
-            const choice = prompt(`Pilihan untuk ${teamName}:\n1. Kemaskini Markah Checkpoint\n2. Kemaskini/Padam Masa Ketibaan\n3. Buka Semula Kunci Kuiz (Allow Retake)\n4. Padam Data Kumpulan\n\nTaip nombor (1-4):`);
+            var teamName = customTeams[teamId - 1] || ('KUMPULAN ' + teamId);
+            var appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
+            var choice = prompt('Pilihan untuk ' + teamName + ':\n1. Kemaskini Markah Checkpoint\n2. Kemaskini/Padam Masa Ketibaan\n3. Buka Semula Kunci Kuiz (Allow Retake)\n4. Padam Data Kumpulan\n\nTaip nombor (1-4):');
 
-            if (choice === "1") {
-                const cpNum = prompt("Nombor Checkpoint (1-6):");
+            if (choice === '1') {
+                var cpNum = prompt('Nombor Checkpoint (1-6):');
                 if (cpNum >= 1 && cpNum <= 6) {
-                    const newScore = prompt(`Markah baharu CP${cpNum} (0, 10, 20):`);
+                    var newScore = prompt('Markah baharu CP' + cpNum + ' (0, 10, 20):');
                     if (newScore !== null && !isNaN(newScore)) {
-                        if(!appData[`Team_${teamId}`]) appData[`Team_${teamId}`] = {};
-                        appData[`Team_${teamId}`][`CP${cpNum}`] = parseInt(newScore);
+                        if(!appData['Team_' + teamId]) appData['Team_' + teamId] = {};
+                        appData['Team_' + teamId]['CP' + cpNum] = parseInt(newScore, 10);
                         localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
-                        alert("Markah dikemaskini!");
+                        alert('Markah dikemaskini!');
                         showLeaderboard();
                     }
                 }
-            } else if (choice === "2") {
-                const newTime = prompt(`Masukkan masa ketibaan (contoh: 10:30:15 AM) ATAU biarkan kosong untuk padam:`);
-                if(!appData[`Team_${teamId}`]) appData[`Team_${teamId}`] = {};
-                if (newTime === "") delete appData[`Team_${teamId}`].finishTime;
-                else if (newTime !== null) appData[`Team_${teamId}`].finishTime = newTime;
+            } else if (choice === '2') {
+                var newTime = prompt('Masukkan masa ketibaan (contoh: 10:30:15 AM) ATAU biarkan kosong untuk padam:');
+                if(!appData['Team_' + teamId]) appData['Team_' + teamId] = {};
+                if (newTime === '') delete appData['Team_' + teamId].finishTime;
+                else if (newTime !== null) appData['Team_' + teamId].finishTime = newTime;
                 localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
-                alert("Masa ketibaan dikemaskini!");
+                alert('Masa ketibaan dikemaskini!');
                 showLeaderboard();
-            } else if (choice === "3") {
-                const cpNum = prompt("Nombor Checkpoint untuk buka kunci (1-6):");
-                if (cpNum >= 1 && cpNum <= 6 && appData[`Team_${teamId}`]) {
-                    delete appData[`Team_${teamId}`][`CP${cpNum}`];
+            } else if (choice === '3') {
+                var cpNumToUnlock = prompt('Nombor Checkpoint untuk buka kunci (1-6):');
+                if (cpNumToUnlock >= 1 && cpNumToUnlock <= 6 && appData['Team_' + teamId]) {
+                    delete appData['Team_' + teamId]['CP' + cpNumToUnlock];
                     localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
-                    alert(`Kunci CP${cpNum} dibuka.`);
+                    alert('Kunci CP' + cpNumToUnlock + ' dibuka.');
                     showLeaderboard();
                 }
-            } else if (choice === "4") {
-                if (confirm(`Padam KESELURUHAN data bagi ${teamName}?`)) {
-                    delete appData[`Team_${teamId}`];
+            } else if (choice === '4') {
+                if (confirm('Padam KESELURUHAN data bagi ' + teamName + '?')) {
+                    delete appData['Team_' + teamId];
                     localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
-                    alert("Data dipadam.");
+                    alert('Data dipadam.');
                     showLeaderboard();
                 }
             }
         }
 
         function resetAllDataAdmin() {
-            const pass = prompt("Sila masukkan kata laluan Admin untuk RESET SEMUA DATA:");
-            if (pass === "Integriti2022") {
-                if (confirm("AMARAN: Adakah anda pasti mahu memadam KESELURUHAN data markah kuiz dan masa ketibaan bagi KESEMUA 33 KUMPULAN? Tindakan ini tidak boleh dibatalkan!")) {
+            var pass = prompt('Sila masukkan kata laluan Admin untuk RESET SEMUA DATA:');
+            if (pass === 'Integriti2022') {
+                if (confirm('AMARAN: Adakah anda pasti mahu memadam KESELURUHAN data markah kuiz dan masa ketibaan bagi KESEMUA 33 KUMPULAN? Tindakan ini tidak boleh dibatalkan!')) {
                     localStorage.removeItem('integrity_walk_data');
                     sessionStorage.clear();
-                    alert("Semua data telah berjaya di-RESET!");
+                    alert('Semua data telah berjaya di-RESET!');
                     showLeaderboard();
                 }
             } else if (pass !== null) {
-                alert("Kata laluan Admin salah!");
+                alert('Kata laluan Admin salah!');
             }
         }
 
         function exportToCSV() {
-            let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
-            let csvContent = "\uFEFFBil,Nama Kumpulan,CP1,CP2,CP3,CP4,CP5,CP6,Jumlah Markah,Masa Ketibaan\n";
+            var appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
+            var csvContent = '\uFEFFBil,Nama Kumpulan,CP1,CP2,CP3,CP4,CP5,CP6,Jumlah Markah,Masa Ketibaan\n';
 
-            customTeams.forEach((teamName, index) => {
-                const i = index + 1;
-                const teamKey = `Team_${i}`;
-                const cpData = appData[teamKey] || {};
-                const cp1 = cpData.CP1 !== undefined ? cpData.CP1 : 0;
-                const cp2 = cpData.CP2 !== undefined ? cpData.CP2 : 0;
-                const cp3 = cpData.CP3 !== undefined ? cpData.CP3 : 0;
-                const cp4 = cpData.CP4 !== undefined ? cpData.CP4 : 0;
-                const cp5 = cpData.CP5 !== undefined ? cpData.CP5 : 0;
-                const cp6 = cpData.CP6 !== undefined ? cpData.CP6 : 0;
-                const finishTime = cpData.finishTime ? `"${cpData.finishTime}"` : '"-"';
-                const total = cp1 + cp2 + cp3 + cp4 + cp5 + cp6;
+            for (var index = 0; index < customTeams.length; index++) {
+                var teamName = customTeams[index];
+                var i = index + 1;
+                var teamKey = 'Team_' + i;
+                var cpData = appData[teamKey] || {};
+                var cp1 = cpData.CP1 !== undefined ? cpData.CP1 : 0;
+                var cp2 = cpData.CP2 !== undefined ? cpData.CP2 : 0;
+                var cp3 = cpData.CP3 !== undefined ? cpData.CP3 : 0;
+                var cp4 = cpData.CP4 !== undefined ? cpData.CP4 : 0;
+                var cp5 = cpData.CP5 !== undefined ? cpData.CP5 : 0;
+                var cp6 = cpData.CP6 !== undefined ? cpData.CP6 : 0;
+                var finishTime = cpData.finishTime ? ('"' + cpData.finishTime + '"') : '"-"';
+                var total = cp1 + cp2 + cp3 + cp4 + cp5 + cp6;
 
-                csvContent += [i, `"${teamName}"`, cp1, cp2, cp3, cp4, cp5, cp6, total, finishTime].join(",") + "\n";
-            });
+                csvContent += [i, '"' + teamName + '"', cp1, cp2, cp3, cp4, cp5, cp6, total, finishTime].join(',') + '\n';
+            }
 
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.setAttribute("href", url);
-            link.setAttribute("download", `Keputusan_Integrity_Walk_${new Date().toISOString().slice(0, 10)}.csv`);
+            var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'Keputusan_Integrity_Walk_' + (new Date().toISOString().slice(0, 10)) + '.csv');
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
