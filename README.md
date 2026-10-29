@@ -408,22 +408,22 @@
         <div id="view-home" class="glass-card text-center">
             <h2 style="font-size: 0.85rem; font-weight: 800; color: #64748b; letter-spacing: 0.5px;" class="mb-3">PANEL KAWALAN UTAMA</h2>
             
-            <button onclick="showAdminQRView()" class="btn-action btn-primary">
+            <button type="button" onclick="showAdminQRView()" class="btn-action btn-primary">
                 <span>Papar Kod QR Checkpoint (1-6)</span>
                 <span>➔</span>
             </button>
 
-            <button onclick="accessFinishRecorder()" class="btn-action btn-warning">
+            <button type="button" onclick="accessFinishRecorder()" class="btn-action btn-warning">
                 <span>Rekod Masa Ketibaan Penamat</span>
                 <span>➔</span>
             </button>
 
-            <button onclick="showLeaderboard()" class="btn-action btn-success">
+            <button type="button" onclick="showLeaderboard()" class="btn-action btn-success">
                 <span>Live Update Markah & Carta</span>
                 <span>➔</span>
             </button>
 
-            <button onclick="resetAllDataAdmin()" class="btn-action btn-danger" style="margin-top: 10px;">
+            <button type="button" onclick="resetAllDataAdmin()" class="btn-action btn-danger" style="margin-top: 10px;">
                 <span>⚠️ Admin: Reset Semua Data</span>
                 <span>🔄</span>
             </button>
@@ -431,7 +431,7 @@
 
         <!-- 2. PAPARAN CHECKPOINT QR (URUS SETIA) -->
         <div id="view-admin-qr" class="glass-card text-center hidden">
-            <button onclick="showView('view-home')" class="btn-secondary">← Kembali ke Halaman Utama</button>
+            <button type="button" onclick="showView('view-home')" class="btn-secondary">← Kembali ke Halaman Utama</button>
             <h2 style="font-size: 1rem; font-weight: 800;" class="mb-1">Penjana Kod QR Checkpoint</h2>
             <p style="font-size: 0.72rem; color: #64748b;" class="mb-3">Tekan butang checkpoint di bawah untuk memaparkan Kod QR:</p>
 
@@ -456,14 +456,14 @@
                 </div>
 
                 <div class="modal-actions">
-                    <button onclick="closeQRModal()" style="background: #e2e8f0; color: #334155;">TUTUP</button>
+                    <button type="button" onclick="closeQRModal()" style="background: #e2e8f0; color: #334155;">TUTUP</button>
                 </div>
             </div>
         </div>
 
         <!-- 3. PAPARAN REKOD MASA KETIBAAN -->
         <div id="view-finish-recorder" class="glass-card text-center hidden">
-            <button onclick="showView('view-home')" class="btn-secondary">← Kembali ke Halaman Utama</button>
+            <button type="button" onclick="showView('view-home')" class="btn-secondary">← Kembali ke Halaman Utama</button>
             <h2 style="font-size: 1rem; font-weight: 800;" class="mb-1">Rekod Masa Penamat</h2>
             <p style="font-size: 0.72rem; color: #64748b;" class="mb-3">Tekan kumpulan yang baru tiba di Garisan Penamat:</p>
 
@@ -480,8 +480,8 @@
                     <div id="modal-time-display" class="modal-time">00:00:00 AM</div>
                     <p style="font-size: 0.72rem; font-weight: 700; color: #ea580c;" class="mb-3">Adakah anda pasti mahu merekodkan masa ini?</p>
                     <div class="modal-actions">
-                        <button onclick="closeConfirmModal()" style="background: #e2e8f0; color: #334155;">BATAL</button>
-                        <button onclick="commitFinishTime()" style="background: #f59e0b; color: #ffffff;">PASTI</button>
+                        <button type="button" onclick="closeConfirmModal()" style="background: #e2e8f0; color: #334155;">BATAL</button>
+                        <button type="button" onclick="commitFinishTime()" style="background: #f59e0b; color: #ffffff;">PASTI</button>
                     </div>
                 </div>
             </div>
@@ -498,7 +498,7 @@
             <select id="select-team">
                 <option value="">-- Pilih Kumpulan --</option>
             </select>
-            <button onclick="startParticipantQuiz()" class="btn-action btn-warning" style="justify-content: center; font-size: 0.95rem;">MULA JAWAB KUIZ ➔</button>
+            <button type="button" onclick="startParticipantQuiz()" class="btn-action btn-warning" style="justify-content: center; font-size: 0.95rem;">MULA JAWAB KUIZ ➔</button>
         </div>
 
         <!-- 5. PAPARAN SOALAN KUIZ PESERTA -->
@@ -518,7 +518,7 @@
             <div id="options-container" class="mb-3"></div>
 
             <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
-                <button id="btn-next" onclick="nextQuestion()" class="btn-secondary" style="background: #0284c7; color: #ffffff; width: 100%; margin-bottom:0; border:none; padding: 14px;" disabled>Hantar Jawapan ➔</button>
+                <button type="button" id="btn-next" onclick="nextQuestion()" class="btn-secondary" style="background: #0284c7; color: #ffffff; width: 100%; margin-bottom:0; border:none; padding: 14px;" disabled>Hantar Jawapan ➔</button>
             </div>
         </div>
 
@@ -538,7 +538,7 @@
                 </div>
 
                 <div class="modal-actions">
-                    <button id="btn-continue-quiz" onclick="closeExplanationModal()" style="background: #0284c7; color: #ffffff;">TERUSKAN ➔</button>
+                    <button type="button" id="btn-continue-quiz" onclick="closeExplanationModal()" style="background: #0284c7; color: #ffffff;">TERUSKAN ➔</button>
                 </div>
             </div>
         </div>
@@ -565,9 +565,9 @@
             <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-3 no-print">
                 <h2 style="font-size: 0.9rem; font-weight: 800; color: #0f172a;">Live Leaderboard</h2>
                 <div style="display: flex; gap: 6px;">
-                    <button onclick="printPDFReport()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #0284c7; color: #ffffff; border: none;">🖨️ PDF</button>
-                    <button onclick="exportToCSV()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #059669; color: #ffffff; border: none;">📥 CSV</button>
-                    <button onclick="showView('view-home')" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px;">Utama</button>
+                    <button type="button" onclick="printPDFReport()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #0284c7; color: #ffffff; border: none;">🖨️ PDF</button>
+                    <button type="button" onclick="exportToCSV()" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px; background: #059669; color: #ffffff; border: none;">📥 CSV</button>
+                    <button type="button" onclick="showView('view-home')" class="btn-secondary" style="width: auto; margin-bottom: 0; padding: 8px 12px;">Utama</button>
                 </div>
             </div>
 
@@ -638,7 +638,6 @@
             appId: "1:123456789:web:abcdef"
         };
 
-        // Inisialisasi Firebase yang aman (Tidak akan macet/crash bila konfigurasi belum diganti)
         let db = null;
         try {
             if (typeof firebase !== 'undefined' && 
@@ -679,6 +678,7 @@
         let pendingTeamId = null;
         let pendingTimeStr = "";
 
+        // Fungsi Tukar Paparan
         function showView(viewId) {
             const views = ['view-home', 'view-admin-qr', 'view-finish-recorder', 'view-participant-start', 'view-quiz', 'view-completion', 'view-leaderboard'];
             views.forEach(v => {
@@ -701,38 +701,42 @@
 
         function closeQRModal() { document.getElementById('qr-modal').classList.add('hidden'); }
 
-        // Bangun Opsi Kumpulan dan Grid Tombol
-        const selectTeam = document.getElementById('select-team');
-        const finishTeamsGrid = document.getElementById('finish-teams-grid');
+        // Inisialisasi Aplikasi Selepas Halaman Selesai Dimuatkan
+        function initApp() {
+            const selectTeam = document.getElementById('select-team');
+            const finishTeamsGrid = document.getElementById('finish-teams-grid');
 
-        if (selectTeam && finishTeamsGrid) {
-            customTeams.forEach((teamName, index) => {
-                const teamId = index + 1;
-                
-                const opt = document.createElement('option');
-                opt.value = teamId;
-                opt.textContent = `${teamId}. ${teamName}`;
-                selectTeam.appendChild(opt);
+            if (selectTeam && selectTeam.options.length <= 1) {
+                customTeams.forEach((teamName, index) => {
+                    const teamId = index + 1;
+                    const opt = document.createElement('option');
+                    opt.value = teamId;
+                    opt.textContent = `${teamId}. ${teamName}`;
+                    selectTeam.appendChild(opt);
+                });
+            }
 
-                const btn = document.createElement('button');
-                btn.className = "btn-team-square";
-                btn.innerHTML = `
-                    <span style="font-size:0.6rem; opacity:0.8; font-weight:800;">#${teamId}</span>
-                    <span style="font-size:0.7rem; font-weight:700; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; max-width:85px;">${teamName}</span>
-                `;
-                btn.onclick = () => openConfirmModal(teamId);
-                finishTeamsGrid.appendChild(btn);
-            });
-        }
+            if (finishTeamsGrid && finishTeamsGrid.children.length === 0) {
+                customTeams.forEach((teamName, index) => {
+                    const teamId = index + 1;
+                    const btn = document.createElement('button');
+                    btn.type = "button";
+                    btn.className = "btn-team-square";
+                    btn.innerHTML = `
+                        <span style="font-size:0.6rem; opacity:0.8; font-weight:800;">#${teamId}</span>
+                        <span style="font-size:0.7rem; font-weight:700; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; max-width:85px;">${teamName}</span>
+                    `;
+                    btn.onclick = () => openConfirmModal(teamId);
+                    finishTeamsGrid.appendChild(btn);
+                });
+            }
 
-        // AUTO-DETECT STATUS KUIZ SAAT REFRESH
-        window.onload = () => {
+            // Semak Parameter QR URL
             const urlParams = new URLSearchParams(window.location.search);
             const cpParam = urlParams.get('cp');
             if (cpParam) {
                 currentCP = cpParam;
 
-                // Periksa sesi kuiz yang belum tuntas untuk mencegah reset pada pertanyaan 1
                 const savedSession = sessionStorage.getItem(`active_quiz_cp_${currentCP}`);
                 if (savedSession) {
                     try {
@@ -757,6 +761,7 @@
                 document.getElementById('participant-cp-title').innerText = `📍 CHECKPOINT ${currentCP}`;
             }
 
+            // Dengar Firebase Realtime Sync Jika Wujud
             if (db) {
                 db.ref('integrity_walk_data').on('value', (snapshot) => {
                     const data = snapshot.val();
@@ -773,7 +778,10 @@
                     }
                 });
             }
-        };
+        }
+
+        // Jalankan Inisialisasi dengan Selamat
+        document.addEventListener('DOMContentLoaded', initApp);
 
         function accessFinishRecorder() {
             const pass = prompt("Sila masukkan kata laluan Urus Setia untuk Masa Ketibaan:");
@@ -839,7 +847,8 @@
         }
 
         function startParticipantQuiz() {
-            currentTeam = selectTeam.value;
+            const selectEl = document.getElementById('select-team');
+            currentTeam = selectEl ? selectEl.value : null;
             if(!currentTeam) { alert("Sila pilih Nama Kumpulan anda!"); return; }
 
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
@@ -893,6 +902,7 @@
 
             qData.options.forEach((optText, idx) => {
                 const btn = document.createElement('button');
+                btn.type = "button";
                 btn.className = `quiz-option-btn ${selectedAns === idx ? 'selected' : ''}`;
                 btn.innerText = `${String.fromCharCode(65 + idx)}. ${optText}`;
                 btn.onclick = () => { 
@@ -1007,7 +1017,7 @@
                     </div>
                     <div class="team-card-footer">
                         <span>Penamat: <span class="finish-time-text">${t.finishTime}</span></span>
-                        <button onclick="editTeamData(${t.id})" class="btn-edit-small">Ubah</button>
+                        <button type="button" onclick="editTeamData(${t.id})" class="btn-edit-small">Ubah</button>
                     </div>
                 `;
                 container.appendChild(card);
@@ -1060,7 +1070,6 @@
             }
         }
 
-        // --- FUNGSI ADMIN: RESET SEMUA DATA ---
         function resetAllDataAdmin() {
             const pass = prompt("Sila masukkan kata laluan Admin untuk RESET SEMUA DATA:");
             if (pass === "Integriti2022") {
@@ -1078,7 +1087,6 @@
             }
         }
 
-        // --- FUNGSI EKSPORT CSV / EXCEL ---
         function exportToCSV() {
             let appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             let csvContent = "\uFEFFBil,Nama Kumpulan,CP1,CP2,CP3,CP4,CP5,CP6,Jumlah Markah,Masa Ketibaan\n";
@@ -1109,7 +1117,6 @@
             document.body.removeChild(link);
         }
 
-        // --- FUNGSI CETAK LAPORAN PDF RASMI ---
         function printPDFReport() {
             document.getElementById('print-date-display').innerText = new Date().toLocaleDateString('ms-MY', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
             window.print();
