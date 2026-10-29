@@ -172,6 +172,30 @@
             outline: none;
         }
 
+        .pin-box {
+            background: #f8fafc;
+            border: 2px dashed #94a3b8;
+            border-radius: 18px;
+            padding: 14px;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .pin-box input {
+            width: 160px;
+            min-height: 48px;
+            border-radius: 14px;
+            border: 2px solid #0284c7;
+            text-align: center;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 6px;
+            color: #0f172a;
+            outline: none;
+            background: #ffffff;
+            margin-top: 6px;
+        }
+
         .cp-select-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -489,15 +513,28 @@
             <div id="finish-teams-grid" class="grid-teams"></div>
         </div>
 
-        <!-- 4. PAPARAN PESERTA: PILIH KUMPULAN -->
+        <!-- 4. PAPARAN PESERTA: PILIH KUMPULAN & PIN KESELAMATAN -->
         <div id="view-participant-start" class="glass-card hidden">
             <div id="participant-cp-title" style="background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; text-align: center; font-weight: 800; padding: 10px; border-radius: 14px; font-size: 0.9rem;" class="mb-3">
                 📍 CHECKPOINT X
             </div>
+            
             <h2 style="font-size: 0.9rem; font-weight: 800;" class="mb-2">Sila Pilih Nama Kumpulan Anda:</h2>
-            <select id="select-team">
+            <select id="select-team" onchange="checkSavedDevicePIN()">
                 <option value="">-- Pilih Kumpulan --</option>
             </select>
+
+            <!-- Kotak Input PIN (Automatik Disembunyikan Jika Peranti Telah Disahkan) -->
+            <div id="pin-input-section" class="pin-box">
+                <label style="font-size: 0.75rem; font-weight: 800; color: #0369a1; display: block;">🔐 PIN KESELAMATAN KUMPULAN (4 DIGIT)</label>
+                <input type="password" id="input-team-pin" maxlength="4" placeholder="••••" autocomplete="off">
+                <p id="pin-status-msg" style="font-size: 0.7rem; color: #64748b; margin-top: 6px;">Masukkan PIN 4-digit rasmi kumpulan untuk mengesahkan peranti ini.</p>
+            </div>
+
+            <div id="pin-verified-badge" class="hidden" style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 10px; border-radius: 14px; font-size: 0.75rem; font-weight: 700; text-align: center; margin-bottom: 14px;">
+                ✔ Peranti ini telah disahkan untuk kumpulan ini.
+            </div>
+
             <button type="button" onclick="startParticipantQuiz()" class="btn-action btn-warning" style="justify-content: center; font-size: 0.95rem;">MULA JAWAB KUIZ ➔</button>
         </div>
 
@@ -655,6 +692,17 @@
             "CAMERON D'PUNCAK"
         ];
 
+        // PIN Keselamatan 4-Digit Rasmi bagi Setiap Kumpulan (1001 - 1033)
+        var teamPINs = {
+            1: "1001", 2: "1002", 3: "1003", 4: "1004", 5: "1005",
+            6: "1006", 7: "1007", 8: "1008", 9: "1009", 10: "1010",
+            11: "1011", 12: "1012", 13: "1013", 14: "1014", 15: "1015",
+            16: "1016", 17: "1017", 18: "1018", 19: "1019", 20: "1020",
+            21: "1021", 22: "1022", 23: "1023", 24: "1024", 25: "1025",
+            26: "1026", 27: "1027", 28: "1028", 29: "1029", 30: "1030",
+            31: "1031", 32: "1032", 33: "1033"
+        };
+
         // Bank Soalan & Penerangan Jawapan
         var masterQuestions = [
             { id: 1, q: "Puan Melati Madu tidak hadir bertugas selama tiga (3) hari tanpa kebenaran dan tanpa sebab munasabah. Apakah interpretasi tatatertib yang tepat?\nI. Tidak hadir tanpa cuti\nII. Boleh dikenakan tindakan tatatertib\nIII. Secara automatik dibuang kerja\nIV. Dimaafkan jika pegawai memaklumkan selepas itu", options: ["I dan II sahaja", "I dan IV sahaja", "I, II dan III sahaja", "I sahaja"], correct: 0, exp: "Ketidakhadiran tanpa cuti/kebenaran ialah pelanggaran tatakelakuan di bawah Peraturan 24 P.U.(A) 395/1993. Ia tidak membawa hukuman buang kerja secara automatik tanpa prosiding." },
@@ -754,6 +802,34 @@
             }
         }
 
+        // Semak Sama Ada Peranti Ini Sudah Disahkan untuk Kumpulan Tersebut
+        function checkSavedDevicePIN() {
+            var selectEl = document.getElementById('select-team');
+            var selectedTeam = selectEl ? selectEl.value : null;
+            var pinSection = document.getElementById('pin-input-section');
+            var verifiedBadge = document.getElementById('pin-verified-badge');
+            var pinInput = document.getElementById('input-team-pin');
+
+            if (!selectedTeam) {
+                if (pinSection) pinSection.classList.remove('hidden');
+                if (verifiedBadge) verifiedBadge.classList.add('hidden');
+                return;
+            }
+
+            var savedTeam = localStorage.getItem('my_verified_team');
+            var savedPin = localStorage.getItem('my_verified_pin');
+
+            // Jika peranti sama & PIN sah tersimpan dalam memori
+            if (savedTeam === selectedTeam && savedPin === teamPINs[selectedTeam]) {
+                if (pinSection) pinSection.classList.add('hidden');
+                if (verifiedBadge) verifiedBadge.classList.remove('hidden');
+            } else {
+                if (pinSection) pinSection.classList.remove('hidden');
+                if (verifiedBadge) verifiedBadge.classList.add('hidden');
+                if (pinInput) pinInput.value = '';
+            }
+        }
+
         // Semak URL, Sesi, dan Dengar Cloud Sync
         window.addEventListener('DOMContentLoaded', function() {
             buildTeamElements();
@@ -781,6 +857,7 @@
             if (cpParam) {
                 currentCP = cpParam;
 
+                // Semak sesi kuiz yang sedang aktif pada CP ini
                 var savedSession = sessionStorage.getItem('active_quiz_cp_' + currentCP);
                 if (savedSession) {
                     try {
@@ -803,6 +880,16 @@
 
                 showView('view-participant-start');
                 document.getElementById('participant-cp-title').innerText = '📍 CHECKPOINT ' + currentCP;
+
+                // Auto-Pilih Kumpulan Jika Peranti Ini Pernah Disahkan Sebelumnya
+                var rememberedTeam = localStorage.getItem('my_verified_team');
+                if (rememberedTeam) {
+                    var selectEl = document.getElementById('select-team');
+                    if (selectEl) {
+                        selectEl.value = rememberedTeam;
+                        checkSavedDevicePIN();
+                    }
+                }
             }
         });
 
@@ -867,10 +954,39 @@
             return [masterQuestions[hash], masterQuestions[(hash + 5) % masterQuestions.length]];
         }
 
+        // Mula Kuiz dengan Pengesahan PIN & Memori Peranti
         function startParticipantQuiz() {
             var selectEl = document.getElementById('select-team');
             currentTeam = selectEl ? selectEl.value : null;
             if(!currentTeam) { alert('Sila pilih Nama Kumpulan anda!'); return; }
+
+            var savedTeam = localStorage.getItem('my_verified_team');
+            var savedPin = localStorage.getItem('my_verified_pin');
+
+            // Jika peranti belum disahkan bagi kumpulan ini, sahkan PIN
+            if (savedTeam !== currentTeam || savedPin !== teamPINs[currentTeam]) {
+                var pinInput = document.getElementById('input-team-pin');
+                var enteredPin = pinInput ? pinInput.value.trim() : '';
+
+                if (!enteredPin) {
+                    alert('Sila masukkan PIN 4-digit kumpulan anda!');
+                    if (pinInput) pinInput.focus();
+                    return;
+                }
+
+                if (enteredPin !== teamPINs[currentTeam]) {
+                    alert('PIN keselamatan salah! Sila rujuk PIN rasmi kumpulan anda.');
+                    if (pinInput) {
+                        pinInput.value = '';
+                        pinInput.focus();
+                    }
+                    return;
+                }
+
+                // Simpan pengesahan pada peranti ini
+                localStorage.setItem('my_verified_team', currentTeam);
+                localStorage.setItem('my_verified_pin', enteredPin);
+            }
 
             var appData = JSON.parse(localStorage.getItem('integrity_walk_data')) || {};
             var teamData = appData['Team_' + currentTeam] || {};
@@ -1099,6 +1215,8 @@
             if (pass === 'Integriti2022') {
                 if (confirm('AMARAN: Adakah anda pasti mahu memadam KESELURUHAN data markah kuiz dan masa ketibaan bagi KESEMUA 33 KUMPULAN? Tindakan ini tidak boleh dibatalkan!')) {
                     localStorage.removeItem('integrity_walk_data');
+                    localStorage.removeItem('my_verified_team');
+                    localStorage.removeItem('my_verified_pin');
                     sessionStorage.clear();
                     if (db) {
                         db.ref('integrity_walk_data').remove();
