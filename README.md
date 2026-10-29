@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Integrity Walk JPN Pahang 2026</title>
 
-    <!-- Firebase SDK (Modular Cloud Database) -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
     <style>
         /* -------------------------------------------------------------
            1. MODERN MOBILE-FIRST ATHLETIC THEME (CSS)
@@ -588,9 +584,9 @@
         </div>
     </div>
 
-    <!-- LOGIK JAVASCRIPT & FIREBASE -->
+    <!-- LOGIK JAVASCRIPT BEBAS RALAT -->
     <script>
-        // --- SENARAI 33 NAMA KUMPULAN RASMI ---
+        // --- SENARAI 33 NAMA KUMPULAN RASMI (BERSIH & SELAMAT) ---
         const customTeams = [
             "PEMBELAJARAN",
             "SPS2",
@@ -627,30 +623,6 @@
             "CAMERON D'PUNCAK"
         ];[cite: 2]
 
-        // --- KONFIGURASI FIREBASE REALTIME DATABASE ---
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "your-project.firebaseapp.com",
-            databaseURL: "https://your-project-default-rtdb.firebaseio.com",
-            projectId: "your-project",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef"
-        };
-
-        let db = null;
-        try {
-            if (typeof firebase !== 'undefined' && 
-                firebaseConfig.apiKey && 
-                firebaseConfig.apiKey !== "YOUR_API_KEY" && 
-                firebaseConfig.databaseURL !== "https://your-project-default-rtdb.firebaseio.com") {
-                firebase.initializeApp(firebaseConfig);
-                db = firebase.database();
-            }
-        } catch(e) { 
-            console.warn("Firebase tidak diaktifkan, beralih ke LocalStorage fallback.", e); 
-        }
-
         // --- BANK SOALAN + PENERANGAN ILMU INTEGRITI ---
         const masterQuestions = [
             { id: 1, q: "Puan Melati Madu tidak hadir bertugas selama tiga (3) hari tanpa kebenaran dan tanpa sebab munasabah. Apakah interpretasi tatatertib yang tepat?\nI. Tidak hadir tanpa cuti\nII. Boleh dikenakan tindakan tatatertib\nIII. Secara automatik dibuang kerja\nIV. Dimaafkan jika pegawai memaklumkan selepas itu", options: ["I dan II sahaja", "I dan IV sahaja", "I, II dan III sahaja", "I sahaja"], correct: 0, exp: "Ketidakhadiran tanpa cuti/kebenaran ialah pelanggaran tatakelakuan di bawah Peraturan 24 P.U.(A) 395/1993. Ia tidak membawa hukuman buang kerja secara automatik tanpa prosiding." },
@@ -678,13 +650,13 @@
         let pendingTeamId = null;
         let pendingTimeStr = "";
 
-        // Fungsi Tukar Paparan
+        // Fungsi Penukaran Paparan
         function showView(viewId) {
             const views = ['view-home', 'view-admin-qr', 'view-finish-recorder', 'view-participant-start', 'view-quiz', 'view-completion', 'view-leaderboard'];
-            views.forEach(v => {
-                const el = document.getElementById(v);
+            for (let i = 0; i < views.length; i++) {
+                const el = document.getElementById(views[i]);
                 if (el) el.classList.add('hidden');
-            });
+            }
             const target = document.getElementById(viewId);
             if (target) target.classList.remove('hidden');
         }
@@ -701,8 +673,8 @@
 
         function closeQRModal() { document.getElementById('qr-modal').classList.add('hidden'); }
 
-        // Inisialisasi Aplikasi Selepas Halaman Selesai Dimuatkan
-        function initApp() {
+        // Bina Elemen Dropdown dan Butang Kumpulan Sejurus Halaman Dimuatkan
+        window.addEventListener('DOMContentLoaded', () => {
             const selectTeam = document.getElementById('select-team');
             const finishTeamsGrid = document.getElementById('finish-teams-grid');
 
@@ -731,12 +703,13 @@
                 });
             }
 
-            // Semak Parameter QR URL
+            // Periksa jika peserta mengimbas QR (URL mengandungi ?cp=X)
             const urlParams = new URLSearchParams(window.location.search);
             const cpParam = urlParams.get('cp');
             if (cpParam) {
                 currentCP = cpParam;
 
+                // Periksa sesi kuiz yang belum selesai bagi mengelakkan refresh
                 const savedSession = sessionStorage.getItem(`active_quiz_cp_${currentCP}`);
                 if (savedSession) {
                     try {
@@ -760,28 +733,7 @@
                 showView('view-participant-start');
                 document.getElementById('participant-cp-title').innerText = `📍 CHECKPOINT ${currentCP}`;
             }
-
-            // Dengar Firebase Realtime Sync Jika Wujud
-            if (db) {
-                db.ref('integrity_walk_data').on('value', (snapshot) => {
-                    const data = snapshot.val();
-                    if (data) {
-                        localStorage.setItem('integrity_walk_data', JSON.stringify(data));
-                        if (!document.getElementById('view-leaderboard').classList.contains('hidden')) {
-                            renderLeaderboardCards(data);
-                        }
-                    } else {
-                        localStorage.removeItem('integrity_walk_data');
-                        if (!document.getElementById('view-leaderboard').classList.contains('hidden')) {
-                            renderLeaderboardCards({});
-                        }
-                    }
-                });
-            }
-        }
-
-        // Jalankan Inisialisasi dengan Selamat
-        document.addEventListener('DOMContentLoaded', initApp);
+        });
 
         function accessFinishRecorder() {
             const pass = prompt("Sila masukkan kata laluan Urus Setia untuk Masa Ketibaan:");
@@ -814,13 +766,6 @@
             pendingTimeStr = "";
         }
 
-        function saveDataToCloudAndLocal(data) {
-            localStorage.setItem('integrity_walk_data', JSON.stringify(data));
-            if (db) {
-                db.ref('integrity_walk_data').set(data);
-            }
-        }
-
         function commitFinishTime() {
             if(!pendingTeamId) return;
 
@@ -828,7 +773,7 @@
             if(!appData[`Team_${pendingTeamId}`]) appData[`Team_${pendingTeamId}`] = {};
             appData[`Team_${pendingTeamId}`].finishTime = pendingTimeStr;
 
-            saveDataToCloudAndLocal(appData);
+            localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
 
             const teamName = customTeams[pendingTeamId - 1] || `KUMPULAN ${pendingTeamId}`;
             document.getElementById('flash-team-name').innerText = `${teamName}`;
@@ -956,7 +901,7 @@
             if(!appData[`Team_${currentTeam}`]) appData[`Team_${currentTeam}`] = {};
             appData[`Team_${currentTeam}`][`CP${currentCP}`] = cpScore;
 
-            saveDataToCloudAndLocal(appData);
+            localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
             sessionStorage.removeItem(`active_quiz_cp_${currentCP}`);
 
             const teamName = customTeams[currentTeam - 1] || `KUMPULAN ${currentTeam}`;
@@ -1039,7 +984,7 @@
                     if (newScore !== null && !isNaN(newScore)) {
                         if(!appData[`Team_${teamId}`]) appData[`Team_${teamId}`] = {};
                         appData[`Team_${teamId}`][`CP${cpNum}`] = parseInt(newScore);
-                        saveDataToCloudAndLocal(appData);
+                        localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
                         alert("Markah dikemaskini!");
                         showLeaderboard();
                     }
@@ -1049,21 +994,21 @@
                 if(!appData[`Team_${teamId}`]) appData[`Team_${teamId}`] = {};
                 if (newTime === "") delete appData[`Team_${teamId}`].finishTime;
                 else if (newTime !== null) appData[`Team_${teamId}`].finishTime = newTime;
-                saveDataToCloudAndLocal(appData);
+                localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
                 alert("Masa ketibaan dikemaskini!");
                 showLeaderboard();
             } else if (choice === "3") {
                 const cpNum = prompt("Nombor Checkpoint untuk buka kunci (1-6):");
                 if (cpNum >= 1 && cpNum <= 6 && appData[`Team_${teamId}`]) {
                     delete appData[`Team_${teamId}`][`CP${cpNum}`];
-                    saveDataToCloudAndLocal(appData);
+                    localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
                     alert(`Kunci CP${cpNum} dibuka.`);
                     showLeaderboard();
                 }
             } else if (choice === "4") {
                 if (confirm(`Padam KESELURUHAN data bagi ${teamName}?`)) {
                     delete appData[`Team_${teamId}`];
-                    saveDataToCloudAndLocal(appData);
+                    localStorage.setItem('integrity_walk_data', JSON.stringify(appData));
                     alert("Data dipadam.");
                     showLeaderboard();
                 }
@@ -1076,9 +1021,6 @@
                 if (confirm("AMARAN: Adakah anda pasti mahu memadam KESELURUHAN data markah kuiz dan masa ketibaan bagi KESEMUA 33 KUMPULAN? Tindakan ini tidak boleh dibatalkan!")) {
                     localStorage.removeItem('integrity_walk_data');
                     sessionStorage.clear();
-                    if (db) {
-                        db.ref('integrity_walk_data').remove();
-                    }
                     alert("Semua data telah berjaya di-RESET!");
                     showLeaderboard();
                 }
